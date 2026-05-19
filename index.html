@@ -12,15 +12,28 @@ body { font-family: 'Lexend', sans-serif; background: #1c1c1c; color: #f9f9f9; m
 /* INDEX VIEW */
 #indexView { }
 .header {
-  background: linear-gradient(135deg, #073763 0%, #21273c 100%);
-  padding: 48px 48px 56px;
+  background-image: url('assets/header-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 96px 48px 110px;
+  position: relative;
 }
-.header h1 { font-size: 28pt; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
-.header p { font-size: 12pt; color: rgba(249,249,249,0.7); max-width: 600px; line-height: 1.5; }
+.header::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%);
+  pointer-events: none;
+}
+.header > * { position: relative; z-index: 1; }
+.header h1 {
+  font-size: 32pt; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px;
+  color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+}
 .header .badge {
   display: inline-block; margin-top: 16px; padding: 6px 16px;
-  border: 1px solid rgba(255,255,255,0.25); border-radius: 16px;
-  font-size: 9pt; color: rgba(249,249,249,0.6); letter-spacing: 1.5px; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.4); border-radius: 16px;
+  font-size: 9pt; color: rgba(255,255,255,0.85); letter-spacing: 1.5px; text-transform: uppercase;
+  background: rgba(0,0,0,0.2);
 }
 .demos { padding: 32px 48px 64px; }
 .demos h2 {
@@ -75,7 +88,6 @@ body { font-family: 'Lexend', sans-serif; background: #1c1c1c; color: #f9f9f9; m
 <div id="indexView">
   <div class="header">
     <h1>Backstory Account Plan Demos</h1>
-    <p>AI-powered revenue operations demos. Click any card below to explore account plans, pipeline analysis, whitespace opportunities, and funnel insights.</p>
     <div class="badge">Demo Environment</div>
   </div>
   <div class="demos">
