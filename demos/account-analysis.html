@@ -3,39 +3,161 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alex Mercer – Whitespace &amp; Greenfield Map | Backstory</title>
+<title>Alex Mercer — Customer Expansion Analysis | Backstory</title>
 <style>
+:root {
+  --ink-950: #081421;
+  --ink-900: #102235;
+  --ink-800: #17344c;
+  --ink-700: #244a67;
+  --surface: rgba(255,255,255,0.95);
+  --line: #d9e2ea;
+  --slate-700: #475569;
+  --slate-500: #64748b;
+  --accent: #0f766e;
+  --accent-soft: #d9f4ee;
+  --blue-soft: #e7f0ff;
+  --green-soft: #edf9f2;
+  --amber-soft: #fff4df;
+  --shadow-sm: 0 12px 28px rgba(8,20,33,0.07);
+  --shadow-md: 0 18px 44px rgba(8,20,33,0.1);
+}
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Arial, sans-serif; background: #f0f0f0; color: #111; font-size: 14px; line-height: 1.5; }
+body {
+  font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(79,127,151,0.12), transparent 24%),
+    radial-gradient(circle at top right, rgba(15,118,110,0.10), transparent 18%),
+    linear-gradient(180deg, #eef4f9 0%, #f7fafc 26%, #edf3f8 100%);
+  color: #111;
+  font-size: 14px;
+  line-height: 1.5;
+}
 
 /* HEADER */
-.hdr { background: #000; color: #fff; padding: 24px 36px 20px; }
-.hdr-lbl { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
-.hdr-ttl { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; }
-.hdr-sub { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
-.hdr-kpis { display: flex; margin-top: 18px; background: rgba(255,255,255,0.07); border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+.hdr {
+  background:
+    radial-gradient(circle at top right, rgba(108,153,179,0.22), transparent 20%),
+    linear-gradient(135deg, var(--ink-950) 0%, var(--ink-900) 58%, var(--ink-800) 100%);
+  color: #fff;
+  padding: 34px 36px 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.hdr-lbl { font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; color: rgba(255,255,255,0.52); margin-bottom: 8px; }
+.hdr-ttl { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.hdr-sub { font-size: 12px; color: rgba(255,255,255,0.72); margin-top: 6px; }
+.hdr-kpis {
+  display: flex;
+  margin-top: 20px;
+  background: rgba(255,255,255,0.09);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+}
 .hk { flex: 1; padding: 12px 14px; border-right: 1px solid rgba(255,255,255,0.08); }
 .hk:last-child { border-right: none; }
-.hk-l { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.4); margin-bottom: 3px; }
+.hk-l { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.46); margin-bottom: 3px; }
 .hk-v { font-size: 18px; font-weight: 700; }
-.hk-s { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.hk-s { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 2px; }
 
-/* TABS */
-.tabs { display: flex; gap: 24px; padding: 14px 36px 0; background: #f0f0f0; border-bottom: 1px solid #ddd; }
-.tab { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #888; padding: 10px 0; cursor: pointer; border-bottom: 3px solid transparent; }
-.tab.active { color: #000; border-bottom-color: #000; }
+/* SCOPE STRIP */
+.tabs {
+  display: flex;
+  gap: 10px;
+  padding: 16px 36px 0;
+  background: transparent;
+  flex-wrap: wrap;
+}
+.tab {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: var(--slate-700);
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #d7e2ea;
+  background: rgba(255,255,255,0.84);
+}
+.tab.active {
+  color: var(--ink-900);
+  border-color: rgba(36,74,103,0.36);
+  box-shadow: var(--shadow-sm);
+}
 
-/* URGENT BANNER */
-.urgent { background: #111; border-left: 4px solid #facc15; color: #fff; padding: 10px 16px; font-size: 12px; display: flex; align-items: center; gap: 10px; }
+/* PRIORITY BANNER */
+.urgent {
+  background: rgba(16,34,53,0.96);
+  border-left: 4px solid #facc15;
+  color: #fff;
+  padding: 12px 16px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 36px 0;
+  border-radius: 14px;
+  box-shadow: var(--shadow-md);
+}
 .urgent strong { color: #facc15; }
+
+.page-nav {
+  position: sticky;
+  top: 0;
+  z-index: 25;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(217,226,234,0.8);
+  border-bottom: 1px solid rgba(217,226,234,0.9);
+  box-shadow: 0 8px 20px rgba(8,20,33,0.05);
+  margin-top: 14px;
+}
+.page-nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 36px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.page-link {
+  text-decoration: none;
+  color: var(--ink-800);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #d8e1ea;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+.page-link:hover {
+  background: #eef6fb;
+  border-color: rgba(36,74,103,0.34);
+  transform: translateY(-1px);
+}
 
 /* BODY */
 .body { padding: 22px 36px 56px; max-width: 1280px; margin: 0 auto; }
-.hint { font-size: 11px; color: #555; background: #fff; border: 1px solid #ddd; border-left: 3px solid #000; border-radius: 4px; padding: 8px 12px; margin-bottom: 18px; display: flex; align-items: center; gap: 7px; }
+.hint {
+  font-size: 12px;
+  color: #425466;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid #d8e1ea;
+  border-left: 4px solid var(--ink-800);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+}
 
 /* SUMMARY CARDS */
 .sum-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
-.sc { border-radius: 6px; padding: 14px 16px; border: 1px solid #ddd; background: #fff; }
+.sc { border-radius: 16px; padding: 16px 18px; border: 1px solid #d9e2ea; background: rgba(255,255,255,0.95); box-shadow: var(--shadow-sm); }
 .sc.hi { border-top: 3px solid #15803d; }
 .sc.md { border-top: 3px solid #1d4ed8; }
 .sc.lo { border-top: 3px solid #b45309; }
@@ -50,7 +172,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; color: #111; font-si
 .sc-sub { font-size: 11px; color: #666; margin-top: 2px; }
 
 /* ALERTS */
-.al { border-radius: 5px; padding: 10px 14px; margin-bottom: 9px; font-size: 12px; border-left: 3px solid; display: flex; gap: 9px; }
+.al { border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; font-size: 12px; border-left: 4px solid; display: flex; gap: 10px; box-shadow: var(--shadow-sm); }
 .al-b { flex: 1; }
 .al-ttl { font-weight: 700; font-size: 11px; margin-bottom: 4px; }
 .al-blk { background: #111; border-color: #facc15; color: #fff; }
@@ -63,11 +185,21 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; color: #111; font-si
 .al-pur .al-ttl { color: #4c1d95; }
 
 /* SECTION HEADER */
-.sec-hdr { font-size: 13px; font-weight: 700; color: #000; border-bottom: 2px solid #000; padding-bottom: 6px; margin: 24px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-.sec-note { background: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; padding: 8px 12px; font-size: 11px; color: #555; margin-bottom: 10px; }
+.sec-hdr {
+  font-size: 13px;
+  font-weight: 700;
+  color: #000;
+  border-bottom: 2px solid #000;
+  padding-bottom: 8px;
+  margin: 26px 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  scroll-margin-top: 84px;
+}
+.sec-note { background: rgba(255,255,255,0.88); border: 1px solid #d9e2ea; border-radius: 12px; padding: 9px 12px; font-size: 11px; color: #555; margin-bottom: 10px; box-shadow: var(--shadow-sm); }
 
 /* TABLES */
-.tw { background: #fff; border-radius: 6px; border: 1px solid #ddd; overflow: hidden; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.tw { background: rgba(255,255,255,0.96); border-radius: 16px; border: 1px solid #d9e2ea; overflow: hidden; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
 .tw.hi-row { background: #f7fdf9; }
 .tw.md-row { background: #f6f8ff; }
 table { width: 100%; border-collapse: collapse; }
@@ -103,66 +235,102 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
 .p-miss-fc  { background: #ede9fe; color: #5b21b6; }
 .p-miss-df  { background: #dbeafe; color: #1d4ed8; }
 
-/* BUTTON */
-.ebtn { background: #000; color: #fff; border: none; border-radius: 4px; padding: 5px 11px; font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap; }
-.ebtn:hover { background: #333; }
+/* BUTTON / STATUS PILL */
+.ebtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #102235;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 11px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: default;
+  white-space: nowrap;
+  pointer-events: none;
+}
 
 /* PG EXPAND */
-.pg-expand { background: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; padding: 10px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #555; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+.pg-expand { background: rgba(255,255,255,0.9); border: 1px solid #d9e2ea; border-radius: 12px; padding: 10px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #555; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm); }
 
 /* FOOTER */
-.footer { font-size: 10px; color: #aaa; text-align: center; margin-top: 24px; }
+.footer { font-size: 10px; color: #72829f; text-align: center; margin-top: 26px; }
+
+@media (max-width: 960px) {
+  .sum-row { grid-template-columns: repeat(2, 1fr); }
+  .hdr-kpis { flex-wrap: wrap; }
+}
+
+@media (max-width: 720px) {
+  .hdr { padding: 24px 20px; }
+  .tabs,
+  .page-nav-inner,
+  .body { padding-left: 20px; padding-right: 20px; }
+  .urgent { margin-left: 20px; margin-right: 20px; }
+  .sum-row { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
 <div class="hdr">
-  <div class="hdr-lbl">Backstory RevOps Command Center</div>
-  <div class="hdr-ttl">Alex Mercer — Whitespace &amp; Greenfield Map</div>
-  <div class="hdr-sub">10 customer accounts &nbsp;·&nbsp; $5.09M active RemTAM (6 accounts) &nbsp;·&nbsp; 7 meetings this week &nbsp;·&nbsp; March 24, 2026</div>
+  <div class="hdr-lbl">Backstory Expansion Workspace</div>
+  <div class="hdr-ttl">Alex Mercer — Customer Expansion Analysis</div>
+  <div class="hdr-sub">10 managed customer accounts &nbsp;·&nbsp; $5.09M active remaining TAM &nbsp;·&nbsp; 7 meetings scheduled this week &nbsp;·&nbsp; refreshed March 24, 2026</div>
   <div class="hdr-kpis">
-    <div class="hk"><div class="hk-l">Total RemTAM</div><div class="hk-v">$5.09M</div><div class="hk-s">Active accounts only</div></div>
-    <div class="hk"><div class="hk-l">Largest Account</div><div class="hk-v">$2.36M</div><div class="hk-s">Everstone — ICP=3-Future</div></div>
-    <div class="hk"><div class="hk-l">Meetings Today</div><div class="hk-v">4</div><div class="hk-s">Nexvault · Orbion · Clearpath · Vextron</div></div>
-    <div class="hk"><div class="hk-l">SAI Activation Gap</div><div class="hk-v">~2,600</div><div class="hk-s">Entitled seats not yet deployed</div></div>
-    <div class="hk"><div class="hk-l">Clari Conflicts</div><div class="hk-v">3</div><div class="hk-s">Clearpath · Tandrex · Corteva</div></div>
+    <div class="hk"><div class="hk-l">Active Remaining TAM</div><div class="hk-v">$5.09M</div><div class="hk-s">Accounts with expansion headroom</div></div>
+    <div class="hk"><div class="hk-l">Largest Expansion Path</div><div class="hk-v">$2.36M</div><div class="hk-s">Everstone Financial</div></div>
+    <div class="hk"><div class="hk-l">Meetings This Week</div><div class="hk-v">7</div><div class="hk-s">4 scheduled for March 24</div></div>
+    <div class="hk"><div class="hk-l">SalesAI Activation Gap</div><div class="hk-v">~2,600</div><div class="hk-s">Entitled seats not yet deployed</div></div>
+    <div class="hk"><div class="hk-l">Forecasting Overlap Risks</div><div class="hk-v">3</div><div class="hk-s">Clari coexistence required</div></div>
   </div>
 </div>
 
 <div class="tabs">
-  <div class="tab active">&#128202; Whitespace — Customer Accounts (10)</div>
-  <div class="tab">&#127793; Greenfield — Prospects</div>
+  <div class="tab active">Customer Expansion Portfolio</div>
+  <div class="tab">Activation and Coverage Signals</div>
 </div>
 
-<div class="urgent">&#9889; <strong>Today — Mar 24:</strong> Nexvault 8:00 AM (provisioning anomaly — review before call) &nbsp;·&nbsp; Orbion 10:00 AM (830 SAI seats not deployed) &nbsp;·&nbsp; Clearpath 11:30 AM (Clari — differentiate carefully) &nbsp;·&nbsp; Vextron 1:00 PM (HIGH PRIORITY — $1.07M RemTAM)</div>
+<div class="urgent">&#9889; <strong>March 24 priority sequence:</strong> Nexvault 8:00 AM (provisioning anomaly review) &nbsp;·&nbsp; Orbion 10:00 AM (830 SalesAI seats not deployed) &nbsp;·&nbsp; Clearpath 11:30 AM (Clari coexistence positioning) &nbsp;·&nbsp; Vextron 1:00 PM ($1.07M remaining TAM)</div>
+
+<nav class="page-nav" aria-label="Page sections">
+  <div class="page-nav-inner">
+    <a class="page-link" href="#summary">Summary</a>
+    <a class="page-link" href="#immediate-action">Immediate Action</a>
+    <a class="page-link" href="#watchlist">Strategic Watchlist</a>
+    <a class="page-link" href="#activation-queue">Activation Queue</a>
+  </div>
+</nav>
 
 <div class="body">
-  <div class="hint">&#128073; <strong>Click any account row</strong> to expand strategy, contacts, and talking points. &nbsp;&#9888; = overprovisioned. &nbsp;&#9889; = meeting today/tomorrow.</div>
+  <div class="hint" id="summary">&#128073; Use this readout to prep customer meetings, spot entitlement gaps, and prioritize remaining TAM. &nbsp;&#9888; marks provisioning anomalies and &nbsp;&#9889; marks near-term meeting commitments.</div>
 
   <div class="sum-row">
     <div class="sc hi">
-      <div class="sc-lbl">&#9679; High Priority</div>
+      <div class="sc-lbl">Immediate Action</div>
       <div class="sc-num">2</div>
       <div class="sc-rem">$1.30M RemTAM</div>
       <div class="sc-sub">Vextron (today) + Mirexa</div>
     </div>
     <div class="sc md">
-      <div class="sc-lbl">&#9679; Medium Priority</div>
+      <div class="sc-lbl">Strategic Watchlist</div>
       <div class="sc-num">4</div>
       <div class="sc-rem">$4.12M RemTAM</div>
       <div class="sc-sub">Everstone + Quandrix + Nexvault + Tandrex</div>
     </div>
     <div class="sc lo">
-      <div class="sc-lbl">&#9679; Low Priority</div>
+      <div class="sc-lbl">Low Urgency</div>
       <div class="sc-num">0</div>
       <div class="sc-rem">—</div>
-      <div class="sc-sub">No Low-tier accounts</div>
+      <div class="sc-sub">No low-urgency accounts</div>
     </div>
     <div class="sc pg">
-      <div class="sc-lbl">&#9711; PG / Parked</div>
+      <div class="sc-lbl">Activation Queue</div>
       <div class="sc-num">4</div>
       <div class="sc-rem">$0 RemTAM</div>
-      <div class="sc-sub">Massive SAI activation gap</div>
+      <div class="sc-sub">Deployment and adoption gaps</div>
     </div>
   </div>
 
@@ -183,27 +351,27 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
   <div class="al al-grn">
     <div>&#11088;</div>
     <div class="al-b">
-      <div class="al-ttl">Everstone ($2.36M) + Quandrix ($1.19M) — ICP-Constrained Large TAM Accounts</div>
+      <div class="al-ttl">Everstone ($2.36M) and Quandrix ($1.19M) need ICP review, not passive monitoring</div>
       These two accounts represent $3.55M RemTAM combined but are capped by ICP=3-Future (Everstone) and ICP=4-Beyond (Quandrix). Both have Eng=100. Escalate ICP classification review to leadership — Everstone's B2B commercial org and Quandrix's enterprise sales motion are strong use cases regardless of ICP designation.
     </div>
   </div>
   <div class="al al-ylw">
     <div>&#9888;</div>
     <div class="al-b">
-      <div class="al-ttl">3 Clari Conflicts — Clearpath (Today), Tandrex (Tomorrow), Corteva</div>
+      <div class="al-ttl">Three Clari coexistence risks require disciplined Forecasting positioning</div>
       Do NOT lead with Forecasting at Clearpath today or Tandrex tomorrow without a clear differentiation narrative. Backstory is the activity data capture layer under Clari's forecast overlay — different jobs. Prepare Clari-specific talking points for all three.
     </div>
   </div>
   <div class="al al-pur">
     <div>&#9679;</div>
     <div class="al-b">
-      <div class="al-ttl">Universal Forecasting Opportunity — FC Entitled=0 Across All 10 Customers</div>
+      <div class="al-ttl">Forecasting conversion is open across the entire portfolio</div>
       Not a single account in Alex's book has Forecasting entitled. Multiple accounts have FC pilots running (Mirexa: 119 seats, Orbion: 23, Corteva: 8, Tandrex: 6, Clearpath: 1) — all without a contract. Forecasting contract conversions across these accounts are the highest-margin plays available.
     </div>
   </div>
 
   <!-- ═══ HIGH PRIORITY ═══ -->
-  <div class="sec-hdr">&#9679; High Priority — Customer Expansion (2 Accounts)</div>
+  <div class="sec-hdr" id="immediate-action">Immediate Action — Expansion Accounts (2)</div>
   <div class="tw hi-row">
     <table>
       <thead>
@@ -224,7 +392,7 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
           <td><span class="tg-overprov">&#9888; DF +20</span></td>
           <td><span class="tg tg-mtg-y">&#9889; TODAY 1:00 PM</span></td>
           <td><span class="tg tg-hi">High</span></td>
-          <td><button class="ebtn">&#9660; Strategy</button></td>
+          <td><span class="ebtn">Briefing</span></td>
         </tr>
         <tr>
           <td><span class="an"><span class="bolt">&#9889;</span>Mirexa Networks</span></td>
@@ -237,15 +405,15 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
           <td><span class="tg-overprov">&#9888; DF +15</span></td>
           <td><span class="tg tg-mtg-y">&#9889; MAR 25 1:00 PM</span></td>
           <td><span class="tg tg-hi">High</span></td>
-          <td><button class="ebtn">&#9660; Strategy</button></td>
+          <td><span class="ebtn">Briefing</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <!-- ═══ MEDIUM PRIORITY ═══ -->
-  <div class="sec-hdr">&#9679; Medium Priority — ICP-Constrained + Notable Accounts (4 Accounts)</div>
-  <div class="sec-note">Everstone, Quandrix &amp; Nexvault are ICP 3/4 — the enormous TAM makes them Medium rather than Low, but ICP constraints must be addressed before expanding. Tandrex carries Clari conflict.</div>
+  <div class="sec-hdr" id="watchlist">Strategic Watchlist — ICP-Constrained and Notable Accounts (4)</div>
+  <div class="sec-note">Everstone, Quandrix, and Nexvault carry major TAM but need either ICP policy review or data-quality cleanup before expansion motions should accelerate. Tandrex remains a Clari coexistence account.</div>
   <div class="tw md-row">
     <table>
       <thead>
@@ -266,7 +434,7 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
           <td style="font-size:11px;color:#555;">None — DF under-prov (52 seats)</td>
           <td>—</td>
           <td><span class="tg tg-md">Medium</span></td>
-          <td><button class="ebtn">&#9660; Strategy</button></td>
+          <td><span class="ebtn">Briefing</span></td>
         </tr>
         <tr>
           <td><span class="an">Quandrix Corp</span></td>
@@ -279,7 +447,7 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
           <td><span class="tg-overprov">&#9888; DF +110</span></td>
           <td><span class="tg tg-mtg-y">MAR 30 10:30 AM</span></td>
           <td><span class="tg tg-md">Medium</span></td>
-          <td><button class="ebtn">&#9660; Strategy</button></td>
+          <td><span class="ebtn">Briefing</span></td>
         </tr>
         <tr>
           <td><span class="an"><span class="bolt">&#9889;</span>Nexvault Inc</span></td>
@@ -292,7 +460,7 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
           <td><span class="tg-anomaly">&#9888; Anomaly</span></td>
           <td><span class="tg tg-mtg-y">&#9889; TODAY 8:00 AM</span></td>
           <td><span class="tg tg-md">Medium</span></td>
-          <td><button class="ebtn">&#9660; Strategy</button></td>
+          <td><span class="ebtn">Briefing</span></td>
         </tr>
         <tr>
           <td><span class="an"><span class="bolt">&#9889;</span>Tandrex Systems</span></td>
@@ -305,17 +473,17 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
           <td><span class="tg-overprov">&#9888; DF+60 · SAI+60</span></td>
           <td><span class="tg tg-mtg-y">&#9889; MAR 25 10:30 AM</span></td>
           <td><span class="tg tg-md">Medium</span></td>
-          <td><button class="ebtn">&#9660; Strategy</button></td>
+          <td><span class="ebtn">Briefing</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <!-- ═══ PG / PARKED ═══ -->
-  <div class="sec-hdr">&#9711; PG — Deployed / Parked (4 Accounts — $0 RemTAM · Critical Activation Gaps)</div>
+  <div class="sec-hdr" id="activation-queue">Activation Queue — Deployed Accounts With $0 Remaining TAM (4)</div>
   <div class="pg-expand">
-    <span>&#9660; Expand — These 4 accounts have $0 RemTAM but carry massive SAI/FC activation opportunities. All have meetings this week.</span>
-    <span>&#9660;</span>
+    <span>Operational note — These four accounts have no remaining TAM modeled today, but they do carry meaningful activation, adoption, and Forecasting conversion paths.</span>
+    <span>Queue</span>
   </div>
   <div class="tw">
     <table>
@@ -334,7 +502,7 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
           <td class="tr-num">$0</td>
           <td><div class="pills"><span class="p p-df">DF 200 ent / 171 prov</span><span class="p p-sai">SAI 200 ent / 0 prov</span></div></td>
           <td style="font-size:11.5px; line-height:1.45;">Meeting TOMORROW Mar 25 1:00 PM. RemTAM=$0 but Eng=100 and 200 SAI seats entitled with zero deployed — massive activation opportunity.</td>
-          <td><button class="ebtn">&#9660; Strategy</button></td>
+          <td><span class="ebtn">Briefing</span></td>
         </tr>
         <tr>
           <td><span class="an"><span class="bolt">&#9889;</span>Clearpath Solutions</span></td>
@@ -344,7 +512,7 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
           <td class="tr-num">$0</td>
           <td><div class="pills"><span class="p p-df">DF 386 ent / 487 prov</span><span class="p p-sai">SAI 67/75</span><span class="p p-fc">FC 1 pilot</span></div></td>
           <td style="font-size:11.5px; line-height:1.45;">Meeting TODAY 11:30 AM. Clari in stack. DF over-deployed (487 vs 386 ent) + SAI deployed (67/75 seats). FC Prov=1 micro pilot. SAI adoption health + Clari coexistence framing.</td>
-          <td><button class="ebtn">&#9660; Strategy</button></td>
+          <td><span class="ebtn">Briefing</span></td>
         </tr>
         <tr>
           <td><span class="an">Corteva Analytics</span></td>
@@ -354,7 +522,7 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
           <td class="tr-num">$0</td>
           <td><div class="pills"><span class="p p-df">DF 175 ent / 104 prov</span><span class="p p-sai">SAI 140 ent / 0 prov</span><span class="p p-fc">FC 8 pilot</span></div></td>
           <td style="font-size:11.5px; line-height:1.45;">Clari in stack. No CRM identified. DF +75 overprov, SAI +60 overprov, FC Prov=8 pilot. Multiple overprovisioning anomalies. No active meetings — flag to CS for health check.</td>
-          <td><button class="ebtn">&#9660; Strategy</button></td>
+          <td><span class="ebtn">Briefing</span></td>
         </tr>
         <tr>
           <td><span class="an"><span class="bolt">&#9889;</span>Orbion Technologies</span></td>
@@ -364,13 +532,13 @@ tbody td { padding: 12px; font-size: 12px; vertical-align: middle; }
           <td class="tr-num">$0</td>
           <td><div class="pills"><span class="p p-df">DF 830 ent / 589 prov</span><span class="p p-sai">SAI 830 ent / 0 prov</span><span class="p p-fc">FC 23 pilot</span></div></td>
           <td style="font-size:11.5px; line-height:1.45;">Meeting TODAY 10:00 AM. RemTAM=$0. DF deployed (589/830 entitled — 241 seat gap). SAI: 830 seats entitled, ZERO provisioned — single largest activation gap in Alex's book.</td>
-          <td><button class="ebtn">&#9660; Strategy</button></td>
+          <td><span class="ebtn">Briefing</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="footer">Backstory RevOps Command Center &nbsp;·&nbsp; Alex Mercer Territory &nbsp;·&nbsp; March 24, 2026</div>
+  <div class="footer">Alex Mercer customer expansion analysis &nbsp;·&nbsp; Backstory expansion workspace &nbsp;·&nbsp; refreshed March 24, 2026</div>
 </div>
 
 </body>

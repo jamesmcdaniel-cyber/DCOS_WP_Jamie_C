@@ -3,16 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Full Account Plan — Lakefront Technologies</title>
+  <title>Lakefront Technologies — Strategic Account Review</title>
   <style>
+    :root {
+      --ink-950: #111925;
+      --ink-900: #172231;
+      --ink-800: #243447;
+      --ink-700: #35506b;
+      --lakefront: #76b900;
+      --lakefront-dark: #4a7800;
+      --line: #dbe5ef;
+      --surface: rgba(255, 255, 255, 0.94);
+      --shadow-sm: 0 12px 28px rgba(17, 25, 37, 0.07);
+      --shadow-md: 0 18px 40px rgba(17, 25, 37, 0.11);
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; color: #1a1a2e; font-size: 14px; line-height: 1.6; }
+    body {
+      font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(118, 185, 0, 0.12), transparent 24%),
+        radial-gradient(circle at top right, rgba(26, 77, 143, 0.10), transparent 22%),
+        linear-gradient(180deg, #f2f6fb 0%, #f8fafc 26%, #eef3f8 100%);
+      color: #1a1a2e;
+      font-size: 14px;
+      line-height: 1.6;
+    }
 
     /* Header */
-    .header { background: linear-gradient(135deg, #1a1a2e 0%, #76b900 100%); color: #fff; padding: 36px 48px 28px; }
+    .header {
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,0.14), transparent 20%),
+        linear-gradient(135deg, var(--ink-950) 0%, var(--ink-900) 58%, #395808 100%);
+      color: #fff;
+      padding: 40px 48px 34px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
     .header-top { display: flex; justify-content: space-between; align-items: flex-start; }
     .header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
-    .header .sub { font-size: 13px; color: #d4f0a0; margin-top: 4px; }
+    .header .sub { font-size: 13px; color: rgba(227,245,193,0.92); margin-top: 4px; }
     .badge { background: #76b900; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.3); }
     .header-meta { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
     .meta-item { display: flex; flex-direction: column; }
@@ -20,10 +48,20 @@
     .meta-item .value { font-size: 15px; font-weight: 600; color: #fff; margin-top: 2px; }
 
     /* Quick links bar */
-    .quick-links { background: #fff; border-bottom: 1px solid #e0e8f5; padding: 10px 48px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .quick-links {
+      background: rgba(255,255,255,0.9);
+      border-bottom: 1px solid #e0e8f5;
+      padding: 12px 48px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 28px rgba(17,25,37,0.05);
+    }
     .quick-links .ql-label { font-size: 11px; font-weight: 700; color: #6b7a99; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; }
-    .ql-btn { display: inline-flex; align-items: center; gap: 5px; background: #f0f5ff; color: #1a4d8f; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 6px; text-decoration: none; border: 1px solid #d4e1f7; transition: background 0.15s; }
-    .ql-btn:hover { background: #1a4d8f; color: #fff; }
+    .ql-btn { display: inline-flex; align-items: center; gap: 5px; background: #f7faff; color: #1a4d8f; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; text-decoration: none; border: 1px solid #d4e1f7; transition: background 0.15s, border-color 0.15s, transform 0.15s; }
+    .ql-btn:hover { background: #1a4d8f; color: #fff; transform: translateY(-1px); }
     .ql-btn.sfdc { background: #e8f0fe; color: #1a5fb0; border-color: #c2d4f8; }
     .ql-btn.sfdc:hover { background: #1a5fb0; color: #fff; }
     .ql-btn.pai { background: #fce8ff; color: #7b1fa2; border-color: #e8b3f7; }
@@ -33,10 +71,44 @@
     .ql-btn.lakefront { background: #f0ffe0; color: #4a7800; border-color: #c4e880; }
     .ql-btn.lakefront:hover { background: #4a7800; color: #fff; }
 
+    .page-nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255,255,255,0.9);
+      border-bottom: 1px solid rgba(219,229,239,0.9);
+      box-shadow: 0 8px 24px rgba(17,25,37,0.06);
+      backdrop-filter: blur(16px);
+    }
+    .page-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .page-link {
+      text-decoration: none;
+      color: #1a4d8f;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid #dbe5ef;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+    }
+    .page-link:hover {
+      background: #f0f7e2;
+      border-color: rgba(118,185,0,0.35);
+      transform: translateY(-1px);
+    }
+
     /* Layout */
     .container { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
-    .section { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 20px; overflow: hidden; }
-    .section-header { background: #1a1a2e; color: #fff; padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
+    .section { background: rgba(255,255,255,0.96); border-radius: 16px; box-shadow: var(--shadow-sm); margin-bottom: 20px; overflow: hidden; border: 1px solid var(--line); scroll-margin-top: 82px; }
+    .section-header { background: #1a1a2e; color: #fff; padding: 13px 20px; display: flex; align-items: center; gap: 10px; }
     .section-header h2 { font-size: 14px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; }
     .section-icon { font-size: 16px; }
     .section-body { padding: 20px; }
@@ -46,7 +118,7 @@
     .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 
     /* Stat cards */
-    .stat-card { background: #f0f5ff; border-left: 4px solid #1a4d8f; border-radius: 7px; padding: 14px 16px; }
+    .stat-card { background: #f0f5ff; border-left: 4px solid #1a4d8f; border-radius: 12px; padding: 14px 16px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.5); }
     .stat-card .s-label { font-size: 11px; color: #6b7a99; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
     .stat-card .s-value { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-top: 2px; }
     .stat-card .s-note { font-size: 11px; color: #6b7a99; margin-top: 3px; }
@@ -79,7 +151,7 @@
     .tag.urgent { background: #fde8e8; color: #c0392b; font-weight:700; }
 
     /* Product rows */
-    .product-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 7px; margin-bottom: 8px; background: #f8faff; border: 1px solid #e8eef8; }
+    .product-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; margin-bottom: 8px; background: #f8faff; border: 1px solid #e8eef8; box-shadow: inset 0 1px 0 rgba(255,255,255,0.45); }
     .product-name { font-weight: 700; font-size: 13px; color: #1a1a2e; }
     .product-details { font-size: 12px; color: #6b7a99; margin-top: 2px; }
     .product-amount .amount { font-size: 16px; font-weight: 700; color: #1a1a2e; text-align: right; }
@@ -90,7 +162,7 @@
     @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
 
     /* Alerts */
-    .alert { display: flex; gap: 12px; padding: 12px 16px; border-radius: 8px; margin-bottom: 14px; align-items: flex-start; }
+    .alert { display: flex; gap: 12px; padding: 13px 16px; border-radius: 14px; margin-bottom: 14px; align-items: flex-start; box-shadow: var(--shadow-sm); }
     .alert.warning { background: #fff8e8; border-left: 4px solid #f5a623; }
     .alert.danger { background: #fff0f0; border-left: 4px solid #e05252; }
     .alert.info { background: #f0f5ff; border-left: 4px solid #1a4d8f; }
@@ -117,7 +189,7 @@
     .contact-chip:hover { background: #1a4d8f; color: #fff; }
 
     /* Exec summary */
-    .exec-summary { background: linear-gradient(135deg, #1a1a2e 0%, #3a5a00 100%); color: #fff; border-radius: 10px; padding: 24px 28px; }
+    .exec-summary { background: linear-gradient(135deg, #1a1a2e 0%, #3a5a00 100%); color: #fff; border-radius: 18px; padding: 26px 28px; box-shadow: var(--shadow-md); }
     .exec-summary h2 { font-size: 16px; font-weight: 700; margin-bottom: 14px; color: #fff; }
     .exec-point { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; align-items: flex-start; }
     .exec-point::before { content: "▶"; color: #76b900; flex-shrink: 0; font-size: 10px; margin-top: 3px; }
@@ -131,7 +203,7 @@
     .org-connector-wide { border-top: 2px solid #c8d8f0; margin: 0 auto; }
 
     /* Org card */
-    .org-card { background: #fff; border: 2px solid #d4e1f7; border-radius: 10px; padding: 12px 14px; min-width: 160px; max-width: 190px; text-align: center; position: relative; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+    .org-card { background: #fff; border: 2px solid #d4e1f7; border-radius: 14px; padding: 12px 14px; min-width: 160px; max-width: 190px; text-align: center; position: relative; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 8px 18px rgba(0,0,0,0.07); }
     .org-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
     .org-card.champion { border-color: #76b900; background: #f5ffe0; }
     .org-card.exec-target { border-color: #f5a623; background: #fffbf0; }
@@ -208,7 +280,7 @@
     .ql-btn-block { display: flex; flex-direction: column; gap: 6px; }
 
     /* Footer */
-    .doc-footer { text-align: center; color: #9aabcc; font-size: 11px; padding: 16px 0 24px; }
+    .doc-footer { text-align: center; color: #72829f; font-size: 11px; padding: 20px 0 28px; }
 
     @media (max-width: 700px) {
       .grid-2, .grid-3, .timeline { grid-template-columns: 1fr; }
@@ -216,6 +288,7 @@
       .header-top { flex-direction: column; gap: 10px; }
       .container { padding: 14px; }
       .quick-links { padding: 10px 14px; }
+      .page-nav-inner { padding: 12px 14px; }
       .org-card { min-width: 140px; max-width: 160px; }
     }
   </style>
@@ -224,29 +297,28 @@
 
 <!-- ═══ QUICK LINKS BAR ═══ -->
 <div class="quick-links">
-  <span class="ql-label">🔗 Quick Access</span>
-  <a class="ql-btn sfdc" href="https://peopleai.lightning.force.com/lightning/r/Account/0014100000KxVHhAAN/view" target="_blank">⚡ SFDC Account</a>
-  <a class="ql-btn pai" href="https://app.backstory.ai/accounts/6305607" target="_blank">🤖 Backstory Account</a>
-  <a class="ql-btn lakefront" href="https://www.lakefront.com" target="_blank">🟢 lakefront.com</a>
-  <a class="ql-btn" href="https://www.linkedin.com/company/lakefront/" target="_blank">💼 LinkedIn</a>
-  <a class="ql-btn finance" href="https://www.crunchbase.com/organization/lakefront" target="_blank">💰 Crunchbase</a>
-  <a class="ql-btn finance" href="https://www.google.com/search?q=Lakefront Technologies+earnings+revenue+2026" target="_blank">📊 Financials</a>
-  <a class="ql-btn lakefront" href="https://www.google.com/search?q=Lakefront Technologies+GTC+2026+March" target="_blank">🎤 GTC 2026</a>
-  <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+news+2026&tbs=qdr:m" target="_blank">📰 Latest News</a>
+  <span class="ql-label">Workspace Links</span>
+  <a class="ql-btn sfdc" href="https://peopleai.lightning.force.com/lightning/r/Account/0014100000KxVHhAAN/view" target="_blank">Salesforce</a>
+  <a class="ql-btn pai" href="https://app.backstory.ai/accounts/6305607" target="_blank">Account Workspace</a>
+  <a class="ql-btn lakefront" href="https://www.lakefront.com" target="_blank">Corporate Site</a>
+  <a class="ql-btn" href="https://www.linkedin.com/company/lakefront/" target="_blank">LinkedIn</a>
+  <a class="ql-btn finance" href="https://investor.lakefront.com" target="_blank">Investor Relations</a>
+  <a class="ql-btn lakefront" href="https://www.lakefront.com/gtc/" target="_blank">GTC Briefing</a>
+  <a class="ql-btn" href="https://www.google.com/search?q=Lakefront+Technologies+news+2026&tbs=qdr:m" target="_blank">Recent Signals</a>
 </div>
 
 <!-- ═══ HEADER ═══ -->
 <div class="header">
   <div class="header-top">
     <div>
-      <div class="sub">Backstory — Full Account Plan</div>
+      <div class="sub">Backstory strategic account review</div>
       <h1>Lakefront Technologies Corporation</h1>
       <div class="sub" style="margin-top:6px;">AI / Semiconductor / Technology &nbsp;·&nbsp; US HQ (California) &nbsp;·&nbsp; $130B+ Revenue</div>
     </div>
     <div style="text-align:right;">
-      <div class="badge">CUSTOMER</div>
+      <div class="badge">Active Customer</div>
       <div style="font-size:11px; color:#d4f0a0; margin-top:8px;">ICP Tier 1 — Focus Account</div>
-      <div style="font-size:11px; color:#d4f0a0; margin-top:3px;">Generated: March 3, 2026</div>
+      <div style="font-size:11px; color:#d4f0a0; margin-top:3px;">Last reviewed: March 3, 2026</div>
     </div>
   </div>
   <div class="header-meta">
@@ -256,9 +328,22 @@
     <div class="meta-item"><span class="label">Current ARR</span><span class="value">$783,499</span></div>
     <div class="meta-item"><span class="label">Renewal</span><span class="value">July 1, 2027</span></div>
     <div class="meta-item"><span class="label">Engagement</span><span class="value">90 / 100</span></div>
-    <div class="meta-item"><span class="label">Open Opps</span><span class="value" style="color:#a8ff60;">4 (incl. 2 closing Mar ⚡)</span></div>
+    <div class="meta-item"><span class="label">Open Opps</span><span class="value" style="color:#a8ff60;">4 active (2 closing in March)</span></div>
   </div>
 </div>
+
+<nav class="page-nav" aria-label="Page sections">
+  <div class="page-nav-inner">
+    <a class="page-link" href="#company-intel">Company</a>
+    <a class="page-link" href="#contract">Contract</a>
+    <a class="page-link" href="#whitespace">Growth Paths</a>
+    <a class="page-link" href="#stakeholders">Stakeholders</a>
+    <a class="page-link" href="#plan-306090">30-60-90</a>
+    <a class="page-link" href="#risk-register">Risks</a>
+    <a class="page-link" href="#exec-summary">Summary</a>
+    <a class="page-link" href="#references">References</a>
+  </div>
+</nav>
 
 <div class="container">
 
@@ -281,7 +366,7 @@
   </div>
 
   <!-- ═══ SECTION 1: COMPANY INTELLIGENCE ═══ -->
-  <div class="section">
+  <div class="section" id="company-intel">
     <div class="section-header">
       <span class="section-icon">🏢</span>
       <h2>1. Company Intelligence &amp; Strategic Alignment</h2>
@@ -348,7 +433,7 @@
   </div>
 
   <!-- ═══ SECTION 2: CURRENT CONTRACT ═══ -->
-  <div class="section">
+  <div class="section" id="contract">
     <div class="section-header">
       <span class="section-icon">📋</span>
       <h2>2. Current Contract &amp; Entitlements</h2>
@@ -396,7 +481,7 @@
   </div>
 
   <!-- ═══ SECTION 3: WHITESPACE ═══ -->
-  <div class="section">
+  <div class="section" id="whitespace">
     <div class="section-header">
       <span class="section-icon">🟢</span>
       <h2>3. White Space &amp; Green Space Analysis</h2>
@@ -476,7 +561,7 @@
   </div>
 
   <!-- ═══ SECTION 4: STAKEHOLDER ORG CHART ═══ -->
-  <div class="section">
+  <div class="section" id="stakeholders">
     <div class="section-header">
       <span class="section-icon">👥</span>
       <h2>4. Stakeholder Map — Org Chart View</h2>
@@ -504,7 +589,7 @@
             <div class="org-title">VP, HPC &amp; Technical Marketing</div>
             <div class="org-status target">Exec Sponsor</div>
             <div class="org-links">
-              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Gilad+Shainer+Lakefront Technologies" target="_blank">🔗 LinkedIn</a>
+              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Gilad+Shainer+Lakefront Technologies" target="_blank">LinkedIn</a>
             </div>
             <div style="font-size:11px; color:#888; margin-top:6px;">Invited Brian &amp; Jesse to GTC 2026</div>
           </div>
@@ -523,7 +608,7 @@
             <div class="org-title">Chief Financial Officer</div>
             <div class="org-status target">Must Engage</div>
             <div class="org-links">
-              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Ken+Chow+Lakefront Technologies+CFO" target="_blank">🔗 LinkedIn</a>
+              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Ken+Chow+Lakefront Technologies+CFO" target="_blank">LinkedIn</a>
             </div>
             <div style="font-size:11px; color:#888; margin-top:6px;">Routing needed for DF expansion deal</div>
           </div>
@@ -534,7 +619,7 @@
             <div class="org-title">IT / Security Approver</div>
             <div class="org-status target">Strategic</div>
             <div class="org-links">
-              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Prithvi+Raj+Lakefront Technologies" target="_blank">🔗 LinkedIn</a>
+              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Prithvi+Raj+Lakefront Technologies" target="_blank">LinkedIn</a>
             </div>
             <div style="font-size:11px; color:#888; margin-top:6px;">Approved MCP Integration Access ✅</div>
           </div>
@@ -556,8 +641,8 @@
             <div class="org-title">Sr. Program Manager, Revenue Marketing Ops</div>
             <div class="org-status champion">🏆 Primary Champion</div>
             <div class="org-links">
-              <a class="org-link" href="http://www.linkedin.com/in/vishakhag" target="_blank">🔗 LinkedIn</a>
-              <a class="org-link" href="mailto:vishakhag@lakefront.com">✉️ Email</a>
+              <a class="org-link" href="http://www.linkedin.com/in/vishakhag" target="_blank">LinkedIn</a>
+              <a class="org-link" href="mailto:vishakhag@lakefront.com">Email</a>
             </div>
             <div style="font-size:11px; color:#4a7800; margin-top:6px;">POC ✅ · Pilot (200 users) ✅ · Signed contract ✅</div>
           </div>
@@ -568,7 +653,7 @@
             <div class="org-title">EMEA FSI / Banking Lead</div>
             <div class="org-status champion">Champion — EMEA</div>
             <div class="org-links">
-              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Jason+Renders+Lakefront Technologies" target="_blank">🔗 LinkedIn</a>
+              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Jason+Renders+Lakefront Technologies" target="_blank">LinkedIn</a>
             </div>
             <div style="font-size:11px; color:#4a7800; margin-top:6px;">Secured Relationship Maps licenses for team</div>
           </div>
@@ -579,7 +664,7 @@
             <div class="org-title">Revenue / GTM Operations</div>
             <div class="org-status engage">Active</div>
             <div class="org-links">
-              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Kelly+Goles+Lakefront Technologies" target="_blank">🔗 LinkedIn</a>
+              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Kelly+Goles+Lakefront Technologies" target="_blank">LinkedIn</a>
             </div>
             <div style="font-size:11px; color:#1a5fb0; margin-top:6px;">Weekly calls with Vish · Green light on DF expansion</div>
           </div>
@@ -590,7 +675,7 @@
             <div class="org-title">Strategic / GTM Lead</div>
             <div class="org-status engage">Recommended by Vish</div>
             <div class="org-links">
-              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Beley+Chaikovsky+Lakefront Technologies" target="_blank">🔗 LinkedIn</a>
+              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Beley+Chaikovsky+Lakefront Technologies" target="_blank">LinkedIn</a>
             </div>
             <div style="font-size:11px; color:#1a5fb0; margin-top:6px;">Vishakha suggested involving in discussions</div>
           </div>
@@ -612,7 +697,7 @@
             <div class="org-title">IT / SFDC Admin</div>
             <div class="org-status tech">Technical</div>
             <div class="org-links">
-              <a class="org-link" href="mailto:pratnakar@lakefront.com">✉️ Email</a>
+              <a class="org-link" href="mailto:pratnakar@lakefront.com">Email</a>
             </div>
             <div style="font-size:11px; color:#6c3483; margin-top:6px;">MCP integration · OAuth &amp; SOX setup</div>
           </div>
@@ -623,7 +708,7 @@
             <div class="org-title">Technical Integration</div>
             <div class="org-status tech">Technical</div>
             <div class="org-links">
-              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Paresh+Jena+Lakefront Technologies" target="_blank">🔗 LinkedIn</a>
+              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Paresh+Jena+Lakefront Technologies" target="_blank">LinkedIn</a>
             </div>
             <div style="font-size:11px; color:#6c3483; margin-top:6px;">SFDC prod config · MCP integration support</div>
           </div>
@@ -634,7 +719,7 @@
             <div class="org-title">Revenue Marketing Operations</div>
             <div class="org-status engage">Active</div>
             <div class="org-links">
-              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Becca+Nguyen+Lakefront Technologies" target="_blank">🔗 LinkedIn</a>
+              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Becca+Nguyen+Lakefront Technologies" target="_blank">LinkedIn</a>
             </div>
             <div style="font-size:11px; color:#1a5fb0; margin-top:6px;">Data backfill &amp; SFDC tracking · Scheduling</div>
           </div>
@@ -645,7 +730,7 @@
             <div class="org-title">IT / SFDC Activation</div>
             <div class="org-status engage">Active</div>
             <div class="org-links">
-              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Deepthi+Dayam+Lakefront Technologies" target="_blank">🔗 LinkedIn</a>
+              <a class="org-link" href="https://www.linkedin.com/search/results/people/?keywords=Deepthi+Dayam+Lakefront Technologies" target="_blank">LinkedIn</a>
             </div>
             <div style="font-size:11px; color:#1a5fb0; margin-top:6px;">Activated Pavan's SFDC account</div>
           </div>
@@ -673,7 +758,7 @@
   </div>
 
   <!-- ═══ SECTION 5: 30/60/90 PLAN ═══ -->
-  <div class="section">
+  <div class="section" id="plan-306090">
     <div class="section-header">
       <span class="section-icon">📅</span>
       <h2>5. 30 / 60 / 90 Day Action Plan</h2>
@@ -713,7 +798,7 @@
   </div>
 
   <!-- ═══ SECTION 6: RISK REGISTER ═══ -->
-  <div class="section">
+  <div class="section" id="risk-register">
     <div class="section-header">
       <span class="section-icon">⚠️</span>
       <h2>6. Risk Register</h2>
@@ -783,7 +868,7 @@
   </div>
 
   <!-- ═══ SECTION 7: EXECUTIVE SUMMARY ═══ -->
-  <div class="exec-summary">
+  <div class="exec-summary" id="exec-summary">
     <h2>7. Executive Summary</h2>
     <div class="exec-point">Lakefront Technologies is Backstory's highest-value expansion opportunity in the book, with $783K current ARR and $667K in active deals closing <em>this month</em> — the SalesAI 143+ opp (91/100 engagement, Mar 27) and the DF Expansion (4/100 engagement, Mar 30). The SalesAI deal is ready to close; the DF Expansion needs emergency acceleration.</div>
     <div class="exec-point">The account has exceptional strategic depth: Lakefront Technologies completed their POC, signed a contract for 200 pilot users, gained IT approval for MCP integration, and is testing Backstory data against their own Nemotron LLM — a first-of-kind AI infrastructure partnership that should be elevated beyond a typical sales tool conversation.</div>
@@ -822,71 +907,71 @@
 
 <!-- ═══ SECTION 8: RESEARCH LINKS ═══ -->
 <div class="container" style="padding-top:0;">
-  <div class="section">
+  <div class="section" id="references">
     <div class="section-header">
       <span class="section-icon">🔍</span>
-      <h2>8. Intelligence &amp; Research Links</h2>
+      <h2>8. Operating References</h2>
     </div>
     <div class="section-body">
       <div class="grid-3" style="gap:16px;">
 
         <div>
-          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">📊 Financial Data</div>
+          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">Financial &amp; Investor</div>
           <div class="ql-btn-block">
-            <a class="ql-btn finance" href="https://investor.lakefront.com" target="_blank" style="justify-content:flex-start;">📈 Lakefront Technologies Investor Relations</a>
-            <a class="ql-btn finance" href="https://www.crunchbase.com/organization/lakefront" target="_blank" style="justify-content:flex-start;">💰 Crunchbase</a>
-            <a class="ql-btn finance" href="https://www.google.com/search?q=Lakefront Technologies+Q4+2026+earnings+results" target="_blank" style="justify-content:flex-start;">💵 Latest Earnings</a>
-            <a class="ql-btn finance" href="https://stockanalysis.com/stocks/nvda/financials/" target="_blank" style="justify-content:flex-start;">📊 Stock Analysis Financials</a>
+            <a class="ql-btn finance" href="https://investor.lakefront.com" target="_blank" style="justify-content:flex-start;">Investor Relations</a>
+            <a class="ql-btn finance" href="https://www.crunchbase.com/organization/lakefront" target="_blank" style="justify-content:flex-start;">Company Profile</a>
+            <a class="ql-btn finance" href="https://www.google.com/search?q=Lakefront Technologies+Q4+2026+earnings+results" target="_blank" style="justify-content:flex-start;">Earnings Coverage</a>
+            <a class="ql-btn finance" href="https://stockanalysis.com/stocks/nvda/financials/" target="_blank" style="justify-content:flex-start;">Public Financials</a>
           </div>
         </div>
 
         <div>
-          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">🎤 GTC 2026 &amp; Strategic Events</div>
+          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">Events &amp; Programs</div>
           <div class="ql-btn-block">
-            <a class="ql-btn lakefront" href="https://www.lakefront.com/gtc/" target="_blank" style="justify-content:flex-start;">🎤 GTC 2026 — Mar 16–19 SJ</a>
-            <a class="ql-btn lakefront" href="https://www.google.com/search?q=Lakefront Technologies+GTC+2026+agenda+Jensen+Huang+keynote" target="_blank" style="justify-content:flex-start;">🎯 Jensen Huang Keynote Info</a>
-            <a class="ql-btn lakefront" href="https://www.google.com/search?q=Gilad+Shainer+Lakefront Technologies+GTC+networking+AI" target="_blank" style="justify-content:flex-start;">🔍 Gilad Shainer Research</a>
-            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+Nemotron+LLM+2026" target="_blank" style="justify-content:flex-start;">🤖 Nemotron LLM Research</a>
+            <a class="ql-btn lakefront" href="https://www.lakefront.com/gtc/" target="_blank" style="justify-content:flex-start;">GTC Event Hub</a>
+            <a class="ql-btn lakefront" href="https://www.google.com/search?q=Lakefront Technologies+GTC+2026+agenda+Jensen+Huang+keynote" target="_blank" style="justify-content:flex-start;">Keynote Agenda</a>
+            <a class="ql-btn lakefront" href="https://www.google.com/search?q=Gilad+Shainer+Lakefront Technologies+GTC+networking+AI" target="_blank" style="justify-content:flex-start;">Executive Meeting Notes</a>
+            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+Nemotron+LLM+2026" target="_blank" style="justify-content:flex-start;">Nemotron Briefing</a>
           </div>
         </div>
 
         <div>
-          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">📰 News &amp; Signals</div>
+          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">Market Signals</div>
           <div class="ql-btn-block">
-            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+news+2026&tbs=qdr:m" target="_blank" style="justify-content:flex-start;">📰 Latest News (Last Month)</a>
-            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+AI+strategy+GTM+2026" target="_blank" style="justify-content:flex-start;">🧠 AI Strategy &amp; GTM</a>
-            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+hiring+sales+operations+2026" target="_blank" style="justify-content:flex-start;">👥 Hiring Signals</a>
-            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+Glean+AI+integration+partnership" target="_blank" style="justify-content:flex-start;">🔗 Glean Partnership Signals</a>
+            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+news+2026&tbs=qdr:m" target="_blank" style="justify-content:flex-start;">Recent Coverage</a>
+            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+AI+strategy+GTM+2026" target="_blank" style="justify-content:flex-start;">AI Strategy Signals</a>
+            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+hiring+sales+operations+2026" target="_blank" style="justify-content:flex-start;">Hiring Signals</a>
+            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+Glean+AI+integration+partnership" target="_blank" style="justify-content:flex-start;">Partnership Tracking</a>
           </div>
         </div>
 
         <div>
-          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">🏢 CRM &amp; Platform</div>
+          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">CRM &amp; Workspace</div>
           <div class="ql-btn-block">
-            <a class="ql-btn sfdc" href="https://peopleai.lightning.force.com/lightning/r/Account/0014100000KxVHhAAN/view" target="_blank" style="justify-content:flex-start;">⚡ SFDC Account Page</a>
-            <a class="ql-btn pai" href="https://app.backstory.ai/accounts/6305607" target="_blank" style="justify-content:flex-start;">🤖 Backstory Account</a>
-            <a class="ql-btn pai" href="https://app.backstory.ai/opportunities/5536722384" target="_blank" style="justify-content:flex-start;">🤖 SalesAI Opp (Mar 27)</a>
-            <a class="ql-btn pai" href="https://app.backstory.ai/opportunities/5536722385" target="_blank" style="justify-content:flex-start;">🤖 DF Expansion Opp (Mar 30)</a>
+            <a class="ql-btn sfdc" href="https://peopleai.lightning.force.com/lightning/r/Account/0014100000KxVHhAAN/view" target="_blank" style="justify-content:flex-start;">Salesforce Account</a>
+            <a class="ql-btn pai" href="https://app.backstory.ai/accounts/6305607" target="_blank" style="justify-content:flex-start;">Backstory Account</a>
+            <a class="ql-btn pai" href="https://app.backstory.ai/opportunities/5536722384" target="_blank" style="justify-content:flex-start;">SalesAI Opportunity</a>
+            <a class="ql-btn pai" href="https://app.backstory.ai/opportunities/5536722385" target="_blank" style="justify-content:flex-start;">DF Expansion Opportunity</a>
           </div>
         </div>
 
         <div>
-          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">🔑 Key Contact Emails &amp; LinkedIn</div>
+          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">Contacts &amp; Network</div>
           <div class="ql-btn-block">
-            <a class="ql-btn" href="mailto:vishakhag@lakefront.com" style="justify-content:flex-start;">✉️ Vishakha Gupta</a>
-            <a class="ql-btn" href="mailto:pratnakar@lakefront.com" style="justify-content:flex-start;">✉️ Pavan Ratnakar</a>
-            <a class="ql-btn" href="https://www.linkedin.com/company/lakefront/people/" target="_blank" style="justify-content:flex-start;">👤 LinkedIn — All Lakefront Technologies Employees</a>
-            <a class="ql-btn" href="https://www.linkedin.com/search/results/people/?keywords=Lakefront Technologies+VP+SVP+CRO+Chief+Sales" target="_blank" style="justify-content:flex-start;">🎯 LinkedIn — Lakefront Technologies Exec Search</a>
+            <a class="ql-btn" href="mailto:vishakhag@lakefront.com" style="justify-content:flex-start;">Vishakha Gupta</a>
+            <a class="ql-btn" href="mailto:pratnakar@lakefront.com" style="justify-content:flex-start;">Pavan Ratnakar</a>
+            <a class="ql-btn" href="https://www.linkedin.com/company/lakefront/people/" target="_blank" style="justify-content:flex-start;">Employee Directory</a>
+            <a class="ql-btn" href="https://www.linkedin.com/search/results/people/?keywords=Lakefront Technologies+VP+SVP+CRO+Chief+Sales" target="_blank" style="justify-content:flex-start;">Executive Search</a>
           </div>
         </div>
 
         <div>
-          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">📖 Lakefront Technologies Content &amp; Messaging</div>
+          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#6b7a99; letter-spacing:0.5px; margin-bottom:10px;">Narrative &amp; Messaging</div>
           <div class="ql-btn-block">
-            <a class="ql-btn lakefront" href="https://blogs.lakefront.com" target="_blank" style="justify-content:flex-start;">📝 Lakefront Technologies Blog</a>
-            <a class="ql-btn lakefront" href="https://www.lakefront.com/en-us/ai/" target="_blank" style="justify-content:flex-start;">🤖 Lakefront Technologies AI Platform</a>
-            <a class="ql-btn lakefront" href="https://www.lakefront.com/en-us/data-center/nemotron/" target="_blank" style="justify-content:flex-start;">🧬 Nemotron Product Page</a>
-            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+annual+report+2025+2026+revenue+operations" target="_blank" style="justify-content:flex-start;">📋 Annual Report Research</a>
+            <a class="ql-btn lakefront" href="https://blogs.lakefront.com" target="_blank" style="justify-content:flex-start;">Corporate Blog</a>
+            <a class="ql-btn lakefront" href="https://www.lakefront.com/en-us/ai/" target="_blank" style="justify-content:flex-start;">AI Platform</a>
+            <a class="ql-btn lakefront" href="https://www.lakefront.com/en-us/data-center/nemotron/" target="_blank" style="justify-content:flex-start;">Nemotron Overview</a>
+            <a class="ql-btn" href="https://www.google.com/search?q=Lakefront Technologies+annual+report+2025+2026+revenue+operations" target="_blank" style="justify-content:flex-start;">Annual Report Research</a>
           </div>
         </div>
 
@@ -896,7 +981,7 @@
 </div>
 
 <div class="doc-footer">
-  Full Account Plan &nbsp;·&nbsp; Lakefront Technologies Corporation &nbsp;·&nbsp; Generated March 3, 2026 &nbsp;·&nbsp; Backstory Confidential
+  Lakefront Technologies strategic account review &nbsp;·&nbsp; Backstory confidential workspace &nbsp;·&nbsp; Last reviewed March 3, 2026
 </div>
 
 </body>
