@@ -1,0 +1,2292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Territory Design Studio | Backstory</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ebeff1;
+  --surface: #ffffff;
+  --surface-2: #f6f8f9;
+  --surface-3: #dde5e8;
+  --ink: #152126;
+  --muted: #5c6b73;
+  --line: rgba(21, 33, 38, 0.12);
+  --shadow: 0 18px 44px rgba(21, 33, 38, 0.12);
+  --accent: #5f8e9e;
+  --accent-deep: #284f5d;
+  --signal: #0f766e;
+  --warn: #c56b33;
+  --danger: #a64242;
+  --violet: #6f5ea8;
+  --keep-bg: #eff9f3;
+  --keep-ink: #1f6a46;
+  --review-bg: #fff5ea;
+  --review-ink: #8a4a18;
+  --release-bg: #fdeeee;
+  --release-ink: #993939;
+  --assign-bg: #eef5fb;
+  --assign-ink: #235f89;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Lexend", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(95, 142, 158, 0.14), transparent 32%),
+    radial-gradient(circle at 85% 8%, rgba(197, 107, 51, 0.14), transparent 28%),
+    var(--bg);
+  color: var(--ink);
+}
+
+.app-shell { min-height: 100vh; }
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 42px 40px 28px;
+  background:
+    linear-gradient(135deg, rgba(10, 17, 22, 0.92), rgba(25, 35, 41, 0.94)),
+    linear-gradient(90deg, #101820, #1a252b);
+  color: #f8fbfc;
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.hero::before {
+  width: 420px;
+  height: 420px;
+  right: -140px;
+  top: -180px;
+  background: radial-gradient(circle, rgba(95, 142, 158, 0.4), transparent 68%);
+}
+
+.hero::after {
+  width: 320px;
+  height: 320px;
+  left: -100px;
+  bottom: -220px;
+  background: radial-gradient(circle, rgba(197, 107, 51, 0.26), transparent 70%);
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(248, 251, 252, 0.56);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 0.9fr);
+  gap: 28px;
+  align-items: end;
+  margin-top: 18px;
+}
+
+.hero-title {
+  margin: 0;
+  font-size: clamp(34px, 4.5vw, 58px);
+  line-height: 0.98;
+  letter-spacing: -1.6px;
+}
+
+.hero-copy {
+  max-width: 760px;
+  margin: 16px 0 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(248, 251, 252, 0.76);
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 18px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: rgba(248, 251, 252, 0.58);
+  text-transform: uppercase;
+}
+
+.hero-note {
+  padding: 18px 18px 20px;
+  border: 1px solid rgba(248, 251, 252, 0.12);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hero-note-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: rgba(248, 251, 252, 0.58);
+}
+
+.hero-note-title {
+  margin-top: 12px;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+}
+
+.hero-note-copy {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(248, 251, 252, 0.72);
+}
+
+.stats-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  padding: 14px 22px;
+  background: rgba(245, 248, 249, 0.92);
+  border-bottom: 1px solid rgba(21, 33, 38, 0.08);
+  backdrop-filter: blur(14px);
+}
+
+.stat-card {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(21, 33, 38, 0.08);
+  box-shadow: 0 8px 24px rgba(21, 33, 38, 0.06);
+}
+
+.stat-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stat-value {
+  margin-top: 6px;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: -0.8px;
+}
+
+.stat-foot {
+  margin-top: 5px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.page {
+  padding: 24px 24px 52px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.summary-card {
+  padding: 18px 18px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow);
+}
+
+.summary-card[data-tone="keep"] { border-top: 4px solid var(--keep-ink); }
+.summary-card[data-tone="review"] { border-top: 4px solid var(--review-ink); }
+.summary-card[data-tone="release"] { border-top: 4px solid var(--release-ink); }
+.summary-card[data-tone="assign"] { border-top: 4px solid var(--assign-ink); }
+
+.summary-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.summary-value {
+  margin-top: 10px;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.summary-foot {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.control-slab {
+  margin-bottom: 18px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow);
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 11px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.tab-btn:hover {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.tab-btn.active {
+  background: var(--ink);
+  color: #ffffff;
+}
+
+.control-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.control-row + .control-row { margin-top: 12px; }
+
+.filter-row,
+.rep-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 8px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.chip:hover {
+  border-color: rgba(21, 33, 38, 0.24);
+  color: var(--ink);
+}
+
+.chip.active {
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.chip[data-key="relationship"].active { background: var(--accent); }
+.chip[data-key="formerEmployer"].active { background: var(--violet); }
+.chip[data-key="warmIntro"].active { background: var(--signal); }
+.chip[data-key="openOpp"].active { background: var(--warn); }
+.chip[data-key="keep"].active { background: var(--keep-ink); }
+.chip[data-key="review"].active { background: var(--review-ink); }
+.chip[data-key="release"].active { background: var(--release-ink); }
+.chip[data-key="assign"].active { background: var(--assign-ink); }
+
+.rep-pill.active {
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.clear-btn {
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.search-box {
+  flex: 1 1 280px;
+  min-width: 220px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink);
+  outline: none;
+}
+
+.search-box input:focus {
+  border-color: rgba(95, 142, 158, 0.6);
+  box-shadow: 0 0 0 4px rgba(95, 142, 158, 0.16);
+}
+
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+}
+
+.panel-shell {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: end;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel-title {
+  margin: 0;
+  font-size: 23px;
+  letter-spacing: -0.5px;
+}
+
+.panel-copy {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.panel-aside {
+  min-width: 240px;
+  max-width: 320px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f6fafb, #eef4f6);
+  border: 1px solid rgba(95, 142, 158, 0.16);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1080px;
+}
+
+.grid-table thead tr {
+  background: #f6f8f9;
+}
+
+.grid-table th,
+.grid-table td {
+  padding: 13px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(21, 33, 38, 0.08);
+  vertical-align: top;
+}
+
+.grid-table th {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.grid-table tbody tr {
+  cursor: pointer;
+  transition: background 0.16s ease;
+}
+
+.grid-table tbody tr:hover {
+  background: rgba(95, 142, 158, 0.08);
+}
+
+.sort-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-transform: inherit;
+  letter-spacing: inherit;
+}
+
+.sort-btn.active {
+  color: var(--ink);
+}
+
+.account-name {
+  display: flex;
+  gap: 10px;
+  align-items: start;
+}
+
+.account-dot {
+  width: 11px;
+  height: 11px;
+  margin-top: 5px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.account-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.account-sub {
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.mono {
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.signal-stack {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.badge.connection { background: #edf6fa; color: var(--accent-deep); }
+.badge.formerEmployer { background: #f1edfb; color: var(--violet); }
+.badge.warmIntro { background: #ecf8f5; color: var(--signal); }
+.badge.openOpp { background: #fff2e8; color: var(--warn); }
+.badge.intent { background: #f1f4f5; color: #53626a; }
+.badge.keep { background: var(--keep-bg); color: var(--keep-ink); }
+.badge.review { background: var(--review-bg); color: var(--review-ink); }
+.badge.release { background: var(--release-bg); color: var(--release-ink); }
+.badge.assign { background: var(--assign-bg); color: var(--assign-ink); }
+
+.owner-cell {
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.owner-arrow {
+  color: var(--muted);
+}
+
+.score-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 7px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.details-btn {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #ffffff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.details-btn:hover {
+  background: var(--surface-2);
+}
+
+.rep-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.rep-card {
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 248, 249, 0.9));
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.rep-card:hover,
+.rep-card.active {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(21, 33, 38, 0.08);
+}
+
+.rep-card.active {
+  border-color: transparent;
+}
+
+.rep-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+}
+
+.rep-name {
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.rep-role {
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.rep-capacity {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--line);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.rep-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.rep-metric {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.rep-metric-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+.rep-metric-value {
+  margin-top: 5px;
+  font-size: 17px;
+  line-height: 1.1;
+}
+
+.rep-detail {
+  padding: 20px;
+}
+
+.rep-detail-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.rep-detail-title {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: -0.7px;
+}
+
+.rep-detail-copy {
+  margin: 8px 0 0;
+  max-width: 760px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.rep-kpis {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rep-kpi {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  min-width: 140px;
+}
+
+.rep-kpi-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.rep-kpi-value {
+  margin-top: 4px;
+  font-size: 18px;
+}
+
+.queue-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  padding: 20px;
+}
+
+.queue-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 260px;
+}
+
+.queue-head {
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.queue-head[data-tone="keep"] { background: var(--keep-bg); color: var(--keep-ink); }
+.queue-head[data-tone="review"] { background: var(--review-bg); color: var(--review-ink); }
+.queue-head[data-tone="release"] { background: var(--release-bg); color: var(--release-ink); }
+.queue-head[data-tone="assign"] { background: var(--assign-bg); color: var(--assign-ink); }
+
+.queue-title {
+  font-size: 17px;
+  line-height: 1.1;
+}
+
+.queue-sub {
+  margin-top: 5px;
+  font-size: 12px;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.queue-card {
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  cursor: pointer;
+  transition: 0.16s ease;
+}
+
+.queue-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(21, 33, 38, 0.08);
+}
+
+.queue-card-title {
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.queue-card-copy {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.queue-card-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.empty-state {
+  padding: 30px 20px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(13, 19, 23, 0.58);
+  backdrop-filter: blur(10px);
+  z-index: 200;
+}
+
+.overlay.open {
+  display: flex;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal {
+  width: min(860px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, #ffffff, #f8fafb);
+  box-shadow: 0 28px 70px rgba(13, 19, 23, 0.28);
+}
+
+.modal-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 22px 22px 18px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+}
+
+.modal-kicker {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+}
+
+.modal-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.9px;
+}
+
+.modal-meta {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.modal-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font: inherit;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.modal-body {
+  padding: 20px 22px 24px;
+}
+
+.recommendation-box {
+  padding: 16px 18px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.recommendation-box.keep {
+  background: var(--keep-bg);
+  color: var(--keep-ink);
+  border: 1px solid rgba(31, 106, 70, 0.18);
+}
+
+.recommendation-box.review {
+  background: var(--review-bg);
+  color: var(--review-ink);
+  border: 1px solid rgba(138, 74, 24, 0.18);
+}
+
+.recommendation-box.release {
+  background: var(--release-bg);
+  color: var(--release-ink);
+  border: 1px solid rgba(153, 57, 57, 0.18);
+}
+
+.recommendation-box.assign {
+  background: var(--assign-bg);
+  color: var(--assign-ink);
+  border: 1px solid rgba(35, 95, 137, 0.18);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.metric-card {
+  padding: 12px 13px;
+  border-radius: 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+
+.metric-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+.metric-value {
+  margin-top: 6px;
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.info-card {
+  padding: 16px 16px 14px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+}
+
+.info-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: var(--muted);
+}
+
+.info-copy {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.bullet-list {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--ink);
+}
+
+.bullet-list li {
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.contact-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.contact-card {
+  padding: 12px 13px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+
+.contact-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.contact-title {
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.contact-signal {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--ink);
+}
+
+@media (max-width: 1180px) {
+  .summary-grid,
+  .rep-grid,
+  .queue-board,
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-bar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .page,
+  .hero {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .panel-head,
+  .rep-detail,
+  .rep-grid,
+  .queue-board,
+  .modal-head,
+  .modal-body {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .summary-grid,
+  .rep-grid,
+  .queue-board,
+  .metric-grid,
+  .modal-grid,
+  .stats-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-head {
+    align-items: start;
+  }
+
+  .panel-aside {
+    min-width: 0;
+    max-width: none;
+  }
+}
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="hero">
+    <div class="eyebrow">Backstory RevOps Command Center</div>
+    <div class="hero-grid">
+      <div>
+        <h1 class="hero-title">Territory Design Studio</h1>
+        <p class="hero-copy">
+          A standalone territory-planning view built for balancing account value, relationship edge, and
+          seller capacity. This version keeps the spirit of the original demo but rebuilds the experience
+          around synthetic data and cleaner routing decisions.
+        </p>
+        <div class="hero-meta">
+          <span>Q3 Planning Sprint</span>
+          <span>Synthetic Account Book</span>
+          <span>Last Updated May 27, 2026</span>
+        </div>
+      </div>
+      <div class="hero-note" id="heroNote"></div>
+    </div>
+  </header>
+
+  <section class="stats-bar" id="statsBar"></section>
+
+  <main class="page">
+    <section class="summary-grid" id="summaryGrid"></section>
+
+    <section class="control-slab">
+      <div class="tabs" id="tabs"></div>
+      <div class="control-row">
+        <div class="filter-row" id="filterRow"></div>
+        <button class="clear-btn" id="clearFilters">Reset Filters</button>
+      </div>
+      <div class="control-row">
+        <div class="search-box">
+          <input id="searchInput" type="search" placeholder="Search account, owner, region, or segment">
+        </div>
+        <div class="rep-pills" id="repPills"></div>
+      </div>
+    </section>
+
+    <section class="panel active" id="coveragePanel"></section>
+    <section class="panel" id="repsPanel"></section>
+    <section class="panel" id="queuePanel"></section>
+  </main>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <button class="close-btn" id="closeModalBtn" aria-label="Close">x</button>
+      <div class="modal-kicker" id="modalKicker"></div>
+      <div class="modal-title-row">
+        <div class="account-dot" id="modalDot"></div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+      </div>
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-badges" id="modalBadges"></div>
+    </div>
+    <div class="modal-body">
+      <div class="recommendation-box" id="modalRecommendation"></div>
+      <div class="metric-grid" id="modalMetrics"></div>
+      <div class="modal-grid">
+        <div class="info-card">
+          <div class="info-label">Why This Account</div>
+          <div class="info-copy" id="modalWhy"></div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Next Move</div>
+          <div class="info-copy" id="modalNext"></div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Relationship Edge</div>
+          <ul class="bullet-list" id="modalRelationships"></ul>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Coverage Notes</div>
+          <ul class="bullet-list" id="modalChanges"></ul>
+        </div>
+      </div>
+      <div class="info-card" style="margin-top:12px;">
+        <div class="info-label">Key Contacts</div>
+        <div class="contact-list" id="modalContacts"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const reps = [
+  { id: "maya", name: "Maya Torres", role: "Enterprise West", focus: "Platform + MedTech", capacity: 78, color: "#5f8e9e" },
+  { id: "julian", name: "Julian Park", role: "Strategic Central", focus: "Industrial + Cloud", capacity: 91, color: "#9b5b42" },
+  { id: "nia", name: "Nia Brooks", role: "Enterprise East", focus: "Security + FinServ", capacity: 67, color: "#217b74" },
+  { id: "owen", name: "Owen Patel", role: "Commercial Overlay", focus: "Incubation + Expansion", capacity: 54, color: "#6f5ea8" }
+];
+
+const accounts = [
+  {
+    id: "northstar-grid",
+    name: "Northstar Grid",
+    region: "West",
+    segment: "Strategic",
+    tam: 4200000,
+    engagement: 82,
+    intent: "High",
+    score: 94,
+    currentOwner: "Maya Torres",
+    suggestedOwner: "Maya Torres",
+    recommendation: "keep",
+    tier: "P1",
+    openOpps: 2,
+    relationshipCount: 6,
+    formerEmployer: true,
+    warmIntro: false,
+    why: "The live expansion cycle is already moving through procurement, and Maya has both historical context and the strongest network into revenue leadership.",
+    nextMove: "Protect this account on Maya's book and package Forecasting plus Coaching as the single-threaded expansion offer for the Q3 close plan.",
+    relationshipEdge: [
+      "Six first-degree connections across RevOps, field enablement, and the CRO office.",
+      "Former employer overlap with the CRO from Arkline Systems gives Maya direct credibility.",
+      "Two active opportunities make the ownership change cost higher than the rebalance benefit."
+    ],
+    changeNotes: [
+      "Current owner is already leading a weekly steering committee with the customer.",
+      "Procurement timing suggests no routing changes until after the active expansion closes."
+    ],
+    contacts: [
+      { name: "Leah Morgan", title: "VP Revenue Operations", signal: "Sponsor for the multi-product expansion path." },
+      { name: "Chris Dwyer", title: "Chief Revenue Officer", signal: "Former colleague of Maya; open to executive alignment call." }
+    ]
+  },
+  {
+    id: "solstice-health",
+    name: "Solstice Health",
+    region: "Central",
+    segment: "Strategic",
+    tam: 3400000,
+    engagement: 68,
+    intent: "High",
+    score: 89,
+    currentOwner: "Julian Park",
+    suggestedOwner: "Nia Brooks",
+    recommendation: "review",
+    tier: "P1",
+    openOpps: 1,
+    relationshipCount: 4,
+    formerEmployer: false,
+    warmIntro: true,
+    why: "The buying committee is concentrated on the East Coast, and Nia has the best executive coverage, but Julian owns the active discovery thread and stakeholder map.",
+    nextMove: "Hold a manager decision this week: either let Julian finish the current cycle or transfer after the QBR with Nia attached to every executive touchpoint now.",
+    relationshipEdge: [
+      "Four first-degree connections sit with Nia across finance and commercial operations.",
+      "A board advisor is willing to warm-introduce the COO to Nia for a forecasting conversation.",
+      "Julian still has the cleanest context on the open opportunity."
+    ],
+    changeNotes: [
+      "No decision risk today, but delayed routing will make Q3 account planning messy.",
+      "If retained with Julian, East-based executive coverage needs an explicit overlay motion."
+    ],
+    contacts: [
+      { name: "Dana Vilas", title: "SVP Commercial Operations", signal: "Strong connection path for Nia through a prior customer council." },
+      { name: "Rami Patel", title: "Director, Revenue Strategy", signal: "Currently working with Julian on process mapping." }
+    ]
+  },
+  {
+    id: "harborline-systems",
+    name: "Harborline Systems",
+    region: "East",
+    segment: "Large Enterprise",
+    tam: 2800000,
+    engagement: 26,
+    intent: "Medium",
+    score: 71,
+    currentOwner: "Julian Park",
+    suggestedOwner: "Nia Brooks",
+    recommendation: "release",
+    tier: "P2",
+    openOpps: 0,
+    relationshipCount: 3,
+    formerEmployer: false,
+    warmIntro: true,
+    why: "The account sits outside Julian's natural patch, has low active engagement, and Nia owns the stronger east-region relationships with cleaner restart potential.",
+    nextMove: "Release from Julian's book and re-seed on Nia with a 30-day executive-intro plan anchored to the CFO office.",
+    relationshipEdge: [
+      "Three first-degree connections sit with Nia inside finance, field ops, and enablement.",
+      "Warm introduction path exists through a current customer champion on Nia's book.",
+      "No active opportunity is at risk by making the move now."
+    ],
+    changeNotes: [
+      "Julian has not logged a high-value meeting here in the last six weeks.",
+      "The routing change improves regional alignment and reduces idle TAM on an overloaded book."
+    ],
+    contacts: [
+      { name: "Sofia Trent", title: "VP Finance Transformation", signal: "Best opening for a re-entry meeting." },
+      { name: "Marlon Reeves", title: "Director, Sales Enablement", signal: "Warm intro available through Nia's existing customer network." }
+    ]
+  },
+  {
+    id: "meridian-forge",
+    name: "Meridian Forge",
+    region: "Central",
+    segment: "Strategic",
+    tam: 2400000,
+    engagement: 91,
+    intent: "High",
+    score: 92,
+    currentOwner: "Julian Park",
+    suggestedOwner: "Julian Park",
+    recommendation: "keep",
+    tier: "P1",
+    openOpps: 3,
+    relationshipCount: 2,
+    formerEmployer: false,
+    warmIntro: false,
+    why: "This is Julian's strongest operating account, with executive sponsorship, multi-threaded product adoption, and three open paths to expansion.",
+    nextMove: "Protect ownership and increase specialist support instead of redistributing coverage.",
+    relationshipEdge: [
+      "Two direct connections into the industrial sales leadership team support active access.",
+      "Three open opportunities make continuity materially more important than incremental rebalancing."
+    ],
+    changeNotes: [
+      "Julian is over capacity overall, but Meridian Forge should remain protected.",
+      "Manager action should focus on removing lower-yield accounts elsewhere on Julian's book."
+    ],
+    contacts: [
+      { name: "Alicia Stone", title: "VP Revenue Excellence", signal: "Executive sponsor for coaching rollout." },
+      { name: "Devin Liu", title: "Head of Global Sales Operations", signal: "Driving the forecasting workstream today." }
+    ]
+  },
+  {
+    id: "kitewell-labs",
+    name: "Kitewell Labs",
+    region: "West",
+    segment: "Growth",
+    tam: 1900000,
+    engagement: 44,
+    intent: "Medium",
+    score: 78,
+    currentOwner: "Open Pool",
+    suggestedOwner: "Maya Torres",
+    recommendation: "assign",
+    tier: "P2",
+    openOpps: 0,
+    relationshipCount: 2,
+    formerEmployer: true,
+    warmIntro: true,
+    why: "This is the cleanest open-pool account for Maya: right region, prior operator history, and a credible intro path before any rep cycles are wasted.",
+    nextMove: "Assign to Maya and sequence a two-step outreach plan through the former employer tie and the warm-intro contact.",
+    relationshipEdge: [
+      "Two first-degree connections already map to commercial operations and enablement.",
+      "Former employer overlap gives Maya immediate context with the VP of sales operations.",
+      "Warm intro is available through an advisory board member."
+    ],
+    changeNotes: [
+      "No current owner means there is no transfer friction.",
+      "This is a better fit for Maya than adding another speculative account to Owen's incubator queue."
+    ],
+    contacts: [
+      { name: "Priya Nordin", title: "VP Sales Operations", signal: "Former employer overlap with Maya." },
+      { name: "Evan Cole", title: "Director, Revenue Programs", signal: "Board advisor has offered an introduction." }
+    ]
+  },
+  {
+    id: "rivet-cloud",
+    name: "Rivet Cloud",
+    region: "East",
+    segment: "Strategic",
+    tam: 2200000,
+    engagement: 74,
+    intent: "High",
+    score: 87,
+    currentOwner: "Nia Brooks",
+    suggestedOwner: "Nia Brooks",
+    recommendation: "keep",
+    tier: "P1",
+    openOpps: 2,
+    relationshipCount: 5,
+    formerEmployer: false,
+    warmIntro: false,
+    why: "Nia already owns deep commercial relationships, active pipeline, and the best route into the COO's office for a larger platform expansion.",
+    nextMove: "Keep ownership stable and add executive air cover to accelerate the second opportunity into technical validation.",
+    relationshipEdge: [
+      "Five first-degree connections across RevOps, GTM systems, and the COO's staff.",
+      "Two open opportunities support continuity as the right near-term move."
+    ],
+    changeNotes: [
+      "This is one of the healthiest accounts on the East book.",
+      "No re-route should be considered until the active opportunity set settles."
+    ],
+    contacts: [
+      { name: "Harper Sutton", title: "SVP Revenue Systems", signal: "Primary champion for platform standardization." },
+      { name: "Mikhael Ross", title: "Chief Operating Officer", signal: "Nia has direct executive reach through prior council work." }
+    ]
+  },
+  {
+    id: "glacier-works",
+    name: "Glacier Works",
+    region: "Central",
+    segment: "Large Enterprise",
+    tam: 1600000,
+    engagement: 19,
+    intent: "Low",
+    score: 58,
+    currentOwner: "Julian Park",
+    suggestedOwner: "Open Pool",
+    recommendation: "release",
+    tier: "P3",
+    openOpps: 0,
+    relationshipCount: 0,
+    formerEmployer: false,
+    warmIntro: false,
+    why: "This account consumes planning time without relationship leverage, active demand, or meaningful pipeline. It is a capacity tax on the busiest rep in the pod.",
+    nextMove: "Release back to pool and revisit only if intent or a relationship signal appears in the next planning cycle.",
+    relationshipEdge: [
+      "No first-degree relationship signal is available today.",
+      "No warm-intro path or former employer context exists on the current team."
+    ],
+    changeNotes: [
+      "Removing Glacier Works is the fastest way to create room on Julian's book.",
+      "There is no open opportunity risk tied to the release."
+    ],
+    contacts: [
+      { name: "No active contact set", title: "Coverage paused", signal: "No validated executive contact is working with the team now." }
+    ]
+  },
+  {
+    id: "lantern-bio",
+    name: "Lantern Bio",
+    region: "West",
+    segment: "Growth",
+    tam: 1100000,
+    engagement: 57,
+    intent: "Medium",
+    score: 75,
+    currentOwner: "Open Pool",
+    suggestedOwner: "Owen Patel",
+    recommendation: "assign",
+    tier: "P2",
+    openOpps: 1,
+    relationshipCount: 1,
+    formerEmployer: false,
+    warmIntro: true,
+    why: "The account is still being shaped, making it a better fit for the incubation overlay than a full territory rep right now.",
+    nextMove: "Assign to Owen for 45 days, validate product-market fit, then decide whether to graduate into a core field book.",
+    relationshipEdge: [
+      "One first-degree connection exists into the revenue programs team.",
+      "Warm intro available from a mutual implementation partner.",
+      "A small open opportunity means speed matters, but handoff complexity is still low."
+    ],
+    changeNotes: [
+      "This is a staging account, not yet a protect-at-all-costs field motion.",
+      "Using Owen preserves focus on higher-value core books."
+    ],
+    contacts: [
+      { name: "Marta Reyes", title: "Director, Commercial Analytics", signal: "Likely first discovery partner through warm intro." },
+      { name: "Jon Wilkes", title: "Senior Manager, Sales Programs", signal: "Already evaluating activity data quality." }
+    ]
+  },
+  {
+    id: "cedarstack",
+    name: "CedarStack",
+    region: "East",
+    segment: "Strategic",
+    tam: 3100000,
+    engagement: 61,
+    intent: "High",
+    score: 84,
+    currentOwner: "Nia Brooks",
+    suggestedOwner: "Nia Brooks",
+    recommendation: "keep",
+    tier: "P1",
+    openOpps: 1,
+    relationshipCount: 4,
+    formerEmployer: false,
+    warmIntro: false,
+    why: "The account is not fully expanded yet, but Nia's relationship map and active sponsor base still outweigh any balancing argument.",
+    nextMove: "Keep with Nia and add a named specialist for Forecasting rather than re-routing ownership.",
+    relationshipEdge: [
+      "Four first-degree connections sit with sales strategy, systems, and enablement leaders.",
+      "One open opportunity is in qualification and depends on the current sponsor map."
+    ],
+    changeNotes: [
+      "Engagement is solid but not saturated, which makes this a keep with support, not a transfer candidate.",
+      "The team should watch capacity, not ownership fit, on this account."
+    ],
+    contacts: [
+      { name: "Talia Greene", title: "VP Sales Strategy", signal: "Primary executive sponsor for planning automation." },
+      { name: "Marcus Bell", title: "Director, GTM Systems", signal: "Operational lead for the current evaluation." }
+    ]
+  },
+  {
+    id: "driftscale",
+    name: "DriftScale",
+    region: "National",
+    segment: "Strategic",
+    tam: 2700000,
+    engagement: 48,
+    intent: "Medium",
+    score: 81,
+    currentOwner: "Maya Torres",
+    suggestedOwner: "Owen Patel",
+    recommendation: "review",
+    tier: "P1",
+    openOpps: 1,
+    relationshipCount: 2,
+    formerEmployer: false,
+    warmIntro: true,
+    why: "The account is cross-regional and still in shaping mode. Maya opened the door, but Owen may be the better owner for the next phase if the motion remains incubational.",
+    nextMove: "Run a joint 30-day proof period. If the account stays exploratory, move it to Owen; if buying intent sharpens, keep it with Maya.",
+    relationshipEdge: [
+      "Two first-degree connections sit with Maya inside national sales operations.",
+      "Warm intro from a shared services partner can support either routing choice.",
+      "Open opportunity is early enough that a controlled transfer remains possible."
+    ],
+    changeNotes: [
+      "This is the most nuanced routing decision in the book because both owners have a valid claim.",
+      "A decision should be made before quarter-end to prevent shared-ownership drift."
+    ],
+    contacts: [
+      { name: "Noor Haddad", title: "VP Revenue Architecture", signal: "Current Maya relationship; ideal contact for a joint call." },
+      { name: "Ben Torres", title: "Director, Commercial Transformation", signal: "Warm intro available through implementation partner." }
+    ]
+  },
+  {
+    id: "ironpeak-robotics",
+    name: "IronPeak Robotics",
+    region: "Central",
+    segment: "Growth",
+    tam: 980000,
+    engagement: 33,
+    intent: "Medium",
+    score: 65,
+    currentOwner: "Open Pool",
+    suggestedOwner: "Julian Park",
+    recommendation: "assign",
+    tier: "P3",
+    openOpps: 0,
+    relationshipCount: 2,
+    formerEmployer: false,
+    warmIntro: false,
+    why: "The TAM is moderate, but the account fits Julian's industrial motion and comes with enough relationship signal to justify a direct assignment.",
+    nextMove: "Assign to Julian only if Glacier Works is released; otherwise keep in pool until capacity is available.",
+    relationshipEdge: [
+      "Two first-degree connections exist with field operations and manufacturing sales leaders.",
+      "Industrial fit is stronger here than on most other open-pool accounts."
+    ],
+    changeNotes: [
+      "This assignment is contingent on capacity relief elsewhere on Julian's book.",
+      "It should not be added if Glacier Works remains active."
+    ],
+    contacts: [
+      { name: "Keiko Shaw", title: "Director, Revenue Operations", signal: "Most likely first meeting path for Julian." },
+      { name: "Darren Miles", title: "VP Industrial Sales", signal: "Direct connection on Julian's extended network." }
+    ]
+  },
+  {
+    id: "velvet-harbor",
+    name: "Velvet Harbor",
+    region: "East",
+    segment: "Large Enterprise",
+    tam: 1500000,
+    engagement: 12,
+    intent: "Low",
+    score: 52,
+    currentOwner: "Nia Brooks",
+    suggestedOwner: "Open Pool",
+    recommendation: "release",
+    tier: "P3",
+    openOpps: 0,
+    relationshipCount: 0,
+    formerEmployer: false,
+    warmIntro: false,
+    why: "Coverage has gone quiet, there is no active relationship advantage, and the TAM is not large enough to justify protected ownership on a strong East book.",
+    nextMove: "Release back to the pool and re-evaluate only if net-new intent or a credible executive intro appears.",
+    relationshipEdge: [
+      "No first-degree relationship or warm-intro signal is active today.",
+      "The current book can absorb the loss of this account without hurting in-quarter execution."
+    ],
+    changeNotes: [
+      "This release gives Nia room to deepen focus on CedarStack and Rivet Cloud.",
+      "No open opportunities or executive calls are scheduled."
+    ],
+    contacts: [
+      { name: "Coverage inactive", title: "No active champion", signal: "Customer is not presently engaged with a named sponsor." }
+    ]
+  }
+];
+
+const tabMeta = [
+  { key: "coverage", label: "Coverage Grid" },
+  { key: "reps", label: "Rep Loadout" },
+  { key: "queue", label: "Decision Queue" }
+];
+
+const filterMeta = [
+  { key: "relationship", label: "1st Connections", group: "signal" },
+  { key: "formerEmployer", label: "Former Employer", group: "signal" },
+  { key: "warmIntro", label: "Warm Intro", group: "signal" },
+  { key: "openOpp", label: "Open Opp", group: "signal" },
+  { key: "keep", label: "Keep", group: "action" },
+  { key: "review", label: "Review", group: "action" },
+  { key: "release", label: "Release", group: "action" },
+  { key: "assign", label: "Assign", group: "action" }
+];
+
+const recommendationMeta = {
+  keep: {
+    label: "Keep",
+    tone: "keep",
+    blurb: "The current owner has the clearest right to keep this account."
+  },
+  review: {
+    label: "Review",
+    tone: "review",
+    blurb: "Manager decision required because more than one routing choice is defensible."
+  },
+  release: {
+    label: "Release",
+    tone: "release",
+    blurb: "The current owner should release this account to improve fit or capacity."
+  },
+  assign: {
+    label: "Assign",
+    tone: "assign",
+    blurb: "This open-pool account is ready for a specific owner."
+  }
+};
+
+const state = {
+  activeTab: "coverage",
+  selectedFilters: new Set(),
+  ownerFilter: "all",
+  selectedRepCard: reps[0].name,
+  search: "",
+  sortKey: "score",
+  sortDir: "desc",
+  activeAccountId: null
+};
+
+const currencyShort = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  notation: "compact",
+  maximumFractionDigits: 1
+});
+
+const currencyWhole = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0
+});
+
+const dom = {
+  heroNote: document.getElementById("heroNote"),
+  statsBar: document.getElementById("statsBar"),
+  summaryGrid: document.getElementById("summaryGrid"),
+  tabs: document.getElementById("tabs"),
+  filterRow: document.getElementById("filterRow"),
+  repPills: document.getElementById("repPills"),
+  searchInput: document.getElementById("searchInput"),
+  clearFilters: document.getElementById("clearFilters"),
+  coveragePanel: document.getElementById("coveragePanel"),
+  repsPanel: document.getElementById("repsPanel"),
+  queuePanel: document.getElementById("queuePanel"),
+  overlay: document.getElementById("overlay"),
+  closeModalBtn: document.getElementById("closeModalBtn"),
+  modalKicker: document.getElementById("modalKicker"),
+  modalDot: document.getElementById("modalDot"),
+  modalTitle: document.getElementById("modalTitle"),
+  modalMeta: document.getElementById("modalMeta"),
+  modalBadges: document.getElementById("modalBadges"),
+  modalRecommendation: document.getElementById("modalRecommendation"),
+  modalMetrics: document.getElementById("modalMetrics"),
+  modalWhy: document.getElementById("modalWhy"),
+  modalNext: document.getElementById("modalNext"),
+  modalRelationships: document.getElementById("modalRelationships"),
+  modalChanges: document.getElementById("modalChanges"),
+  modalContacts: document.getElementById("modalContacts")
+};
+
+function sum(values) {
+  return values.reduce((total, value) => total + value, 0);
+}
+
+function shortMoney(value) {
+  return currencyShort.format(value).replace(".0", "");
+}
+
+function dotColorFor(recommendation) {
+  if (recommendation === "keep") return "var(--keep-ink)";
+  if (recommendation === "review") return "var(--review-ink)";
+  if (recommendation === "release") return "var(--release-ink)";
+  return "var(--assign-ink)";
+}
+
+function getAccountSignals(account) {
+  const items = [];
+  if (account.relationshipCount > 0) items.push({ key: "relationship", label: "1st Conn " + account.relationshipCount });
+  if (account.formerEmployer) items.push({ key: "formerEmployer", label: "Former Employer" });
+  if (account.warmIntro) items.push({ key: "warmIntro", label: "Warm Intro" });
+  if (account.openOpps > 0) items.push({ key: "openOpp", label: "Open Opp " + account.openOpps });
+  if (account.intent) items.push({ key: "intent", label: account.intent + " Intent" });
+  items.push({ key: account.recommendation, label: recommendationMeta[account.recommendation].label });
+  return items;
+}
+
+function accountMatchesFilter(account) {
+  const search = state.search.trim().toLowerCase();
+  if (search) {
+    const haystack = [
+      account.name,
+      account.region,
+      account.segment,
+      account.currentOwner,
+      account.suggestedOwner,
+      account.intent
+    ].join(" ").toLowerCase();
+    if (!haystack.includes(search)) return false;
+  }
+
+  if (state.ownerFilter !== "all") {
+    const ownerMatch = account.currentOwner === state.ownerFilter || account.suggestedOwner === state.ownerFilter;
+    if (!ownerMatch) return false;
+  }
+
+  const signalFilters = filterMeta.filter((item) => item.group === "signal" && state.selectedFilters.has(item.key));
+  const actionFilters = filterMeta.filter((item) => item.group === "action" && state.selectedFilters.has(item.key));
+
+  for (const item of signalFilters) {
+    if (item.key === "relationship" && account.relationshipCount <= 0) return false;
+    if (item.key === "formerEmployer" && !account.formerEmployer) return false;
+    if (item.key === "warmIntro" && !account.warmIntro) return false;
+    if (item.key === "openOpp" && account.openOpps <= 0) return false;
+  }
+
+  if (actionFilters.length > 0) {
+    const actionMatch = actionFilters.some((item) => item.key === account.recommendation);
+    if (!actionMatch) return false;
+  }
+
+  return true;
+}
+
+function sortAccounts(list) {
+  const dir = state.sortDir === "asc" ? 1 : -1;
+  const sorted = [...list];
+  sorted.sort((a, b) => {
+    let left = a[state.sortKey];
+    let right = b[state.sortKey];
+
+    if (state.sortKey === "recommendation") {
+      const order = { keep: 4, review: 3, assign: 2, release: 1 };
+      left = order[a.recommendation];
+      right = order[b.recommendation];
+    }
+
+    if (typeof left === "string" || typeof right === "string") {
+      return String(left).localeCompare(String(right)) * dir;
+    }
+    return (left - right) * dir;
+  });
+  return sorted;
+}
+
+function getFilteredAccounts() {
+  return sortAccounts(accounts.filter(accountMatchesFilter));
+}
+
+function getQueueAccounts() {
+  return getFilteredAccounts();
+}
+
+function getRepSummary(repName) {
+  const suggested = accounts.filter((account) => account.suggestedOwner === repName);
+  const current = accounts.filter((account) => account.currentOwner === repName);
+  const protectedCount = current.filter((account) => account.recommendation === "keep").length;
+  const inbound = suggested.filter((account) => account.currentOwner !== repName).length;
+  const outbound = current.filter((account) => account.recommendation === "release").length;
+  return {
+    suggestedCount: suggested.length,
+    suggestedTam: sum(suggested.map((account) => account.tam)),
+    protectedCount,
+    inbound,
+    outbound
+  };
+}
+
+function renderHero() {
+  const reviewCount = accounts.filter((account) => account.recommendation === "review").length;
+  const releaseCount = accounts.filter((account) => account.recommendation === "release").length;
+  const assignCount = accounts.filter((account) => account.recommendation === "assign").length;
+  dom.heroNote.innerHTML = `
+    <div class="hero-note-label">Routing Signal</div>
+    <div class="hero-note-title">${reviewCount + releaseCount} manager decisions and ${assignCount} clean assignments are ready now.</div>
+    <p class="hero-note-copy">
+      Julian's book is the most overloaded, Maya owns the strongest West-side relationship leverage,
+      and Owen is the right landing zone for exploratory accounts that still need shaping.
+    </p>
+  `;
+}
+
+function renderStatsBar() {
+  const totalTam = sum(accounts.map((account) => account.tam));
+  const relationshipLed = accounts.filter((account) => account.relationshipCount > 0 || account.formerEmployer || account.warmIntro).length;
+  const openPool = accounts.filter((account) => account.currentOwner === "Open Pool").length;
+  const releaseCount = accounts.filter((account) => account.recommendation === "release").length;
+  const avgEngagement = Math.round(sum(accounts.map((account) => account.engagement)) / accounts.length);
+  const keepTam = sum(accounts.filter((account) => account.recommendation === "keep").map((account) => account.tam));
+
+  const stats = [
+    { label: "Total TAM", value: shortMoney(totalTam), foot: accounts.length + " routed accounts" },
+    { label: "Protected TAM", value: shortMoney(keepTam), foot: accounts.filter((account) => account.recommendation === "keep").length + " keep calls" },
+    { label: "Relationship-Led", value: relationshipLed, foot: "Network or intro signal present" },
+    { label: "Open Pool", value: openPool, foot: "Accounts without a current owner" },
+    { label: "Average Engagement", value: avgEngagement + "%", foot: releaseCount + " release candidates" }
+  ];
+
+  dom.statsBar.innerHTML = stats.map((stat) => `
+    <div class="stat-card">
+      <div class="stat-label">${stat.label}</div>
+      <div class="stat-value">${stat.value}</div>
+      <div class="stat-foot">${stat.foot}</div>
+    </div>
+  `).join("");
+}
+
+function renderSummaryGrid() {
+  const buckets = [
+    {
+      tone: "keep",
+      label: "Protected Coverage",
+      accounts: accounts.filter((account) => account.recommendation === "keep"),
+      foot: "Accounts where continuity is worth more than rebalance."
+    },
+    {
+      tone: "review",
+      label: "Manager Reviews",
+      accounts: accounts.filter((account) => account.recommendation === "review"),
+      foot: "Valid arguments exist on both sides of the routing decision."
+    },
+    {
+      tone: "release",
+      label: "Capacity Relief",
+      accounts: accounts.filter((account) => account.recommendation === "release"),
+      foot: "Accounts that should leave the current book this quarter."
+    },
+    {
+      tone: "assign",
+      label: "Ready To Assign",
+      accounts: accounts.filter((account) => account.recommendation === "assign"),
+      foot: "Open-pool accounts with a clear owner recommendation."
+    }
+  ];
+
+  dom.summaryGrid.innerHTML = buckets.map((bucket) => `
+    <div class="summary-card" data-tone="${bucket.tone}">
+      <div class="summary-label">${bucket.label}</div>
+      <div class="summary-value">${bucket.accounts.length}</div>
+      <div class="summary-foot">${shortMoney(sum(bucket.accounts.map((account) => account.tam)))} in TAM</div>
+      <div class="summary-foot">${bucket.foot}</div>
+    </div>
+  `).join("");
+}
+
+function renderTabs() {
+  dom.tabs.innerHTML = tabMeta.map((tab) => `
+    <button class="tab-btn ${state.activeTab === tab.key ? "active" : ""}" data-tab="${tab.key}">
+      ${tab.label}
+    </button>
+  `).join("");
+}
+
+function renderFilterRow() {
+  dom.filterRow.innerHTML = filterMeta.map((item) => `
+    <button class="chip ${state.selectedFilters.has(item.key) ? "active" : ""}" data-key="${item.key}">
+      ${item.label}
+    </button>
+  `).join("");
+}
+
+function renderRepPills() {
+  const pills = [{ name: "all", label: "All Routing", color: "#152126" }].concat(
+    reps.map((rep) => ({ name: rep.name, label: rep.name, color: rep.color }))
+  );
+
+  dom.repPills.innerHTML = pills.map((pill) => `
+    <button
+      class="chip rep-pill ${state.ownerFilter === pill.name ? "active" : ""}"
+      data-owner="${pill.name}"
+      style="${state.ownerFilter === pill.name ? "background:" + pill.color + ";" : ""}">
+      ${pill.label}
+    </button>
+  `).join("");
+}
+
+function renderCoveragePanel() {
+  const visible = getFilteredAccounts();
+  const totalTam = sum(visible.map((account) => account.tam));
+  const ownerLabel = state.ownerFilter === "all" ? "all routed books" : state.ownerFilter;
+
+  const rows = visible.map((account) => `
+    <tr data-account="${account.id}">
+      <td>
+        <div class="account-name">
+          <div class="account-dot" style="background:${dotColorFor(account.recommendation)};"></div>
+          <div>
+            <div class="account-title">${account.name}</div>
+            <div class="account-sub">${account.region} · ${account.segment} · ${account.tier}</div>
+          </div>
+        </div>
+      </td>
+      <td class="mono">${account.region}</td>
+      <td>${account.segment}</td>
+      <td>
+        <div class="signal-stack">
+          ${getAccountSignals(account).map((signal) => `<span class="badge ${signal.key}">${signal.label}</span>`).join("")}
+        </div>
+      </td>
+      <td>${shortMoney(account.tam)}</td>
+      <td>${account.engagement}%</td>
+      <td class="owner-cell">${account.currentOwner}</td>
+      <td class="owner-cell">${account.suggestedOwner === account.currentOwner ? account.suggestedOwner : account.currentOwner + ' <span class="owner-arrow">to</span> ' + account.suggestedOwner}</td>
+      <td><span class="badge ${account.recommendation}">${recommendationMeta[account.recommendation].label}</span></td>
+      <td><span class="score-pill">${account.score}</span></td>
+      <td><button class="details-btn" data-open="${account.id}">Details</button></td>
+    </tr>
+  `).join("");
+
+  const sortableHeaders = [
+    { key: "name", label: "Account" },
+    { key: "region", label: "Region" },
+    { key: "segment", label: "Segment" },
+    { key: "signals", label: "Signal Stack", sortable: false },
+    { key: "tam", label: "TAM" },
+    { key: "engagement", label: "Engagement" },
+    { key: "currentOwner", label: "Current Owner" },
+    { key: "suggestedOwner", label: "Suggested Route" },
+    { key: "recommendation", label: "Recommendation" },
+    { key: "score", label: "Score" },
+    { key: "detail", label: "", sortable: false }
+  ];
+
+  dom.coveragePanel.innerHTML = `
+    <div class="panel-shell">
+      <div class="panel-head">
+        <div>
+          <h2 class="panel-title">Coverage Grid</h2>
+          <p class="panel-copy">
+            Showing ${visible.length} accounts and ${shortMoney(totalTam)} in TAM across ${ownerLabel}.
+            Sort the table, stack filters, or open an account for full routing context.
+          </p>
+        </div>
+        <div class="panel-aside">
+          Score blends TAM, engagement, and relationship edge. Release calls are usually about
+          capacity and fit, not account quality alone.
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="grid-table">
+          <thead>
+            <tr>
+              ${sortableHeaders.map((header) => {
+                if (header.sortable === false) return `<th>${header.label}</th>`;
+                const active = state.sortKey === header.key;
+                const arrow = active ? (state.sortDir === "asc" ? " ↑" : " ↓") : "";
+                return `<th><button class="sort-btn ${active ? "active" : ""}" data-sort="${header.key}">${header.label}${arrow}</button></th>`;
+              }).join("")}
+            </tr>
+          </thead>
+          <tbody>
+            ${rows || `<tr><td colspan="11" class="empty-state">No accounts match the current filters.</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderRepPanel() {
+  const selectedRep = reps.find((rep) => rep.name === state.selectedRepCard) || reps[0];
+  const cards = reps.map((rep) => {
+    const summary = getRepSummary(rep.name);
+    return `
+      <button
+        class="rep-card ${selectedRep.name === rep.name ? "active" : ""}"
+        data-rep-card="${rep.name}"
+        style="${selectedRep.name === rep.name ? "background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246,248,249,0.94)); box-shadow:0 16px 28px rgba(21,33,38,0.08); border-color:" + rep.color + ";" : ""}">
+        <div class="rep-head">
+          <div>
+            <div class="rep-name">${rep.name}</div>
+            <div class="rep-role">${rep.role} · ${rep.focus}</div>
+          </div>
+          <div class="rep-capacity" style="color:${rep.color};">${rep.capacity}% cap</div>
+        </div>
+        <div class="rep-metrics">
+          <div class="rep-metric">
+            <div class="rep-metric-label">Suggested TAM</div>
+            <div class="rep-metric-value">${shortMoney(summary.suggestedTam)}</div>
+          </div>
+          <div class="rep-metric">
+            <div class="rep-metric-label">Suggested Accounts</div>
+            <div class="rep-metric-value">${summary.suggestedCount}</div>
+          </div>
+          <div class="rep-metric">
+            <div class="rep-metric-label">Protected</div>
+            <div class="rep-metric-value">${summary.protectedCount}</div>
+          </div>
+          <div class="rep-metric">
+            <div class="rep-metric-label">Inbound / Outbound</div>
+            <div class="rep-metric-value">${summary.inbound} / ${summary.outbound}</div>
+          </div>
+        </div>
+      </button>
+    `;
+  }).join("");
+
+  const repAccounts = sortAccounts(
+    accounts.filter((account) => account.currentOwner === selectedRep.name || account.suggestedOwner === selectedRep.name)
+  );
+
+  const repSummary = getRepSummary(selectedRep.name);
+  const repRows = repAccounts.map((account) => `
+    <tr data-account="${account.id}">
+      <td>
+        <div class="account-title">${account.name}</div>
+        <div class="account-sub">${account.region} · ${account.segment}</div>
+      </td>
+      <td><span class="badge ${account.recommendation}">${recommendationMeta[account.recommendation].label}</span></td>
+      <td class="owner-cell">${account.currentOwner}</td>
+      <td class="owner-cell">${account.suggestedOwner}</td>
+      <td>${shortMoney(account.tam)}</td>
+      <td>${account.engagement}%</td>
+      <td>${account.why}</td>
+    </tr>
+  `).join("");
+
+  dom.repsPanel.innerHTML = `
+    <div class="panel-shell">
+      <div class="panel-head">
+        <div>
+          <h2 class="panel-title">Rep Loadout</h2>
+          <p class="panel-copy">
+            Use this view to pressure-test how each book changes if the routing calls are accepted.
+          </p>
+        </div>
+        <div class="panel-aside">
+          Suggested TAM is based on the proposed routing outcome, not just the current book.
+        </div>
+      </div>
+      <div class="rep-grid">${cards}</div>
+      <div class="rep-detail">
+        <div class="rep-detail-head">
+          <div>
+            <h3 class="rep-detail-title">${selectedRep.name}</h3>
+            <p class="rep-detail-copy">
+              ${selectedRep.role} focused on ${selectedRep.focus}. This view includes accounts the rep
+              owns today and accounts they are proposed to inherit after the redesign.
+            </p>
+          </div>
+          <div class="rep-kpis">
+            <div class="rep-kpi">
+              <div class="rep-kpi-label">Suggested TAM</div>
+              <div class="rep-kpi-value">${shortMoney(repSummary.suggestedTam)}</div>
+            </div>
+            <div class="rep-kpi">
+              <div class="rep-kpi-label">Suggested Accounts</div>
+              <div class="rep-kpi-value">${repSummary.suggestedCount}</div>
+            </div>
+            <div class="rep-kpi">
+              <div class="rep-kpi-label">Protected</div>
+              <div class="rep-kpi-value">${repSummary.protectedCount}</div>
+            </div>
+            <div class="rep-kpi">
+              <div class="rep-kpi-label">Inbound / Outbound</div>
+              <div class="rep-kpi-value">${repSummary.inbound} / ${repSummary.outbound}</div>
+            </div>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="grid-table">
+            <thead>
+              <tr>
+                <th>Account</th>
+                <th>Recommendation</th>
+                <th>Current Owner</th>
+                <th>Suggested Owner</th>
+                <th>TAM</th>
+                <th>Engagement</th>
+                <th>Routing Rationale</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${repRows}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderQueuePanel() {
+  const queueAccounts = getQueueAccounts();
+  const columns = ["keep", "review", "release", "assign"].map((key) => {
+    const bucket = queueAccounts.filter((account) => account.recommendation === key);
+    return {
+      key,
+      label: recommendationMeta[key].label,
+      blurb: recommendationMeta[key].blurb,
+      accounts: bucket,
+      tam: shortMoney(sum(bucket.map((account) => account.tam)))
+    };
+  });
+
+  dom.queuePanel.innerHTML = `
+    <div class="panel-shell">
+      <div class="panel-head">
+        <div>
+          <h2 class="panel-title">Decision Queue</h2>
+          <p class="panel-copy">
+            Same account set, reorganized by action. This is the manager's routing board for the quarter.
+          </p>
+        </div>
+        <div class="panel-aside">
+          Review means leadership judgment is still required. Release and Assign are the clearest operational calls.
+        </div>
+      </div>
+      <div class="queue-board">
+        ${columns.map((column) => `
+          <div class="queue-column">
+            <div class="queue-head" data-tone="${column.key}">
+              <div class="queue-title">${column.label}</div>
+              <div class="queue-sub">${column.accounts.length} accounts · ${column.tam}</div>
+              <div class="queue-sub">${column.blurb}</div>
+            </div>
+            ${column.accounts.length ? column.accounts.map((account) => `
+              <button class="queue-card" data-open="${account.id}">
+                <div class="queue-card-title">${account.name}</div>
+                <div class="queue-card-copy">${account.why}</div>
+                <div class="queue-card-foot">
+                  <span>${shortMoney(account.tam)}</span>
+                  <span>${account.currentOwner} to ${account.suggestedOwner}</span>
+                </div>
+              </button>
+            `).join("") : `<div class="empty-state">No accounts in this column under the current filters.</div>`}
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderPanels() {
+  dom.coveragePanel.classList.toggle("active", state.activeTab === "coverage");
+  dom.repsPanel.classList.toggle("active", state.activeTab === "reps");
+  dom.queuePanel.classList.toggle("active", state.activeTab === "queue");
+
+  renderCoveragePanel();
+  renderRepPanel();
+  renderQueuePanel();
+}
+
+function renderAll() {
+  renderHero();
+  renderStatsBar();
+  renderSummaryGrid();
+  renderTabs();
+  renderFilterRow();
+  renderRepPills();
+  renderPanels();
+}
+
+function openModal(accountId) {
+  const account = accounts.find((item) => item.id === accountId);
+  if (!account) return;
+
+  state.activeAccountId = accountId;
+  const meta = recommendationMeta[account.recommendation];
+
+  dom.modalKicker.textContent = meta.label + " Recommendation";
+  dom.modalDot.style.background = dotColorFor(account.recommendation);
+  dom.modalTitle.textContent = account.name;
+  dom.modalMeta.innerHTML = `
+    ${account.region} · ${account.segment} · ${account.tier}
+    <br>
+    Current owner: ${account.currentOwner} · Suggested owner: ${account.suggestedOwner}
+  `;
+  dom.modalBadges.innerHTML = getAccountSignals(account)
+    .map((signal) => `<span class="badge ${signal.key}">${signal.label}</span>`)
+    .join("");
+  dom.modalRecommendation.className = "recommendation-box " + meta.tone;
+  dom.modalRecommendation.innerHTML = `<strong>${meta.label}:</strong> ${meta.blurb}`;
+  dom.modalMetrics.innerHTML = [
+    ["TAM", currencyWhole.format(account.tam)],
+    ["Score", account.score],
+    ["Engagement", account.engagement + "%"],
+    ["Intent", account.intent],
+    ["Open Opps", account.openOpps],
+    ["1st Conns", account.relationshipCount],
+    ["Current Owner", account.currentOwner],
+    ["Suggested Owner", account.suggestedOwner]
+  ].map(([label, value]) => `
+    <div class="metric-card">
+      <div class="metric-label">${label}</div>
+      <div class="metric-value">${value}</div>
+    </div>
+  `).join("");
+  dom.modalWhy.textContent = account.why;
+  dom.modalNext.textContent = account.nextMove;
+  dom.modalRelationships.innerHTML = account.relationshipEdge.map((item) => `<li>${item}</li>`).join("");
+  dom.modalChanges.innerHTML = account.changeNotes.map((item) => `<li>${item}</li>`).join("");
+  dom.modalContacts.innerHTML = account.contacts.map((contact) => `
+    <div class="contact-card">
+      <div class="contact-name">${contact.name}</div>
+      <div class="contact-title">${contact.title}</div>
+      <div class="contact-signal">${contact.signal}</div>
+    </div>
+  `).join("");
+
+  dom.overlay.classList.add("open");
+  document.body.classList.add("modal-open");
+}
+
+function closeModal() {
+  state.activeAccountId = null;
+  dom.overlay.classList.remove("open");
+  document.body.classList.remove("modal-open");
+}
+
+dom.tabs.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-tab]");
+  if (!button) return;
+  state.activeTab = button.dataset.tab;
+  renderAll();
+});
+
+dom.filterRow.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-key]");
+  if (!button) return;
+  const key = button.dataset.key;
+  if (state.selectedFilters.has(key)) state.selectedFilters.delete(key);
+  else state.selectedFilters.add(key);
+  renderAll();
+});
+
+dom.repPills.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-owner]");
+  if (!button) return;
+  state.ownerFilter = button.dataset.owner;
+  renderAll();
+});
+
+dom.clearFilters.addEventListener("click", () => {
+  state.selectedFilters.clear();
+  state.ownerFilter = "all";
+  state.search = "";
+  dom.searchInput.value = "";
+  renderAll();
+});
+
+dom.searchInput.addEventListener("input", (event) => {
+  state.search = event.target.value;
+  renderAll();
+});
+
+dom.coveragePanel.addEventListener("click", (event) => {
+  const sortButton = event.target.closest("[data-sort]");
+  if (sortButton) {
+    const key = sortButton.dataset.sort;
+    if (state.sortKey === key) state.sortDir = state.sortDir === "asc" ? "desc" : "asc";
+    else {
+      state.sortKey = key;
+      state.sortDir = key === "name" || key === "region" || key === "segment" || key === "currentOwner" || key === "suggestedOwner" ? "asc" : "desc";
+    }
+    renderAll();
+    return;
+  }
+
+  const openTarget = event.target.closest("[data-open]");
+  if (openTarget) {
+    openModal(openTarget.dataset.open);
+    return;
+  }
+
+  const row = event.target.closest("[data-account]");
+  if (row) openModal(row.dataset.account);
+});
+
+dom.repsPanel.addEventListener("click", (event) => {
+  const repButton = event.target.closest("[data-rep-card]");
+  if (repButton) {
+    state.selectedRepCard = repButton.dataset.repCard;
+    renderAll();
+    return;
+  }
+
+  const row = event.target.closest("[data-account]");
+  if (row) openModal(row.dataset.account);
+});
+
+dom.queuePanel.addEventListener("click", (event) => {
+  const openTarget = event.target.closest("[data-open]");
+  if (openTarget) openModal(openTarget.dataset.open);
+});
+
+dom.overlay.addEventListener("click", (event) => {
+  if (event.target === dom.overlay) closeModal();
+});
+
+dom.closeModalBtn.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && state.activeAccountId) closeModal();
+});
+
+renderAll();
+</script>
+</body>
+</html>
