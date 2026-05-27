@@ -3,1158 +3,1097 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Territory Design Studio | Backstory</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<title>Territory Design | Backstory</title>
 <style>
-:root {
-  --bg: #ebeff1;
-  --surface: #ffffff;
-  --surface-2: #f6f8f9;
-  --surface-3: #dde5e8;
-  --ink: #152126;
-  --muted: #5c6b73;
-  --line: rgba(21, 33, 38, 0.12);
-  --shadow: 0 18px 44px rgba(21, 33, 38, 0.12);
-  --accent: #5f8e9e;
-  --accent-deep: #284f5d;
-  --signal: #0f766e;
-  --warn: #c56b33;
-  --danger: #a64242;
-  --violet: #6f5ea8;
-  --keep-bg: #eff9f3;
-  --keep-ink: #1f6a46;
-  --review-bg: #fff5ea;
-  --review-ink: #8a4a18;
-  --release-bg: #fdeeee;
-  --release-ink: #993939;
-  --assign-bg: #eef5fb;
-  --assign-ink: #235f89;
-}
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html,
+body { margin: 0; padding: 0; }
+
 body {
-  font-family: "Lexend", sans-serif;
-  background:
-    radial-gradient(circle at top left, rgba(95, 142, 158, 0.14), transparent 32%),
-    radial-gradient(circle at 85% 8%, rgba(197, 107, 51, 0.14), transparent 28%),
-    var(--bg);
-  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f1f5f9;
+  color: #1e293b;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-.app-shell { min-height: 100vh; }
-
-.hero {
-  position: relative;
-  overflow: hidden;
-  padding: 42px 40px 28px;
-  background:
-    linear-gradient(135deg, rgba(10, 17, 22, 0.92), rgba(25, 35, 41, 0.94)),
-    linear-gradient(90deg, #101820, #1a252b);
-  color: #f8fbfc;
+button,
+input {
+  font: inherit;
 }
 
-.hero::before,
-.hero::after {
-  content: "";
-  position: absolute;
-  border-radius: 999px;
-  pointer-events: none;
-}
-
-.hero::before {
-  width: 420px;
-  height: 420px;
-  right: -140px;
-  top: -180px;
-  background: radial-gradient(circle, rgba(95, 142, 158, 0.4), transparent 68%);
-}
-
-.hero::after {
-  width: 320px;
-  height: 320px;
-  left: -100px;
-  bottom: -220px;
-  background: radial-gradient(circle, rgba(197, 107, 51, 0.26), transparent 70%);
-}
-
-.hero > * {
-  position: relative;
-  z-index: 1;
-}
-
-.eyebrow {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  color: rgba(248, 251, 252, 0.56);
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 0.9fr);
-  gap: 28px;
-  align-items: end;
-  margin-top: 18px;
-}
-
-.hero-title {
-  margin: 0;
-  font-size: clamp(34px, 4.5vw, 58px);
-  line-height: 0.98;
-  letter-spacing: -1.6px;
-}
-
-.hero-copy {
-  max-width: 760px;
-  margin: 16px 0 0;
-  font-size: 15px;
-  line-height: 1.7;
-  color: rgba(248, 251, 252, 0.76);
-}
-
-.hero-meta {
+.header {
+  background: #000;
+  color: #fff;
+  padding: 18px 32px;
   display: flex;
+  align-items: center;
+  gap: 28px;
   flex-wrap: wrap;
-  gap: 10px 16px;
-  margin-top: 18px;
-  font-family: "IBM Plex Mono", monospace;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.header-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6296ad, #1e293b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
   font-size: 11px;
-  color: rgba(248, 251, 252, 0.58);
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.header-meta {
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  padding-left: 20px;
+}
+
+.header-meta p {
+  margin: 0;
+  font-size: 11px;
+  opacity: 0.55;
+  letter-spacing: 0.2px;
   text-transform: uppercase;
 }
 
-.hero-note {
-  padding: 18px 18px 20px;
-  border: 1px solid rgba(248, 251, 252, 0.12);
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
-  backdrop-filter: blur(10px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+.header-meta h1 {
+  margin: 6px 0 0;
+  font-size: 28px;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
 }
 
-.hero-note-label {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 1.3px;
+.header-meta .sub {
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.header-callout {
+  margin-left: auto;
+  max-width: 360px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-callout .k {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.52);
   text-transform: uppercase;
-  color: rgba(248, 251, 252, 0.58);
+  letter-spacing: 0.7px;
 }
 
-.hero-note-title {
-  margin-top: 12px;
-  font-size: 20px;
-  line-height: 1.2;
-  letter-spacing: -0.4px;
-}
-
-.hero-note-copy {
-  margin: 10px 0 0;
-  font-size: 13px;
-  line-height: 1.65;
-  color: rgba(248, 251, 252, 0.72);
+.header-callout .v {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .stats-bar {
+  background: #fff;
+  padding: 12px 32px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  align-items: center;
   position: sticky;
   top: 0;
-  z-index: 20;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 10px;
-  padding: 14px 22px;
-  background: rgba(245, 248, 249, 0.92);
-  border-bottom: 1px solid rgba(21, 33, 38, 0.08);
-  backdrop-filter: blur(14px);
+  z-index: 40;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
 }
 
-.stat-card {
-  padding: 12px 14px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(21, 33, 38, 0.08);
-  box-shadow: 0 8px 24px rgba(21, 33, 38, 0.06);
+.stat-chip .val {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.1;
 }
 
-.stat-label {
-  font-family: "IBM Plex Mono", monospace;
+.stat-chip .lbl {
   font-size: 10px;
-  letter-spacing: 1.2px;
+  color: #94a3b8;
   text-transform: uppercase;
-  color: var(--muted);
+  letter-spacing: 0.5px;
 }
 
-.stat-value {
-  margin-top: 6px;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: -0.8px;
+.nav {
+  display: flex;
+  gap: 3px;
+  padding: 14px 32px 0;
+  overflow-x: auto;
+  background: #f1f5f9;
 }
 
-.stat-foot {
-  margin-top: 5px;
-  font-size: 11px;
-  color: var(--muted);
+.tab {
+  padding: 8px 13px;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  background: #e2e8f0;
+  color: #64748b;
+  border: none;
+  white-space: nowrap;
+  transition: background 0.15s;
 }
 
-.page {
-  padding: 24px 24px 52px;
+.tab:hover {
+  background: #cbd5e1;
 }
 
-.summary-grid {
+.tab.active {
+  background: #fff;
+  color: #1e293b;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.summary-row {
+  padding: 18px 32px 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  margin-bottom: 18px;
+  gap: 12px;
 }
 
-.summary-card {
-  padding: 18px 18px 16px;
-  border-radius: 18px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: var(--shadow);
+.sum-card {
+  border-radius: 10px;
+  padding: 14px 16px;
+  border: 1px solid #dbe5ec;
+  background: #fff;
 }
 
-.summary-card[data-tone="keep"] { border-top: 4px solid var(--keep-ink); }
-.summary-card[data-tone="review"] { border-top: 4px solid var(--review-ink); }
-.summary-card[data-tone="release"] { border-top: 4px solid var(--release-ink); }
-.summary-card[data-tone="assign"] { border-top: 4px solid var(--assign-ink); }
+.sum-card.keep { border-top: 3px solid #15803d; }
+.sum-card.review { border-top: 3px solid #b45309; }
+.sum-card.release { border-top: 3px solid #991b1b; }
+.sum-card.assign { border-top: 3px solid #0369a1; }
 
-.summary-label {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 1.2px;
+.sum-lbl {
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
-  color: var(--muted);
+  letter-spacing: 0.7px;
+  color: #64748b;
+  margin-bottom: 6px;
 }
 
-.summary-value {
-  margin-top: 10px;
-  font-size: 32px;
+.sum-num {
+  font-size: 28px;
+  font-weight: 800;
   line-height: 1;
-  letter-spacing: -1px;
+  color: #111827;
 }
 
-.summary-foot {
+.sum-sub {
   margin-top: 8px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.control-slab {
-  margin-bottom: 18px;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.86);
-  box-shadow: var(--shadow);
-}
-
-.tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
-  flex-wrap: wrap;
-}
-
-.tab-btn {
-  padding: 11px 14px;
-  border: 0;
-  border-radius: 12px;
-  background: var(--surface-2);
-  color: var(--muted);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.18s ease;
-}
-
-.tab-btn:hover {
-  background: var(--surface-3);
-  color: var(--ink);
-}
-
-.tab-btn.active {
-  background: var(--ink);
-  color: #ffffff;
-}
-
-.control-row {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.control-row + .control-row { margin-top: 12px; }
-
-.filter-row,
-.rep-pills {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.chip {
-  padding: 8px 11px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: #ffffff;
-  color: var(--muted);
-  font: inherit;
   font-size: 12px;
+  color: #64748b;
+}
+
+.filter-row {
+  padding: 10px 32px 8px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sig-chip {
+  padding: 4px 10px;
+  border-radius: 16px;
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+  color: #374151;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.18s ease;
+  white-space: nowrap;
+  transition: all 0.15s;
 }
 
-.chip:hover {
-  border-color: rgba(21, 33, 38, 0.24);
-  color: var(--ink);
+.sig-chip:hover {
+  border-color: #6296ad;
+  color: #6296ad;
 }
 
-.chip.active {
-  color: #ffffff;
-  border-color: transparent;
-}
-
-.chip[data-key="relationship"].active { background: var(--accent); }
-.chip[data-key="formerEmployer"].active { background: var(--violet); }
-.chip[data-key="warmIntro"].active { background: var(--signal); }
-.chip[data-key="openOpp"].active { background: var(--warn); }
-.chip[data-key="keep"].active { background: var(--keep-ink); }
-.chip[data-key="review"].active { background: var(--review-ink); }
-.chip[data-key="release"].active { background: var(--release-ink); }
-.chip[data-key="assign"].active { background: var(--assign-ink); }
-
-.rep-pill.active {
-  color: #ffffff;
-  border-color: transparent;
-}
+.sig-chip.sig-active { color: #fff; }
+.sig-chip.conn-chip.sig-active { background: #10b981; border-color: #10b981; }
+.sig-chip.fe-chip.sig-active { background: #6296ad; border-color: #6296ad; }
+.sig-chip.warm-chip.sig-active { background: #9333ea; border-color: #9333ea; }
+.sig-chip.opp-chip.sig-active { background: #16a34a; border-color: #16a34a; }
+.sig-chip.keep-chip.sig-active { background: #16a34a; border-color: #16a34a; }
+.sig-chip.review-chip.sig-active { background: #d97706; border-color: #d97706; }
+.sig-chip.release-chip.sig-active { background: #dc2626; border-color: #dc2626; }
+.sig-chip.assign-chip.sig-active { background: #0369a1; border-color: #0369a1; }
 
 .clear-btn {
-  padding: 9px 12px;
-  border: 0;
-  border-radius: 10px;
-  background: var(--surface-2);
-  color: var(--muted);
-  font: inherit;
-  font-size: 12px;
+  margin-left: 8px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  border: none;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
 }
 
 .clear-btn:hover {
-  background: var(--surface-3);
-  color: var(--ink);
+  background: #e2e8f0;
+  color: #1e293b;
 }
 
-.search-box {
-  flex: 1 1 280px;
-  min-width: 220px;
+.search-row {
+  padding: 10px 32px;
+  background: #f1f5f9;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.search-box input {
+.search-row input {
   width: 100%;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: #ffffff;
-  font: inherit;
+  max-width: 420px;
+  padding: 9px 14px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
   font-size: 13px;
-  color: var(--ink);
   outline: none;
+  background: #fff;
 }
 
-.search-box input:focus {
-  border-color: rgba(95, 142, 158, 0.6);
-  box-shadow: 0 0 0 4px rgba(95, 142, 158, 0.16);
+.search-row input:focus {
+  border-color: #6296ad;
+  box-shadow: 0 0 0 3px rgba(98, 150, 173, 0.15);
 }
 
-.panel {
-  display: none;
-}
-
-.panel.active {
-  display: block;
-}
-
-.panel-shell {
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.86);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-.panel-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: end;
-  padding: 20px 20px 16px;
-  border-bottom: 1px solid var(--line);
-}
-
-.panel-title {
-  margin: 0;
-  font-size: 23px;
-  letter-spacing: -0.5px;
-}
-
-.panel-copy {
-  margin: 8px 0 0;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--muted);
-}
-
-.panel-aside {
-  min-width: 240px;
-  max-width: 320px;
-  padding: 12px 14px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, #f6fafb, #eef4f6);
-  border: 1px solid rgba(95, 142, 158, 0.16);
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--muted);
-}
-
-.table-wrap {
-  overflow-x: auto;
-}
-
-.grid-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 1080px;
-}
-
-.grid-table thead tr {
-  background: #f6f8f9;
-}
-
-.grid-table th,
-.grid-table td {
-  padding: 13px 16px;
-  text-align: left;
-  border-bottom: 1px solid rgba(21, 33, 38, 0.08);
-  vertical-align: top;
-}
-
-.grid-table th {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 1.1px;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-.grid-table tbody tr {
-  cursor: pointer;
-  transition: background 0.16s ease;
-}
-
-.grid-table tbody tr:hover {
-  background: rgba(95, 142, 158, 0.08);
-}
-
-.sort-btn {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-  text-transform: inherit;
-  letter-spacing: inherit;
-}
-
-.sort-btn.active {
-  color: var(--ink);
-}
-
-.account-name {
-  display: flex;
-  gap: 10px;
-  align-items: start;
-}
-
-.account-dot {
-  width: 11px;
-  height: 11px;
-  margin-top: 5px;
-  border-radius: 999px;
-  flex-shrink: 0;
-}
-
-.account-title {
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.3;
-}
-
-.account-sub {
-  margin-top: 3px;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.mono {
-  font-family: "IBM Plex Mono", monospace;
-}
-
-.signal-stack {
+.owner-pills {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-size: 10px;
+.owner-pill {
+  padding: 5px 10px;
+  border-radius: 16px;
+  border: 1px solid #dbe5ec;
+  background: #fff;
+  color: #475569;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.3px;
-  white-space: nowrap;
-}
-
-.badge.connection { background: #edf6fa; color: var(--accent-deep); }
-.badge.formerEmployer { background: #f1edfb; color: var(--violet); }
-.badge.warmIntro { background: #ecf8f5; color: var(--signal); }
-.badge.openOpp { background: #fff2e8; color: var(--warn); }
-.badge.intent { background: #f1f4f5; color: #53626a; }
-.badge.keep { background: var(--keep-bg); color: var(--keep-ink); }
-.badge.review { background: var(--review-bg); color: var(--review-ink); }
-.badge.release { background: var(--release-bg); color: var(--release-ink); }
-.badge.assign { background: var(--assign-bg); color: var(--assign-ink); }
-
-.owner-cell {
-  font-size: 12px;
-  line-height: 1.55;
-}
-
-.owner-arrow {
-  color: var(--muted);
-}
-
-.score-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 42px;
-  padding: 7px 9px;
-  border-radius: 999px;
-  background: var(--surface-2);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.details-btn {
-  padding: 8px 10px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #ffffff;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink);
   cursor: pointer;
 }
 
-.details-btn:hover {
-  background: var(--surface-2);
-}
-
-.rep-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  padding: 20px;
-  border-bottom: 1px solid var(--line);
-}
-
-.rep-card {
-  padding: 16px;
-  border-radius: 18px;
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 248, 249, 0.9));
-  cursor: pointer;
-  transition: 0.18s ease;
-}
-
-.rep-card:hover,
-.rep-card.active {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 28px rgba(21, 33, 38, 0.08);
-}
-
-.rep-card.active {
+.owner-pill.active {
+  color: #fff;
   border-color: transparent;
 }
 
-.rep-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: start;
+.tab-content {
+  display: none;
+  padding: 18px 32px 40px;
 }
 
-.rep-name {
-  font-size: 18px;
-  line-height: 1.1;
+.tab-content.active {
+  display: block;
 }
 
-.rep-role {
-  margin-top: 5px;
-  font-size: 12px;
-  color: var(--muted);
+.section-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 12px;
 }
 
-.rep-capacity {
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid var(--line);
+.hint {
   font-size: 11px;
-  font-weight: 700;
+  color: #555;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-left: 3px solid #000;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 18px;
 }
 
-.rep-metrics {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 16px;
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.07);
+  background: #fff;
+  margin-bottom: 20px;
 }
 
-.rep-metric {
-  padding: 10px 12px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.rep-metric-label {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--muted);
-}
-
-.rep-metric-value {
-  margin-top: 5px;
-  font-size: 17px;
-  line-height: 1.1;
-}
-
-.rep-detail {
-  padding: 20px;
-}
-
-.rep-detail-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-}
-
-.rep-detail-title {
-  margin: 0;
-  font-size: 26px;
-  letter-spacing: -0.7px;
-}
-
-.rep-detail-copy {
-  margin: 8px 0 0;
-  max-width: 760px;
+.acc-table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+  background: #fff;
   font-size: 13px;
-  line-height: 1.7;
-  color: var(--muted);
 }
 
-.rep-kpis {
+.acc-table thead tr {
+  background: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.acc-table th {
+  padding: 9px 10px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.acc-table tbody tr.acc-row {
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.acc-table tbody tr.acc-row:hover {
+  background: #e8f1f5;
+}
+
+.acc-table td {
+  padding: 10px 10px;
+  vertical-align: top;
+}
+
+.th-sort {
+  cursor: pointer;
+  user-select: none;
+}
+
+.th-sort:hover {
+  background: #e2e8f0;
+}
+
+.th-sort.sort-asc::after {
+  content: " ^";
+  font-size: 9px;
+}
+
+.th-sort.sort-desc::after {
+  content: " v";
+  font-size: 9px;
+}
+
+.acc-name {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.acc-sub {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.rep-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.15s;
+  border: 1px solid transparent;
+}
+
+.rep-card:hover {
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.11);
+  transform: translateY(-2px);
+}
+
+.rep-card.active {
+  border-color: #cbd5e1;
+}
+
+.rep-card-top {
   display: flex;
+  align-items: center;
   gap: 10px;
+  margin-bottom: 10px;
+}
+
+.rep-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.rep-card-name {
+  font-weight: 800;
+  font-size: 13px;
+  color: #1e293b;
+}
+
+.rep-card-sub {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.rep-card-foot {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 11px;
+}
+
+.rep-card-foot span {
+  font-weight: 600;
+}
+
+.rep-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.rep-card-btn,
+.mini-btn {
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.15s;
+}
+
+.rep-card-btn:hover,
+.mini-btn:hover {
+  background: #f1f5f9;
+}
+
+.rep-hdr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   flex-wrap: wrap;
 }
 
-.rep-kpi {
+.rep-hdr-copy {
+  flex: 1;
+  min-width: 240px;
+}
+
+.rep-hdr-name {
+  font-size: 17px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.rep-hdr-meta {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.rep-hdr-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.mini-btn.active {
+  background: #1e293b;
+  color: #fff;
+  border-color: #1e293b;
+}
+
+.summary-table td {
   padding: 10px 12px;
-  border-radius: 14px;
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-  min-width: 140px;
 }
 
-.rep-kpi-label {
-  font-family: "IBM Plex Mono", monospace;
+.summary-table .num {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 12px;
   font-size: 10px;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-weight: 700;
+  margin-right: 3px;
+  white-space: nowrap;
 }
 
-.rep-kpi-value {
-  margin-top: 4px;
-  font-size: 18px;
+.b-keep { background: #f0fdf4; color: #15803d; border: 1px solid #86efac; }
+.b-review { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+.b-release { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.b-assign { background: #eff6ff; color: #0369a1; border: 1px solid #93c5fd; }
+.b-conn { background: #ecfdf5; color: #059669; border: 1px solid #6ee7b7; }
+.b-fe { background: #e8f1f5; color: #6296ad; border: 1px solid #a8c4d1; }
+.b-intent { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+.b-warm { background: #fdf4ff; color: #9333ea; border: 1px solid #d8b4fe; }
+.b-opp { background: #f0fdf4; color: #16a34a; border: 1px solid #86efac; }
+.b-locked { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+
+.owner-link {
+  padding: 0;
+  border: none;
+  background: none;
+  color: #0f4c81;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.queue-board {
+.owner-link:hover {
+  text-decoration: underline;
+}
+
+.route-arrow {
+  color: #94a3b8;
+  margin: 0 4px;
+}
+
+.queue-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  padding: 20px;
+  gap: 12px;
 }
 
-.queue-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-height: 260px;
+.queue-col {
+  min-width: 0;
 }
 
 .queue-head {
+  background: #fff;
+  border-radius: 10px;
   padding: 14px;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: var(--surface-2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  margin-bottom: 10px;
 }
 
-.queue-head[data-tone="keep"] { background: var(--keep-bg); color: var(--keep-ink); }
-.queue-head[data-tone="review"] { background: var(--review-bg); color: var(--review-ink); }
-.queue-head[data-tone="release"] { background: var(--release-bg); color: var(--release-ink); }
-.queue-head[data-tone="assign"] { background: var(--assign-bg); color: var(--assign-ink); }
-
 .queue-title {
-  font-size: 17px;
-  line-height: 1.1;
+  font-size: 15px;
+  font-weight: 800;
 }
 
 .queue-sub {
-  margin-top: 5px;
-  font-size: 12px;
-  color: inherit;
-  opacity: 0.85;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 4px;
 }
 
 .queue-card {
-  padding: 14px;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: #ffffff;
+  width: 100%;
+  text-align: left;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  margin-bottom: 10px;
   cursor: pointer;
-  transition: 0.16s ease;
 }
 
 .queue-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(21, 33, 38, 0.08);
+  background: #f8fafc;
 }
 
 .queue-card-title {
-  font-size: 15px;
-  line-height: 1.25;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 .queue-card-copy {
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 12px;
-  line-height: 1.6;
-  color: var(--muted);
+  color: #64748b;
+  line-height: 1.55;
 }
 
 .queue-card-foot {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 10px;
-  font-size: 12px;
-  color: var(--muted);
+  margin-top: 8px;
+  font-size: 11px;
+  color: #475569;
 }
 
 .empty-state {
-  padding: 30px 20px;
-  text-align: center;
-  font-size: 13px;
-  color: var(--muted);
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  color: #64748b;
+  font-size: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .overlay {
+  display: none;
   position: fixed;
   inset: 0;
-  display: none;
+  background: rgba(15, 23, 42, 0.6);
+  z-index: 1000;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: rgba(13, 19, 23, 0.58);
-  backdrop-filter: blur(10px);
-  z-index: 200;
+  backdrop-filter: blur(4px);
 }
 
 .overlay.open {
   display: flex;
 }
 
-body.modal-open {
-  overflow: hidden;
+.modal,
+.profile-modal {
+  background: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
 }
 
 .modal {
-  width: min(860px, 100%);
-  max-height: calc(100vh - 40px);
-  overflow: auto;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: linear-gradient(180deg, #ffffff, #f8fafb);
-  box-shadow: 0 28px 70px rgba(13, 19, 23, 0.28);
+  max-width: 680px;
 }
 
-.modal-head {
+.profile-modal {
+  max-width: 820px;
+}
+
+.modal-hdr {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #f1f5f9;
   position: sticky;
   top: 0;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
   z-index: 1;
-  padding: 22px 22px 18px;
-  border-bottom: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(14px);
-}
-
-.modal-kicker {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: var(--muted);
-}
-
-.modal-title-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.modal-title {
-  margin: 0;
-  font-size: 30px;
-  line-height: 1;
-  letter-spacing: -0.9px;
-}
-
-.modal-meta {
-  margin-top: 10px;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--muted);
-}
-
-.modal-badges {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-
-.close-btn {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--surface-2);
-  color: var(--muted);
-  font: inherit;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.close-btn:hover {
-  background: var(--surface-3);
-  color: var(--ink);
 }
 
 .modal-body {
-  padding: 20px 22px 24px;
+  padding: 20px 24px 28px;
 }
 
-.recommendation-box {
-  padding: 16px 18px;
-  border-radius: 18px;
-  font-size: 14px;
-  line-height: 1.7;
-  margin-bottom: 16px;
+.m-section {
+  margin-bottom: 20px;
 }
 
-.recommendation-box.keep {
-  background: var(--keep-bg);
-  color: var(--keep-ink);
-  border: 1px solid rgba(31, 106, 70, 0.18);
-}
-
-.recommendation-box.review {
-  background: var(--review-bg);
-  color: var(--review-ink);
-  border: 1px solid rgba(138, 74, 24, 0.18);
-}
-
-.recommendation-box.release {
-  background: var(--release-bg);
-  color: var(--release-ink);
-  border: 1px solid rgba(153, 57, 57, 0.18);
-}
-
-.recommendation-box.assign {
-  background: var(--assign-bg);
-  color: var(--assign-ink);
-  border: 1px solid rgba(35, 95, 137, 0.18);
+.m-section-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: #94a3b8;
+  margin-bottom: 8px;
 }
 
 .metric-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin-bottom: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
 }
 
 .metric-card {
-  padding: 12px 13px;
-  border-radius: 16px;
-  background: var(--surface-2);
-  border: 1px solid var(--line);
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 10px 12px;
 }
 
-.metric-label {
-  font-family: "IBM Plex Mono", monospace;
+.metric-card .mc-lbl {
   font-size: 10px;
+  color: #94a3b8;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--muted);
+  margin-bottom: 3px;
 }
 
-.metric-value {
-  margin-top: 6px;
-  font-size: 18px;
-  line-height: 1.1;
+.metric-card .mc-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1e293b;
 }
 
-.modal-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.info-card {
-  padding: 16px 16px 14px;
-  border-radius: 18px;
-  border: 1px solid var(--line);
-  background: #ffffff;
-}
-
-.info-label {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1.1px;
-  color: var(--muted);
-}
-
-.info-copy {
-  margin-top: 10px;
+.why-box {
+  background: #f8fafc;
+  border: 1px solid #dbe5ec;
+  border-radius: 8px;
+  padding: 12px 14px;
   font-size: 13px;
-  line-height: 1.7;
-  color: var(--ink);
+  color: #334155;
+  line-height: 1.65;
 }
 
-.bullet-list {
-  margin: 10px 0 0;
-  padding-left: 18px;
-  color: var(--ink);
-}
-
-.bullet-list li {
-  margin-bottom: 8px;
+.keep-box-keep,
+.keep-box-review,
+.keep-box-release,
+.keep-box-assign {
+  border-radius: 8px;
+  padding: 12px 14px;
   font-size: 13px;
   line-height: 1.6;
 }
 
-.contact-list {
-  display: grid;
-  gap: 8px;
-  margin-top: 10px;
+.keep-box-keep { background: #f0fdf4; border: 1px solid #86efac; color: #166534; }
+.keep-box-review { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+.keep-box-release { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+.keep-box-assign { background: #eff6ff; border: 1px solid #93c5fd; color: #075985; }
+
+.li-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 12px 14px;
 }
 
 .contact-card {
-  padding: 12px 13px;
-  border-radius: 14px;
-  background: var(--surface-2);
-  border: 1px solid var(--line);
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
 }
 
 .contact-name {
-  font-size: 14px;
   font-weight: 700;
+  font-size: 13px;
+  color: #1e293b;
 }
 
 .contact-title {
-  margin-top: 3px;
-  font-size: 12px;
-  color: var(--muted);
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
 }
 
 .contact-signal {
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--ink);
+  font-size: 11px;
+  color: #7c3aed;
+  margin-top: 5px;
+  line-height: 1.4;
 }
 
-@media (max-width: 1180px) {
-  .summary-grid,
-  .rep-grid,
-  .queue-board,
-  .metric-grid {
+.contact-link {
+  color: #6296ad;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #94a3b8;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+.close-btn:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+}
+
+.profile-card {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+.profile-card h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #64748b;
+}
+
+.profile-card p,
+.profile-card li {
+  font-size: 13px;
+  color: #334155;
+}
+
+.profile-card ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #dbe5ec;
+  color: #0f4c81;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.profile-link:hover {
+  background: #f8fafc;
+}
+
+.account-inline-list {
+  display: grid;
+  gap: 8px;
+}
+
+.account-inline {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+}
+
+.account-inline button {
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid #dbe5ec;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.account-inline button:hover {
+  background: #f1f5f9;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 1100px) {
+  .summary-row,
+  .queue-grid,
+  .profile-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .hero-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stats-bar {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
-@media (max-width: 820px) {
-  .page,
-  .hero {
+@media (max-width: 780px) {
+  .header,
+  .stats-bar,
+  .nav,
+  .summary-row,
+  .filter-row,
+  .search-row,
+  .tab-content {
     padding-left: 18px;
     padding-right: 18px;
   }
 
-  .panel-head,
-  .rep-detail,
-  .rep-grid,
-  .queue-board,
-  .modal-head,
-  .modal-body {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .summary-grid,
-  .rep-grid,
-  .queue-board,
-  .metric-grid,
-  .modal-grid,
-  .stats-bar {
+  .summary-row,
+  .queue-grid,
+  .profile-grid {
     grid-template-columns: 1fr;
   }
 
-  .panel-head {
-    align-items: start;
+  .header-callout {
+    margin-left: 0;
+    max-width: none;
   }
 
-  .panel-aside {
-    min-width: 0;
-    max-width: none;
+  .modal-hdr,
+  .modal-body {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 </style>
 </head>
 <body>
-<div class="app-shell">
-  <header class="hero">
-    <div class="eyebrow">Backstory RevOps Command Center</div>
-    <div class="hero-grid">
-      <div>
-        <h1 class="hero-title">Territory Design Studio</h1>
-        <p class="hero-copy">
-          A standalone territory-planning view built for balancing account value, relationship edge, and
-          seller capacity. This version keeps the spirit of the original demo but rebuilds the experience
-          around synthetic data and cleaner routing decisions.
-        </p>
-        <div class="hero-meta">
-          <span>Q3 Planning Sprint</span>
-          <span>Synthetic Account Book</span>
-          <span>Last Updated May 27, 2026</span>
-        </div>
-      </div>
-      <div class="hero-note" id="heroNote"></div>
+<header class="header">
+  <div class="header-logo">
+    <div class="header-mark">DCS</div>
+    <div class="header-meta">
+      <p>Backstory RevOps Command Center</p>
+      <h1>Territory Design</h1>
+      <div class="sub">4 sellers | 12 routed accounts | synthetic territory design model | May 27, 2026</div>
     </div>
-  </header>
+  </div>
+  <div class="header-callout" id="headerCallout"></div>
+</header>
 
-  <section class="stats-bar" id="statsBar"></section>
+<section class="stats-bar" id="statsBar"></section>
 
-  <main class="page">
-    <section class="summary-grid" id="summaryGrid"></section>
+<div class="nav" id="tabs"></div>
 
-    <section class="control-slab">
-      <div class="tabs" id="tabs"></div>
-      <div class="control-row">
-        <div class="filter-row" id="filterRow"></div>
-        <button class="clear-btn" id="clearFilters">Reset Filters</button>
-      </div>
-      <div class="control-row">
-        <div class="search-box">
-          <input id="searchInput" type="search" placeholder="Search account, owner, region, or segment">
-        </div>
-        <div class="rep-pills" id="repPills"></div>
-      </div>
-    </section>
+<section class="summary-row" id="summaryRow"></section>
 
-    <section class="panel active" id="coveragePanel"></section>
-    <section class="panel" id="repsPanel"></section>
-    <section class="panel" id="queuePanel"></section>
-  </main>
+<div class="filter-row">
+  <div id="filterRow"></div>
+  <button class="clear-btn" id="clearFilters">Reset Filters</button>
 </div>
 
-<div class="overlay" id="overlay">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-head">
-      <button class="close-btn" id="closeModalBtn" aria-label="Close">x</button>
-      <div class="modal-kicker" id="modalKicker"></div>
-      <div class="modal-title-row">
-        <div class="account-dot" id="modalDot"></div>
-        <h2 class="modal-title" id="modalTitle"></h2>
+<div class="search-row">
+  <input id="searchInput" type="search" placeholder="Search account, owner, region, or segment">
+  <div class="owner-pills" id="ownerPills"></div>
+</div>
+
+<div class="tab-content active" id="tab_overview"></div>
+<div class="tab-content" id="tab_reps"></div>
+<div class="tab-content" id="tab_queue"></div>
+
+<div class="overlay" id="accountOverlay">
+  <div class="modal" id="accountModal">
+    <div class="modal-hdr">
+      <button class="close-btn" id="closeAccountModal" aria-label="Close">x</button>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div id="mDot" style="width:14px;height:14px;border-radius:50%;background:#9ca3af;flex-shrink:0;"></div>
+        <div id="mName" style="font-size:20px;font-weight:800;color:#1e293b;line-height:1.1;"></div>
       </div>
-      <div class="modal-meta" id="modalMeta"></div>
-      <div class="modal-badges" id="modalBadges"></div>
+      <div id="mMeta" style="font-size:12px;color:#64748b;margin-bottom:10px;"></div>
+      <div id="mBadges" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
     </div>
     <div class="modal-body">
-      <div class="recommendation-box" id="modalRecommendation"></div>
-      <div class="metric-grid" id="modalMetrics"></div>
-      <div class="modal-grid">
-        <div class="info-card">
-          <div class="info-label">Why This Account</div>
-          <div class="info-copy" id="modalWhy"></div>
-        </div>
-        <div class="info-card">
-          <div class="info-label">Next Move</div>
-          <div class="info-copy" id="modalNext"></div>
-        </div>
-        <div class="info-card">
-          <div class="info-label">Relationship Edge</div>
-          <ul class="bullet-list" id="modalRelationships"></ul>
-        </div>
-        <div class="info-card">
-          <div class="info-label">Coverage Notes</div>
-          <ul class="bullet-list" id="modalChanges"></ul>
+      <div class="m-section">
+        <div class="m-section-lbl">Account Recommendation</div>
+        <div id="mKeepBox"></div>
+      </div>
+
+      <div class="m-section">
+        <div class="m-section-lbl">Why This Account</div>
+        <div class="why-box" id="mWhy"></div>
+      </div>
+
+      <div class="m-section">
+        <div class="m-section-lbl">Key Metrics</div>
+        <div class="metric-grid" id="mMetrics"></div>
+      </div>
+
+      <div class="m-section">
+        <div class="m-section-lbl">Assigned Rep</div>
+        <div id="mRep" class="why-box"></div>
+      </div>
+
+      <div class="m-section" id="mConnSec" style="display:none;">
+        <div class="m-section-lbl">LinkedIn 1st Connections</div>
+        <div id="mConnBody"></div>
+      </div>
+
+      <div class="m-section" id="mFESec" style="display:none;">
+        <div class="m-section-lbl">Former Employer</div>
+        <div id="mFEBody"></div>
+      </div>
+
+      <div class="m-section" id="mChampSec" style="display:none;">
+        <div class="m-section-lbl">Champion Contacts</div>
+        <div id="mChampBody"></div>
+      </div>
+
+      <div class="m-section" id="mWarmSec" style="display:none;">
+        <div class="m-section-lbl">Warm Leads</div>
+        <div id="mWarmBody"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="repOverlay">
+  <div class="profile-modal" id="repModal">
+    <div class="modal-hdr">
+      <button class="close-btn" id="closeRepModal" aria-label="Close">x</button>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="rep-avatar" id="rpAvatar" style="width:44px;height:44px;font-size:16px;"></div>
+        <div>
+          <div id="rpName" style="font-size:22px;font-weight:800;color:#1e293b;line-height:1.1;"></div>
+          <div id="rpRole" style="font-size:12px;color:#64748b;margin-top:4px;"></div>
         </div>
       </div>
-      <div class="info-card" style="margin-top:12px;">
-        <div class="info-label">Key Contacts</div>
-        <div class="contact-list" id="modalContacts"></div>
+      <div class="profile-actions" id="rpActions"></div>
+    </div>
+    <div class="modal-body">
+      <div class="metric-grid" id="rpMetrics"></div>
+      <div class="profile-grid">
+        <div class="profile-card">
+          <h3>About This Seller</h3>
+          <p id="rpSummary" style="margin:0;"></p>
+        </div>
+        <div class="profile-card">
+          <h3>Territory Focus</h3>
+          <p id="rpFocus" style="margin:0;"></p>
+        </div>
+        <div class="profile-card">
+          <h3>Former Employers</h3>
+          <ul id="rpFormerEmployers"></ul>
+        </div>
+        <div class="profile-card">
+          <h3>Playbook Notes</h3>
+          <ul id="rpHighlights"></ul>
+        </div>
+      </div>
+
+      <div class="m-section" style="margin-top:18px;">
+        <div class="m-section-lbl">Strongest Customer Paths</div>
+        <div id="rpConnections"></div>
+      </div>
+
+      <div class="m-section">
+        <div class="m-section-lbl">Suggested Book</div>
+        <div class="account-inline-list" id="rpAccounts"></div>
       </div>
     </div>
   </div>
@@ -1162,452 +1101,533 @@ body.modal-open {
 
 <script>
 const reps = [
-  { id: "maya", name: "Maya Torres", role: "Enterprise West", focus: "Platform + MedTech", capacity: 78, color: "#5f8e9e" },
-  { id: "julian", name: "Julian Park", role: "Strategic Central", focus: "Industrial + Cloud", capacity: 91, color: "#9b5b42" },
-  { id: "nia", name: "Nia Brooks", role: "Enterprise East", focus: "Security + FinServ", capacity: 67, color: "#217b74" },
-  { id: "owen", name: "Owen Patel", role: "Commercial Overlay", focus: "Incubation + Expansion", capacity: 54, color: "#6f5ea8" }
+  {
+    id: "maya",
+    name: "Maya Torres",
+    initials: "MT",
+    color: "#6296ad",
+    title: "Strategic West",
+    territory: "West | MedTech + Platform",
+    linkedin: "https://www.linkedin.com/in/maya-torres-demo/",
+    location: "San Francisco, CA",
+    summary: "Former Arkline operator with the best medtech executive access in the pod and the cleanest West-coast routing fit.",
+    focus: "Protect active expansion cycles and absorb high-fit open-pool logos that already show relationship or former-employer lift.",
+    formerEmployers: ["Arkline Systems", "Gridline Medical"],
+    highlights: [
+      "Strongest former-employer signal in the territory.",
+      "Best owner for operations-heavy West accounts with executive access.",
+      "Should inherit only net-new accounts that already have a path to a first meeting."
+    ]
+  },
+  {
+    id: "julian",
+    name: "Julian Park",
+    initials: "JP",
+    color: "#f59e0b",
+    title: "Strategic Central",
+    territory: "Central | Industrial + Cloud",
+    linkedin: "https://www.linkedin.com/in/julian-park-demo/",
+    location: "Chicago, IL",
+    summary: "Owns the deepest industrial motion on the team, but the current book is the most overloaded and needs targeted capacity relief.",
+    focus: "Keep the strongest in-flight industrial expansions, release low-traction accounts, and only add new logos after cleanup.",
+    formerEmployers: ["ForgeCloud", "Northline Data"],
+    highlights: [
+      "Best fit for industrial and manufacturing selling motions.",
+      "Needs immediate capacity relief before new open-pool assignments stick.",
+      "Should keep the accounts where continuity materially changes win probability."
+    ]
+  },
+  {
+    id: "nia",
+    name: "Nia Brooks",
+    initials: "NB",
+    color: "#10b981",
+    title: "Enterprise East",
+    territory: "East | Security + FinServ",
+    linkedin: "https://www.linkedin.com/in/nia-brooks-demo/",
+    location: "New York, NY",
+    summary: "Carries the strongest East-side executive map and is the cleanest landing zone for accounts that need finance and COO access.",
+    focus: "Deepen protected East accounts while taking only the release candidates that improve regional alignment.",
+    formerEmployers: ["Brightstone Capital", "SecureLoop"],
+    highlights: [
+      "Best East-based executive coverage in the team.",
+      "Strongest finance-side connection paths for released Central accounts.",
+      "Should inherit only accounts where geography and relationships clearly beat incumbent context."
+    ]
+  },
+  {
+    id: "owen",
+    name: "Owen Patel",
+    initials: "OP",
+    color: "#8b5cf6",
+    title: "Commercial Overlay",
+    territory: "National | Incubation + Expansion",
+    linkedin: "https://www.linkedin.com/in/owen-patel-demo/",
+    location: "Austin, TX",
+    summary: "Best used as an incubation and shaping owner for accounts that are not ready for protected field ownership.",
+    focus: "Run exploratory motions, validate fit, and graduate accounts into core books only after demand sharpens.",
+    formerEmployers: ["PilotStack", "LaunchOps"],
+    highlights: [
+      "Right owner for shaping motions and cross-regional experiments.",
+      "Should not become the default sink for every uncertain routing call.",
+      "Best when there is an intro path but the buying motion is still early."
+    ]
+  }
 ];
 
 const accounts = [
   {
     id: "northstar-grid",
-    name: "Northstar Grid",
+    account_name: "Northstar Grid",
+    classification: "Strategic",
+    priority_tier: "P1",
     region: "West",
-    segment: "Strategic",
-    tam: 4200000,
+    website: "northstargrid.com",
+    emp_size: 7800,
     engagement: 82,
     intent: "High",
+    tam: 4200000,
+    open_opps: 2,
+    closed_won: 1,
     score: 94,
     currentOwner: "Maya Torres",
     suggestedOwner: "Maya Torres",
-    recommendation: "keep",
-    tier: "P1",
-    openOpps: 2,
-    relationshipCount: 6,
-    formerEmployer: true,
-    warmIntro: false,
-    why: "The live expansion cycle is already moving through procurement, and Maya has both historical context and the strongest network into revenue leadership.",
-    nextMove: "Protect this account on Maya's book and package Forecasting plus Coaching as the single-threaded expansion offer for the Q3 close plan.",
-    relationshipEdge: [
-      "Six first-degree connections across RevOps, field enablement, and the CRO office.",
-      "Former employer overlap with the CRO from Arkline Systems gives Maya direct credibility.",
-      "Two active opportunities make the ownership change cost higher than the rebalance benefit."
+    assigned_rep: "Maya Torres",
+    keep_flag: "KEEP",
+    keep_reason: "Active executive expansion cycle with strong relationship coverage and former-operator credibility. Keep this on Maya's book.",
+    formerEmployerReps: ["Maya Torres"],
+    champions: [
+      { name: "Leah Morgan", title: "VP Revenue Operations", signal: "Executive sponsor for the platform expansion path.", linkedin: "https://www.linkedin.com/in/leah-morgan-demo/" }
     ],
-    changeNotes: [
-      "Current owner is already leading a weekly steering committee with the customer.",
-      "Procurement timing suggests no routing changes until after the active expansion closes."
+    warm_leads: [],
+    li_connections: {
+      "Maya Torres": [
+        { name: "Chris Dwyer", title: "Chief Revenue Officer", url: "https://www.linkedin.com/in/chris-dwyer-demo/" },
+        { name: "Leah Morgan", title: "VP Revenue Operations", url: "https://www.linkedin.com/in/leah-morgan-demo/" },
+        { name: "Ben Holtz", title: "Director, Commercial Systems", url: "https://www.linkedin.com/in/ben-holtz-demo/" }
+      ]
+    },
+    why: [
+      "Active procurement motion is already underway.",
+      "Maya has the strongest executive access into revenue leadership.",
+      "Former employer overlap materially improves trust and speed."
     ],
-    contacts: [
-      { name: "Leah Morgan", title: "VP Revenue Operations", signal: "Sponsor for the multi-product expansion path." },
-      { name: "Chris Dwyer", title: "Chief Revenue Officer", signal: "Former colleague of Maya; open to executive alignment call." }
-    ]
+    queueNote: "Protected expansion account. Rebalancing would create more risk than value."
   },
   {
     id: "solstice-health",
-    name: "Solstice Health",
+    account_name: "Solstice Health",
+    classification: "Strategic",
+    priority_tier: "P1",
     region: "Central",
-    segment: "Strategic",
-    tam: 3400000,
+    website: "solsticehealth.com",
+    emp_size: 11200,
     engagement: 68,
     intent: "High",
+    tam: 3400000,
+    open_opps: 1,
+    closed_won: 0,
     score: 89,
     currentOwner: "Julian Park",
     suggestedOwner: "Nia Brooks",
-    recommendation: "review",
-    tier: "P1",
-    openOpps: 1,
-    relationshipCount: 4,
-    formerEmployer: false,
-    warmIntro: true,
-    why: "The buying committee is concentrated on the East Coast, and Nia has the best executive coverage, but Julian owns the active discovery thread and stakeholder map.",
-    nextMove: "Hold a manager decision this week: either let Julian finish the current cycle or transfer after the QBR with Nia attached to every executive touchpoint now.",
-    relationshipEdge: [
-      "Four first-degree connections sit with Nia across finance and commercial operations.",
-      "A board advisor is willing to warm-introduce the COO to Nia for a forecasting conversation.",
-      "Julian still has the cleanest context on the open opportunity."
+    assigned_rep: "Julian Park",
+    keep_flag: "REVIEW",
+    keep_reason: "Julian owns the discovery thread today, but Nia has the stronger East-side executive map. Manager call required before the QBR.",
+    formerEmployerReps: [],
+    champions: [
+      { name: "Rami Patel", title: "Director, Revenue Strategy", signal: "Current operational guide for the discovery thread.", linkedin: "https://www.linkedin.com/in/rami-patel-demo/" }
     ],
-    changeNotes: [
-      "No decision risk today, but delayed routing will make Q3 account planning messy.",
-      "If retained with Julian, East-based executive coverage needs an explicit overlay motion."
+    warm_leads: [
+      { name: "Dana Vilas", title: "SVP Commercial Operations", signal: "Board-adjacent intro path favors Nia.", linkedin: "https://www.linkedin.com/in/dana-vilas-demo/" }
     ],
-    contacts: [
-      { name: "Dana Vilas", title: "SVP Commercial Operations", signal: "Strong connection path for Nia through a prior customer council." },
-      { name: "Rami Patel", title: "Director, Revenue Strategy", signal: "Currently working with Julian on process mapping." }
-    ]
+    li_connections: {
+      "Julian Park": [
+        { name: "Rami Patel", title: "Director, Revenue Strategy", url: "https://www.linkedin.com/in/rami-patel-demo/" }
+      ],
+      "Nia Brooks": [
+        { name: "Dana Vilas", title: "SVP Commercial Operations", url: "https://www.linkedin.com/in/dana-vilas-demo/" },
+        { name: "Moe Ritter", title: "Chief Financial Officer", url: "https://www.linkedin.com/in/moe-ritter-demo/" }
+      ]
+    },
+    why: [
+      "Buying committee is East-based even though the current owner is Central.",
+      "Nia owns stronger finance and COO access.",
+      "An active opportunity still makes the transfer timing sensitive."
+    ],
+    queueNote: "Make the routing call now or carry both owners into Q3 planning."
   },
   {
     id: "harborline-systems",
-    name: "Harborline Systems",
+    account_name: "Harborline Systems",
+    classification: "Large Enterprise",
+    priority_tier: "P2",
     region: "East",
-    segment: "Large Enterprise",
-    tam: 2800000,
+    website: "harborlinesystems.com",
+    emp_size: 5400,
     engagement: 26,
     intent: "Medium",
+    tam: 2800000,
+    open_opps: 0,
+    closed_won: 0,
     score: 71,
     currentOwner: "Julian Park",
     suggestedOwner: "Nia Brooks",
-    recommendation: "release",
-    tier: "P2",
-    openOpps: 0,
-    relationshipCount: 3,
-    formerEmployer: false,
-    warmIntro: true,
-    why: "The account sits outside Julian's natural patch, has low active engagement, and Nia owns the stronger east-region relationships with cleaner restart potential.",
-    nextMove: "Release from Julian's book and re-seed on Nia with a 30-day executive-intro plan anchored to the CFO office.",
-    relationshipEdge: [
-      "Three first-degree connections sit with Nia inside finance, field ops, and enablement.",
-      "Warm introduction path exists through a current customer champion on Nia's book.",
-      "No active opportunity is at risk by making the move now."
+    assigned_rep: "Julian Park",
+    keep_flag: "RELEASE",
+    keep_reason: "Low engagement and no active opportunity. Regional fit and network strength both favor an East-side relaunch under Nia.",
+    formerEmployerReps: [],
+    champions: [],
+    warm_leads: [
+      { name: "Sofia Trent", title: "VP Finance Transformation", signal: "Best restart path for Nia.", linkedin: "https://www.linkedin.com/in/sofia-trent-demo/" }
     ],
-    changeNotes: [
-      "Julian has not logged a high-value meeting here in the last six weeks.",
-      "The routing change improves regional alignment and reduces idle TAM on an overloaded book."
+    li_connections: {
+      "Nia Brooks": [
+        { name: "Sofia Trent", title: "VP Finance Transformation", url: "https://www.linkedin.com/in/sofia-trent-demo/" },
+        { name: "Marlon Reeves", title: "Director, Sales Enablement", url: "https://www.linkedin.com/in/marlon-reeves-demo/" }
+      ]
+    },
+    why: [
+      "Outside Julian's natural patch and low traction today.",
+      "East-based ownership improves regional alignment.",
+      "Transfer risk is low because there is no in-flight opportunity."
     ],
-    contacts: [
-      { name: "Sofia Trent", title: "VP Finance Transformation", signal: "Best opening for a re-entry meeting." },
-      { name: "Marlon Reeves", title: "Director, Sales Enablement", signal: "Warm intro available through Nia's existing customer network." }
-    ]
+    queueNote: "Release from Central and re-seed with East coverage."
   },
   {
     id: "meridian-forge",
-    name: "Meridian Forge",
+    account_name: "Meridian Forge",
+    classification: "Strategic",
+    priority_tier: "P1",
     region: "Central",
-    segment: "Strategic",
-    tam: 2400000,
+    website: "meridianforge.com",
+    emp_size: 6100,
     engagement: 91,
     intent: "High",
+    tam: 2400000,
+    open_opps: 3,
+    closed_won: 2,
     score: 92,
     currentOwner: "Julian Park",
     suggestedOwner: "Julian Park",
-    recommendation: "keep",
-    tier: "P1",
-    openOpps: 3,
-    relationshipCount: 2,
-    formerEmployer: false,
-    warmIntro: false,
-    why: "This is Julian's strongest operating account, with executive sponsorship, multi-threaded product adoption, and three open paths to expansion.",
-    nextMove: "Protect ownership and increase specialist support instead of redistributing coverage.",
-    relationshipEdge: [
-      "Two direct connections into the industrial sales leadership team support active access.",
-      "Three open opportunities make continuity materially more important than incremental rebalancing."
+    assigned_rep: "Julian Park",
+    keep_flag: "KEEP",
+    keep_reason: "This is Julian's best industrial expansion account. Preserve continuity and add specialist support instead of routing change.",
+    formerEmployerReps: [],
+    champions: [
+      { name: "Alicia Stone", title: "VP Revenue Excellence", signal: "Senior sponsor for the coaching workstream.", linkedin: "https://www.linkedin.com/in/alicia-stone-demo/" }
     ],
-    changeNotes: [
-      "Julian is over capacity overall, but Meridian Forge should remain protected.",
-      "Manager action should focus on removing lower-yield accounts elsewhere on Julian's book."
+    warm_leads: [],
+    li_connections: {
+      "Julian Park": [
+        { name: "Alicia Stone", title: "VP Revenue Excellence", url: "https://www.linkedin.com/in/alicia-stone-demo/" },
+        { name: "Devin Liu", title: "Head of Global Sales Operations", url: "https://www.linkedin.com/in/devin-liu-demo/" }
+      ]
+    },
+    why: [
+      "Best-fit industrial account already multi-threaded with leadership access.",
+      "Three open opportunities make continuity more valuable than balancing.",
+      "Capacity relief should come from weaker accounts, not this one."
     ],
-    contacts: [
-      { name: "Alicia Stone", title: "VP Revenue Excellence", signal: "Executive sponsor for coaching rollout." },
-      { name: "Devin Liu", title: "Head of Global Sales Operations", signal: "Driving the forecasting workstream today." }
-    ]
+    queueNote: "Protected Central account. Keep and support."
   },
   {
     id: "kitewell-labs",
-    name: "Kitewell Labs",
+    account_name: "Kitewell Labs",
+    classification: "Growth",
+    priority_tier: "P2",
     region: "West",
-    segment: "Growth",
-    tam: 1900000,
+    website: "kitewelllabs.com",
+    emp_size: 1800,
     engagement: 44,
     intent: "Medium",
+    tam: 1900000,
+    open_opps: 0,
+    closed_won: 0,
     score: 78,
     currentOwner: "Open Pool",
     suggestedOwner: "Maya Torres",
-    recommendation: "assign",
-    tier: "P2",
-    openOpps: 0,
-    relationshipCount: 2,
-    formerEmployer: true,
-    warmIntro: true,
-    why: "This is the cleanest open-pool account for Maya: right region, prior operator history, and a credible intro path before any rep cycles are wasted.",
-    nextMove: "Assign to Maya and sequence a two-step outreach plan through the former employer tie and the warm-intro contact.",
-    relationshipEdge: [
-      "Two first-degree connections already map to commercial operations and enablement.",
-      "Former employer overlap gives Maya immediate context with the VP of sales operations.",
-      "Warm intro is available through an advisory board member."
+    assigned_rep: "Maya Torres",
+    keep_flag: "ASSIGN",
+    keep_reason: "Open-pool account with both former-employer context and a warm intro. This is the cleanest direct assignment to Maya.",
+    formerEmployerReps: ["Maya Torres"],
+    champions: [],
+    warm_leads: [
+      { name: "Evan Cole", title: "Director, Revenue Programs", signal: "Board-advisor intro ready to use.", linkedin: "https://www.linkedin.com/in/evan-cole-demo/" }
     ],
-    changeNotes: [
-      "No current owner means there is no transfer friction.",
-      "This is a better fit for Maya than adding another speculative account to Owen's incubator queue."
+    li_connections: {
+      "Maya Torres": [
+        { name: "Priya Nordin", title: "VP Sales Operations", url: "https://www.linkedin.com/in/priya-nordin-demo/" },
+        { name: "Evan Cole", title: "Director, Revenue Programs", url: "https://www.linkedin.com/in/evan-cole-demo/" }
+      ]
+    },
+    why: [
+      "Best open-pool fit for Maya by region and operator history.",
+      "Warm intro exists before any cold outbound is required.",
+      "No handoff friction because the account is unowned today."
     ],
-    contacts: [
-      { name: "Priya Nordin", title: "VP Sales Operations", signal: "Former employer overlap with Maya." },
-      { name: "Evan Cole", title: "Director, Revenue Programs", signal: "Board advisor has offered an introduction." }
-    ]
+    queueNote: "Assign directly into Maya's book."
   },
   {
     id: "rivet-cloud",
-    name: "Rivet Cloud",
+    account_name: "Rivet Cloud",
+    classification: "Strategic",
+    priority_tier: "P1",
     region: "East",
-    segment: "Strategic",
-    tam: 2200000,
+    website: "rivetcloud.com",
+    emp_size: 8900,
     engagement: 74,
     intent: "High",
+    tam: 2200000,
+    open_opps: 2,
+    closed_won: 1,
     score: 87,
     currentOwner: "Nia Brooks",
     suggestedOwner: "Nia Brooks",
-    recommendation: "keep",
-    tier: "P1",
-    openOpps: 2,
-    relationshipCount: 5,
-    formerEmployer: false,
-    warmIntro: false,
-    why: "Nia already owns deep commercial relationships, active pipeline, and the best route into the COO's office for a larger platform expansion.",
-    nextMove: "Keep ownership stable and add executive air cover to accelerate the second opportunity into technical validation.",
-    relationshipEdge: [
-      "Five first-degree connections across RevOps, GTM systems, and the COO's staff.",
-      "Two open opportunities support continuity as the right near-term move."
+    assigned_rep: "Nia Brooks",
+    keep_flag: "KEEP",
+    keep_reason: "Nia already owns executive sponsorship, active pipeline, and the strongest path into the COO staff. Keep this stable.",
+    formerEmployerReps: [],
+    champions: [
+      { name: "Harper Sutton", title: "SVP Revenue Systems", signal: "Primary champion for the platform standardization motion.", linkedin: "https://www.linkedin.com/in/harper-sutton-demo/" }
     ],
-    changeNotes: [
-      "This is one of the healthiest accounts on the East book.",
-      "No re-route should be considered until the active opportunity set settles."
+    warm_leads: [],
+    li_connections: {
+      "Nia Brooks": [
+        { name: "Harper Sutton", title: "SVP Revenue Systems", url: "https://www.linkedin.com/in/harper-sutton-demo/" },
+        { name: "Mikhael Ross", title: "Chief Operating Officer", url: "https://www.linkedin.com/in/mikhael-ross-demo/" },
+        { name: "Lena Cho", title: "Director, Forecasting", url: "https://www.linkedin.com/in/lena-cho-demo/" }
+      ]
+    },
+    why: [
+      "Strong East-side executive coverage and live pipeline.",
+      "The second opportunity depends on continuity into validation.",
+      "No better routing fit exists on the current team."
     ],
-    contacts: [
-      { name: "Harper Sutton", title: "SVP Revenue Systems", signal: "Primary champion for platform standardization." },
-      { name: "Mikhael Ross", title: "Chief Operating Officer", signal: "Nia has direct executive reach through prior council work." }
-    ]
+    queueNote: "Protect and accelerate."
   },
   {
     id: "glacier-works",
-    name: "Glacier Works",
+    account_name: "Glacier Works",
+    classification: "Large Enterprise",
+    priority_tier: "P3",
     region: "Central",
-    segment: "Large Enterprise",
-    tam: 1600000,
+    website: "glacierworks.com",
+    emp_size: 4200,
     engagement: 19,
     intent: "Low",
+    tam: 1600000,
+    open_opps: 0,
+    closed_won: 0,
     score: 58,
     currentOwner: "Julian Park",
     suggestedOwner: "Open Pool",
-    recommendation: "release",
-    tier: "P3",
-    openOpps: 0,
-    relationshipCount: 0,
-    formerEmployer: false,
-    warmIntro: false,
-    why: "This account consumes planning time without relationship leverage, active demand, or meaningful pipeline. It is a capacity tax on the busiest rep in the pod.",
-    nextMove: "Release back to pool and revisit only if intent or a relationship signal appears in the next planning cycle.",
-    relationshipEdge: [
-      "No first-degree relationship signal is available today.",
-      "No warm-intro path or former employer context exists on the current team."
+    assigned_rep: "Julian Park",
+    keep_flag: "RELEASE",
+    keep_reason: "No relationship edge, no opportunity, and low engagement. This is pure capacity tax on the busiest book in the pod.",
+    formerEmployerReps: [],
+    champions: [],
+    warm_leads: [],
+    li_connections: {},
+    why: [
+      "No first-degree relationship signal exists today.",
+      "No active opportunity or sponsor needs protection.",
+      "Releasing this account is the fastest path to capacity relief for Julian."
     ],
-    changeNotes: [
-      "Removing Glacier Works is the fastest way to create room on Julian's book.",
-      "There is no open opportunity risk tied to the release."
-    ],
-    contacts: [
-      { name: "No active contact set", title: "Coverage paused", signal: "No validated executive contact is working with the team now." }
-    ]
+    queueNote: "Release to pool and do not replace it until Central capacity improves."
   },
   {
     id: "lantern-bio",
-    name: "Lantern Bio",
+    account_name: "Lantern Bio",
+    classification: "Growth",
+    priority_tier: "P2",
     region: "West",
-    segment: "Growth",
-    tam: 1100000,
+    website: "lanternbio.com",
+    emp_size: 1300,
     engagement: 57,
     intent: "Medium",
+    tam: 1100000,
+    open_opps: 1,
+    closed_won: 0,
     score: 75,
     currentOwner: "Open Pool",
     suggestedOwner: "Owen Patel",
-    recommendation: "assign",
-    tier: "P2",
-    openOpps: 1,
-    relationshipCount: 1,
-    formerEmployer: false,
-    warmIntro: true,
-    why: "The account is still being shaped, making it a better fit for the incubation overlay than a full territory rep right now.",
-    nextMove: "Assign to Owen for 45 days, validate product-market fit, then decide whether to graduate into a core field book.",
-    relationshipEdge: [
-      "One first-degree connection exists into the revenue programs team.",
-      "Warm intro available from a mutual implementation partner.",
-      "A small open opportunity means speed matters, but handoff complexity is still low."
+    assigned_rep: "Owen Patel",
+    keep_flag: "ASSIGN",
+    keep_reason: "Good intro path, but still early in shaping. Better fit for Owen's incubation motion before the account graduates into a core field book.",
+    formerEmployerReps: [],
+    champions: [],
+    warm_leads: [
+      { name: "Marta Reyes", title: "Director, Commercial Analytics", signal: "Implementation partner can introduce immediately.", linkedin: "https://www.linkedin.com/in/marta-reyes-demo/" }
     ],
-    changeNotes: [
-      "This is a staging account, not yet a protect-at-all-costs field motion.",
-      "Using Owen preserves focus on higher-value core books."
+    li_connections: {
+      "Owen Patel": [
+        { name: "Marta Reyes", title: "Director, Commercial Analytics", url: "https://www.linkedin.com/in/marta-reyes-demo/" },
+        { name: "Jon Wilkes", title: "Senior Manager, Sales Programs", url: "https://www.linkedin.com/in/jon-wilkes-demo/" }
+      ]
+    },
+    why: [
+      "Still an incubation-stage motion rather than a protected field pursuit.",
+      "Owen can validate fit before the account enters a core patch.",
+      "There is enough signal to move now, but not enough to protect long-term."
     ],
-    contacts: [
-      { name: "Marta Reyes", title: "Director, Commercial Analytics", signal: "Likely first discovery partner through warm intro." },
-      { name: "Jon Wilkes", title: "Senior Manager, Sales Programs", signal: "Already evaluating activity data quality." }
-    ]
+    queueNote: "Assign to overlay and re-evaluate after 45 days."
   },
   {
     id: "cedarstack",
-    name: "CedarStack",
+    account_name: "CedarStack",
+    classification: "Strategic",
+    priority_tier: "P1",
     region: "East",
-    segment: "Strategic",
-    tam: 3100000,
+    website: "cedarstack.com",
+    emp_size: 10200,
     engagement: 61,
     intent: "High",
+    tam: 3100000,
+    open_opps: 1,
+    closed_won: 0,
     score: 84,
     currentOwner: "Nia Brooks",
     suggestedOwner: "Nia Brooks",
-    recommendation: "keep",
-    tier: "P1",
-    openOpps: 1,
-    relationshipCount: 4,
-    formerEmployer: false,
-    warmIntro: false,
-    why: "The account is not fully expanded yet, but Nia's relationship map and active sponsor base still outweigh any balancing argument.",
-    nextMove: "Keep with Nia and add a named specialist for Forecasting rather than re-routing ownership.",
-    relationshipEdge: [
-      "Four first-degree connections sit with sales strategy, systems, and enablement leaders.",
-      "One open opportunity is in qualification and depends on the current sponsor map."
+    assigned_rep: "Nia Brooks",
+    keep_flag: "KEEP",
+    keep_reason: "Strong East-side fit, executive sponsor coverage, and enough active motion that ownership should remain stable.",
+    formerEmployerReps: [],
+    champions: [
+      { name: "Talia Greene", title: "VP Sales Strategy", signal: "Executive sponsor for planning automation.", linkedin: "https://www.linkedin.com/in/talia-greene-demo/" }
     ],
-    changeNotes: [
-      "Engagement is solid but not saturated, which makes this a keep with support, not a transfer candidate.",
-      "The team should watch capacity, not ownership fit, on this account."
+    warm_leads: [],
+    li_connections: {
+      "Nia Brooks": [
+        { name: "Talia Greene", title: "VP Sales Strategy", url: "https://www.linkedin.com/in/talia-greene-demo/" },
+        { name: "Marcus Bell", title: "Director, GTM Systems", url: "https://www.linkedin.com/in/marcus-bell-demo/" }
+      ]
+    },
+    why: [
+      "Protected East account with the right executive sponsor map.",
+      "The active opportunity is early, but the current owner fit is still best.",
+      "Support this account instead of re-routing it."
     ],
-    contacts: [
-      { name: "Talia Greene", title: "VP Sales Strategy", signal: "Primary executive sponsor for planning automation." },
-      { name: "Marcus Bell", title: "Director, GTM Systems", signal: "Operational lead for the current evaluation." }
-    ]
+    queueNote: "Keep and add specialist help if needed."
   },
   {
     id: "driftscale",
-    name: "DriftScale",
+    account_name: "DriftScale",
+    classification: "Strategic",
+    priority_tier: "P1",
     region: "National",
-    segment: "Strategic",
-    tam: 2700000,
+    website: "driftscale.com",
+    emp_size: 7200,
     engagement: 48,
     intent: "Medium",
+    tam: 2700000,
+    open_opps: 1,
+    closed_won: 0,
     score: 81,
     currentOwner: "Maya Torres",
     suggestedOwner: "Owen Patel",
-    recommendation: "review",
-    tier: "P1",
-    openOpps: 1,
-    relationshipCount: 2,
-    formerEmployer: false,
-    warmIntro: true,
-    why: "The account is cross-regional and still in shaping mode. Maya opened the door, but Owen may be the better owner for the next phase if the motion remains incubational.",
-    nextMove: "Run a joint 30-day proof period. If the account stays exploratory, move it to Owen; if buying intent sharpens, keep it with Maya.",
-    relationshipEdge: [
-      "Two first-degree connections sit with Maya inside national sales operations.",
-      "Warm intro from a shared services partner can support either routing choice.",
-      "Open opportunity is early enough that a controlled transfer remains possible."
+    assigned_rep: "Maya Torres",
+    keep_flag: "REVIEW",
+    keep_reason: "Maya opened the door, but Owen may be the better owner if the motion stays exploratory. Decide before quarter-end.",
+    formerEmployerReps: [],
+    champions: [],
+    warm_leads: [
+      { name: "Ben Torres", title: "Director, Commercial Transformation", signal: "Shared partner can broker a joint meeting.", linkedin: "https://www.linkedin.com/in/ben-torres-demo/" }
     ],
-    changeNotes: [
-      "This is the most nuanced routing decision in the book because both owners have a valid claim.",
-      "A decision should be made before quarter-end to prevent shared-ownership drift."
+    li_connections: {
+      "Maya Torres": [
+        { name: "Noor Haddad", title: "VP Revenue Architecture", url: "https://www.linkedin.com/in/noor-haddad-demo/" }
+      ],
+      "Owen Patel": [
+        { name: "Ben Torres", title: "Director, Commercial Transformation", url: "https://www.linkedin.com/in/ben-torres-demo/" }
+      ]
+    },
+    why: [
+      "Cross-regional account still in shaping mode.",
+      "Both Maya and Owen have a credible right to the next phase.",
+      "Decision delay risks shared-ownership drift."
     ],
-    contacts: [
-      { name: "Noor Haddad", title: "VP Revenue Architecture", signal: "Current Maya relationship; ideal contact for a joint call." },
-      { name: "Ben Torres", title: "Director, Commercial Transformation", signal: "Warm intro available through implementation partner." }
-    ]
+    queueNote: "Run a 30-day joint plan, then lock the long-term owner."
   },
   {
     id: "ironpeak-robotics",
-    name: "IronPeak Robotics",
+    account_name: "IronPeak Robotics",
+    classification: "Growth",
+    priority_tier: "P3",
     region: "Central",
-    segment: "Growth",
-    tam: 980000,
+    website: "ironpeakrobotics.com",
+    emp_size: 2100,
     engagement: 33,
     intent: "Medium",
+    tam: 980000,
+    open_opps: 0,
+    closed_won: 0,
     score: 65,
     currentOwner: "Open Pool",
     suggestedOwner: "Julian Park",
-    recommendation: "assign",
-    tier: "P3",
-    openOpps: 0,
-    relationshipCount: 2,
-    formerEmployer: false,
-    warmIntro: false,
-    why: "The TAM is moderate, but the account fits Julian's industrial motion and comes with enough relationship signal to justify a direct assignment.",
-    nextMove: "Assign to Julian only if Glacier Works is released; otherwise keep in pool until capacity is available.",
-    relationshipEdge: [
-      "Two first-degree connections exist with field operations and manufacturing sales leaders.",
-      "Industrial fit is stronger here than on most other open-pool accounts."
+    assigned_rep: "Julian Park",
+    keep_flag: "ASSIGN",
+    keep_reason: "Industrial fit is right for Julian, but only if Glacier Works is released and Central capacity is restored first.",
+    formerEmployerReps: [],
+    champions: [],
+    warm_leads: [],
+    li_connections: {
+      "Julian Park": [
+        { name: "Keiko Shaw", title: "Director, Revenue Operations", url: "https://www.linkedin.com/in/keiko-shaw-demo/" },
+        { name: "Darren Miles", title: "VP Industrial Sales", url: "https://www.linkedin.com/in/darren-miles-demo/" }
+      ]
+    },
+    why: [
+      "Good industrial motion fit for Julian.",
+      "Connection signal exists, but assignment should wait for capacity relief.",
+      "This is not urgent enough to overload Central further."
     ],
-    changeNotes: [
-      "This assignment is contingent on capacity relief elsewhere on Julian's book.",
-      "It should not be added if Glacier Works remains active."
-    ],
-    contacts: [
-      { name: "Keiko Shaw", title: "Director, Revenue Operations", signal: "Most likely first meeting path for Julian." },
-      { name: "Darren Miles", title: "VP Industrial Sales", signal: "Direct connection on Julian's extended network." }
-    ]
+    queueNote: "Assign only after Central cleanup."
   },
   {
     id: "velvet-harbor",
-    name: "Velvet Harbor",
+    account_name: "Velvet Harbor",
+    classification: "Large Enterprise",
+    priority_tier: "P3",
     region: "East",
-    segment: "Large Enterprise",
-    tam: 1500000,
+    website: "velvetharbor.com",
+    emp_size: 3400,
     engagement: 12,
     intent: "Low",
+    tam: 1500000,
+    open_opps: 0,
+    closed_won: 0,
     score: 52,
     currentOwner: "Nia Brooks",
     suggestedOwner: "Open Pool",
-    recommendation: "release",
-    tier: "P3",
-    openOpps: 0,
-    relationshipCount: 0,
-    formerEmployer: false,
-    warmIntro: false,
-    why: "Coverage has gone quiet, there is no active relationship advantage, and the TAM is not large enough to justify protected ownership on a strong East book.",
-    nextMove: "Release back to the pool and re-evaluate only if net-new intent or a credible executive intro appears.",
-    relationshipEdge: [
-      "No first-degree relationship or warm-intro signal is active today.",
-      "The current book can absorb the loss of this account without hurting in-quarter execution."
+    assigned_rep: "Nia Brooks",
+    keep_flag: "RELEASE",
+    keep_reason: "No active sponsor, no opportunity, and not enough signal to justify protected ownership on Nia's book.",
+    formerEmployerReps: [],
+    champions: [],
+    warm_leads: [],
+    li_connections: {},
+    why: [
+      "Coverage has gone quiet and no relationship edge is active.",
+      "Releasing this account gives East more focus on protected accounts.",
+      "There is no in-quarter execution risk attached to the release."
     ],
-    changeNotes: [
-      "This release gives Nia room to deepen focus on CedarStack and Rivet Cloud.",
-      "No open opportunities or executive calls are scheduled."
-    ],
-    contacts: [
-      { name: "Coverage inactive", title: "No active champion", signal: "Customer is not presently engaged with a named sponsor." }
-    ]
+    queueNote: "Release to pool and focus East capacity elsewhere."
   }
 ];
 
-const tabMeta = [
-  { key: "coverage", label: "Coverage Grid" },
-  { key: "reps", label: "Rep Loadout" },
-  { key: "queue", label: "Decision Queue" }
-];
-
-const filterMeta = [
-  { key: "relationship", label: "1st Connections", group: "signal" },
-  { key: "formerEmployer", label: "Former Employer", group: "signal" },
-  { key: "warmIntro", label: "Warm Intro", group: "signal" },
-  { key: "openOpp", label: "Open Opp", group: "signal" },
-  { key: "keep", label: "Keep", group: "action" },
-  { key: "review", label: "Review", group: "action" },
-  { key: "release", label: "Release", group: "action" },
-  { key: "assign", label: "Assign", group: "action" }
-];
-
-const recommendationMeta = {
-  keep: {
-    label: "Keep",
-    tone: "keep",
-    blurb: "The current owner has the clearest right to keep this account."
-  },
-  review: {
-    label: "Review",
-    tone: "review",
-    blurb: "Manager decision required because more than one routing choice is defensible."
-  },
-  release: {
-    label: "Release",
-    tone: "release",
-    blurb: "The current owner should release this account to improve fit or capacity."
-  },
-  assign: {
-    label: "Assign",
-    tone: "assign",
-    blurb: "This open-pool account is ready for a specific owner."
-  }
-};
+const ownerColors = Object.fromEntries(reps.map((rep) => [rep.name, rep.color]));
 
 const state = {
-  activeTab: "coverage",
+  activeTab: "overview",
   selectedFilters: new Set(),
   ownerFilter: "all",
-  selectedRepCard: reps[0].name,
   search: "",
   sortKey: "score",
   sortDir: "desc",
-  activeAccountId: null
+  selectedRepId: reps[0].id,
+  repSignal: "all",
+  activeAccountId: null,
+  activeRepId: null
 };
 
 const currencyShort = new Intl.NumberFormat("en-US", {
@@ -1623,667 +1643,805 @@ const currencyWhole = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0
 });
 
-const dom = {
-  heroNote: document.getElementById("heroNote"),
-  statsBar: document.getElementById("statsBar"),
-  summaryGrid: document.getElementById("summaryGrid"),
-  tabs: document.getElementById("tabs"),
-  filterRow: document.getElementById("filterRow"),
-  repPills: document.getElementById("repPills"),
-  searchInput: document.getElementById("searchInput"),
-  clearFilters: document.getElementById("clearFilters"),
-  coveragePanel: document.getElementById("coveragePanel"),
-  repsPanel: document.getElementById("repsPanel"),
-  queuePanel: document.getElementById("queuePanel"),
-  overlay: document.getElementById("overlay"),
-  closeModalBtn: document.getElementById("closeModalBtn"),
-  modalKicker: document.getElementById("modalKicker"),
-  modalDot: document.getElementById("modalDot"),
-  modalTitle: document.getElementById("modalTitle"),
-  modalMeta: document.getElementById("modalMeta"),
-  modalBadges: document.getElementById("modalBadges"),
-  modalRecommendation: document.getElementById("modalRecommendation"),
-  modalMetrics: document.getElementById("modalMetrics"),
-  modalWhy: document.getElementById("modalWhy"),
-  modalNext: document.getElementById("modalNext"),
-  modalRelationships: document.getElementById("modalRelationships"),
-  modalChanges: document.getElementById("modalChanges"),
-  modalContacts: document.getElementById("modalContacts")
-};
+const tabMeta = [
+  { key: "overview", label: "Overview" },
+  { key: "reps", label: "Rep Books" },
+  { key: "queue", label: "Decision Queue" }
+];
 
-function sum(values) {
-  return values.reduce((total, value) => total + value, 0);
-}
+const filterMeta = [
+  { key: "conn", label: "1st Conn", cls: "conn-chip" },
+  { key: "fe", label: "F. Employer", cls: "fe-chip" },
+  { key: "warm", label: "Warm Lead", cls: "warm-chip" },
+  { key: "opp", label: "Open Opp", cls: "opp-chip" },
+  { key: "keep", label: "Keep", cls: "keep-chip" },
+  { key: "review", label: "Review", cls: "review-chip" },
+  { key: "release", label: "Release", cls: "release-chip" },
+  { key: "assign", label: "Assign", cls: "assign-chip" }
+];
+
+const repSignalMeta = [
+  { key: "all", label: "All" },
+  { key: "keep", label: "Keep" },
+  { key: "review", label: "Review" },
+  { key: "release", label: "Release" },
+  { key: "assign", label: "Assign" },
+  { key: "conn", label: "1st Conn" },
+  { key: "fe", label: "F. Employer" },
+  { key: "opp", label: "Open Opp" }
+];
 
 function shortMoney(value) {
   return currencyShort.format(value).replace(".0", "");
 }
 
-function dotColorFor(recommendation) {
-  if (recommendation === "keep") return "var(--keep-ink)";
-  if (recommendation === "review") return "var(--review-ink)";
-  if (recommendation === "release") return "var(--release-ink)";
-  return "var(--assign-ink)";
+function wholeMoney(value) {
+  return currencyWhole.format(value);
 }
 
-function getAccountSignals(account) {
-  const items = [];
-  if (account.relationshipCount > 0) items.push({ key: "relationship", label: "1st Conn " + account.relationshipCount });
-  if (account.formerEmployer) items.push({ key: "formerEmployer", label: "Former Employer" });
-  if (account.warmIntro) items.push({ key: "warmIntro", label: "Warm Intro" });
-  if (account.openOpps > 0) items.push({ key: "openOpp", label: "Open Opp " + account.openOpps });
-  if (account.intent) items.push({ key: "intent", label: account.intent + " Intent" });
-  items.push({ key: account.recommendation, label: recommendationMeta[account.recommendation].label });
-  return items;
+function sum(list) {
+  return list.reduce((total, value) => total + value, 0);
 }
 
-function accountMatchesFilter(account) {
+function getRepById(repId) {
+  return reps.find((rep) => rep.id === repId);
+}
+
+function getRepByName(name) {
+  return reps.find((rep) => rep.name === name);
+}
+
+function getRecommendationKey(account) {
+  if (account.keep_flag === "KEEP") return "keep";
+  if (account.keep_flag === "REVIEW") return "review";
+  if (account.keep_flag === "RELEASE") return "release";
+  return "assign";
+}
+
+function getRecommendationClass(account) {
+  return "b-" + getRecommendationKey(account);
+}
+
+function getRecommendationLabel(account) {
+  return account.keep_flag === "ASSIGN" ? "Assign" : account.keep_flag.charAt(0) + account.keep_flag.slice(1).toLowerCase();
+}
+
+function getBestConnectionCount(account) {
+  return Object.values(account.li_connections || {}).reduce((best, contacts) => Math.max(best, contacts.length), 0);
+}
+
+function hasConnections(account) {
+  return getBestConnectionCount(account) > 0;
+}
+
+function hasFormerEmployer(account) {
+  return (account.formerEmployerReps || []).length > 0;
+}
+
+function hasWarmLead(account) {
+  return (account.warm_leads || []).length > 0;
+}
+
+function ownerButton(name) {
+  if (!name || name === "Open Pool") return '<span style="color:#64748b;">Open Pool</span>';
+  const rep = getRepByName(name);
+  if (!rep) return name;
+  return '<button class="owner-link" data-open-rep="' + rep.id + '">' + rep.name + "</button>";
+}
+
+function routeCell(account) {
+  if (account.currentOwner === account.suggestedOwner) return ownerButton(account.suggestedOwner);
+  return ownerButton(account.currentOwner) + '<span class="route-arrow">to</span>' + ownerButton(account.suggestedOwner);
+}
+
+function accountMatchesGlobalFilters(account) {
   const search = state.search.trim().toLowerCase();
   if (search) {
-    const haystack = [
-      account.name,
+    const hay = [
+      account.account_name,
+      account.classification,
       account.region,
-      account.segment,
       account.currentOwner,
       account.suggestedOwner,
-      account.intent
+      account.website
     ].join(" ").toLowerCase();
-    if (!haystack.includes(search)) return false;
+    if (!hay.includes(search)) return false;
   }
 
   if (state.ownerFilter !== "all") {
-    const ownerMatch = account.currentOwner === state.ownerFilter || account.suggestedOwner === state.ownerFilter;
+    const targetRep = getRepById(state.ownerFilter);
+    if (!targetRep) return false;
+    const ownerMatch = account.currentOwner === targetRep.name || account.suggestedOwner === targetRep.name;
     if (!ownerMatch) return false;
   }
 
-  const signalFilters = filterMeta.filter((item) => item.group === "signal" && state.selectedFilters.has(item.key));
-  const actionFilters = filterMeta.filter((item) => item.group === "action" && state.selectedFilters.has(item.key));
-
-  for (const item of signalFilters) {
-    if (item.key === "relationship" && account.relationshipCount <= 0) return false;
-    if (item.key === "formerEmployer" && !account.formerEmployer) return false;
-    if (item.key === "warmIntro" && !account.warmIntro) return false;
-    if (item.key === "openOpp" && account.openOpps <= 0) return false;
-  }
-
-  if (actionFilters.length > 0) {
-    const actionMatch = actionFilters.some((item) => item.key === account.recommendation);
-    if (!actionMatch) return false;
+  for (const filter of state.selectedFilters) {
+    if (filter === "conn" && !hasConnections(account)) return false;
+    if (filter === "fe" && !hasFormerEmployer(account)) return false;
+    if (filter === "warm" && !hasWarmLead(account)) return false;
+    if (filter === "opp" && !(account.open_opps > 0)) return false;
+    if ((filter === "keep" || filter === "review" || filter === "release" || filter === "assign") && getRecommendationKey(account) !== filter) return false;
   }
 
   return true;
 }
 
+function compareValues(left, right, dir) {
+  if (typeof left === "string" || typeof right === "string") return String(left).localeCompare(String(right)) * dir;
+  return (left - right) * dir;
+}
+
 function sortAccounts(list) {
   const dir = state.sortDir === "asc" ? 1 : -1;
-  const sorted = [...list];
-  sorted.sort((a, b) => {
-    let left = a[state.sortKey];
-    let right = b[state.sortKey];
-
-    if (state.sortKey === "recommendation") {
-      const order = { keep: 4, review: 3, assign: 2, release: 1 };
-      left = order[a.recommendation];
-      right = order[b.recommendation];
-    }
-
-    if (typeof left === "string" || typeof right === "string") {
-      return String(left).localeCompare(String(right)) * dir;
-    }
-    return (left - right) * dir;
+  const order = { keep: 4, review: 3, assign: 2, release: 1 };
+  return [...list].sort((a, b) => {
+    if (state.sortKey === "recommendation") return compareValues(order[getRecommendationKey(a)], order[getRecommendationKey(b)], dir);
+    if (state.sortKey === "connectionCount") return compareValues(getBestConnectionCount(a), getBestConnectionCount(b), dir);
+    return compareValues(a[state.sortKey], b[state.sortKey], dir);
   });
-  return sorted;
 }
 
-function getFilteredAccounts() {
-  return sortAccounts(accounts.filter(accountMatchesFilter));
+function getVisibleAccounts() {
+  return sortAccounts(accounts.filter(accountMatchesGlobalFilters));
 }
 
-function getQueueAccounts() {
-  return getFilteredAccounts();
+function getRepPortfolio(rep) {
+  return accounts.filter((account) => account.currentOwner === rep.name || account.suggestedOwner === rep.name);
 }
 
-function getRepSummary(repName) {
-  const suggested = accounts.filter((account) => account.suggestedOwner === repName);
-  const current = accounts.filter((account) => account.currentOwner === repName);
-  const protectedCount = current.filter((account) => account.recommendation === "keep").length;
-  const inbound = suggested.filter((account) => account.currentOwner !== repName).length;
-  const outbound = current.filter((account) => account.recommendation === "release").length;
+function getRepSuggestedBook(rep) {
+  return accounts.filter((account) => account.suggestedOwner === rep.name);
+}
+
+function getRepStats(rep) {
+  const currentBook = accounts.filter((account) => account.currentOwner === rep.name);
+  const suggestedBook = getRepSuggestedBook(rep);
+  const connectionPaths = sum(
+    accounts.map((account) => ((account.li_connections || {})[rep.name] || []).length)
+  );
+
   return {
-    suggestedCount: suggested.length,
-    suggestedTam: sum(suggested.map((account) => account.tam)),
-    protectedCount,
-    inbound,
-    outbound
+    currentCount: currentBook.length,
+    currentTam: sum(currentBook.map((account) => account.tam)),
+    suggestedCount: suggestedBook.length,
+    suggestedTam: sum(suggestedBook.map((account) => account.tam)),
+    keepCount: suggestedBook.filter((account) => getRecommendationKey(account) === "keep").length,
+    reviewCount: suggestedBook.filter((account) => getRecommendationKey(account) === "review").length,
+    releaseCount: currentBook.filter((account) => getRecommendationKey(account) === "release").length,
+    assignCount: suggestedBook.filter((account) => getRecommendationKey(account) === "assign").length,
+    connectionPaths,
+    formerEmployerCount: accounts.filter((account) => (account.formerEmployerReps || []).includes(rep.name)).length
   };
 }
 
-function renderHero() {
-  const reviewCount = accounts.filter((account) => account.recommendation === "review").length;
-  const releaseCount = accounts.filter((account) => account.recommendation === "release").length;
-  const assignCount = accounts.filter((account) => account.recommendation === "assign").length;
-  dom.heroNote.innerHTML = `
-    <div class="hero-note-label">Routing Signal</div>
-    <div class="hero-note-title">${reviewCount + releaseCount} manager decisions and ${assignCount} clean assignments are ready now.</div>
-    <p class="hero-note-copy">
-      Julian's book is the most overloaded, Maya owns the strongest West-side relationship leverage,
-      and Owen is the right landing zone for exploratory accounts that still need shaping.
-    </p>
-  `;
+function getHeaderCallout() {
+  const releaseCount = accounts.filter((account) => getRecommendationKey(account) === "release").length;
+  const reviewCount = accounts.filter((account) => getRecommendationKey(account) === "review").length;
+  const assignCount = accounts.filter((account) => getRecommendationKey(account) === "assign").length;
+  return {
+    label: "Routing Signal",
+    value: releaseCount + " release calls, " + reviewCount + " manager reviews, and " + assignCount + " direct assignments are ready now."
+  };
+}
+
+function renderHeaderCallout() {
+  const callout = getHeaderCallout();
+  document.getElementById("headerCallout").innerHTML =
+    '<div class="k">' + callout.label + '</div>' +
+    '<div class="v">' + callout.value + "</div>";
 }
 
 function renderStatsBar() {
   const totalTam = sum(accounts.map((account) => account.tam));
-  const relationshipLed = accounts.filter((account) => account.relationshipCount > 0 || account.formerEmployer || account.warmIntro).length;
+  const protectedTam = sum(accounts.filter((account) => getRecommendationKey(account) === "keep").map((account) => account.tam));
+  const relationshipLed = accounts.filter((account) => hasConnections(account) || hasFormerEmployer(account) || hasWarmLead(account)).length;
   const openPool = accounts.filter((account) => account.currentOwner === "Open Pool").length;
-  const releaseCount = accounts.filter((account) => account.recommendation === "release").length;
   const avgEngagement = Math.round(sum(accounts.map((account) => account.engagement)) / accounts.length);
-  const keepTam = sum(accounts.filter((account) => account.recommendation === "keep").map((account) => account.tam));
 
   const stats = [
-    { label: "Total TAM", value: shortMoney(totalTam), foot: accounts.length + " routed accounts" },
-    { label: "Protected TAM", value: shortMoney(keepTam), foot: accounts.filter((account) => account.recommendation === "keep").length + " keep calls" },
-    { label: "Relationship-Led", value: relationshipLed, foot: "Network or intro signal present" },
-    { label: "Open Pool", value: openPool, foot: "Accounts without a current owner" },
-    { label: "Average Engagement", value: avgEngagement + "%", foot: releaseCount + " release candidates" }
+    { value: shortMoney(totalTam), label: "Total TAM" },
+    { value: shortMoney(protectedTam), label: "Protected TAM" },
+    { value: relationshipLed, label: "Relationship-Led Accounts" },
+    { value: openPool, label: "Open Pool" },
+    { value: avgEngagement + "%", label: "Average Engagement" }
   ];
 
-  dom.statsBar.innerHTML = stats.map((stat) => `
-    <div class="stat-card">
-      <div class="stat-label">${stat.label}</div>
-      <div class="stat-value">${stat.value}</div>
-      <div class="stat-foot">${stat.foot}</div>
-    </div>
-  `).join("");
-}
-
-function renderSummaryGrid() {
-  const buckets = [
-    {
-      tone: "keep",
-      label: "Protected Coverage",
-      accounts: accounts.filter((account) => account.recommendation === "keep"),
-      foot: "Accounts where continuity is worth more than rebalance."
-    },
-    {
-      tone: "review",
-      label: "Manager Reviews",
-      accounts: accounts.filter((account) => account.recommendation === "review"),
-      foot: "Valid arguments exist on both sides of the routing decision."
-    },
-    {
-      tone: "release",
-      label: "Capacity Relief",
-      accounts: accounts.filter((account) => account.recommendation === "release"),
-      foot: "Accounts that should leave the current book this quarter."
-    },
-    {
-      tone: "assign",
-      label: "Ready To Assign",
-      accounts: accounts.filter((account) => account.recommendation === "assign"),
-      foot: "Open-pool accounts with a clear owner recommendation."
-    }
-  ];
-
-  dom.summaryGrid.innerHTML = buckets.map((bucket) => `
-    <div class="summary-card" data-tone="${bucket.tone}">
-      <div class="summary-label">${bucket.label}</div>
-      <div class="summary-value">${bucket.accounts.length}</div>
-      <div class="summary-foot">${shortMoney(sum(bucket.accounts.map((account) => account.tam)))} in TAM</div>
-      <div class="summary-foot">${bucket.foot}</div>
-    </div>
-  `).join("");
+  document.getElementById("statsBar").innerHTML = stats.map((stat) =>
+    '<div class="stat-chip"><div class="val">' + stat.value + '</div><div class="lbl">' + stat.label + "</div></div>"
+  ).join("");
 }
 
 function renderTabs() {
-  dom.tabs.innerHTML = tabMeta.map((tab) => `
-    <button class="tab-btn ${state.activeTab === tab.key ? "active" : ""}" data-tab="${tab.key}">
-      ${tab.label}
-    </button>
-  `).join("");
+  document.getElementById("tabs").innerHTML = tabMeta.map((tab) =>
+    '<button class="tab ' + (state.activeTab === tab.key ? "active" : "") + '" data-tab="' + tab.key + '">' + tab.label + "</button>"
+  ).join("");
+}
+
+function renderSummaryRow() {
+  const groups = [
+    { cls: "keep", label: "Protected Coverage", key: "keep" },
+    { cls: "review", label: "Manager Reviews", key: "review" },
+    { cls: "release", label: "Capacity Relief", key: "release" },
+    { cls: "assign", label: "Ready To Assign", key: "assign" }
+  ];
+
+  document.getElementById("summaryRow").innerHTML = groups.map((group) => {
+    const list = accounts.filter((account) => getRecommendationKey(account) === group.key);
+    return (
+      '<div class="sum-card ' + group.cls + '">' +
+      '<div class="sum-lbl">' + group.label + "</div>" +
+      '<div class="sum-num">' + list.length + "</div>" +
+      '<div class="sum-sub">' + shortMoney(sum(list.map((account) => account.tam))) + " in TAM</div>" +
+      "</div>"
+    );
+  }).join("");
 }
 
 function renderFilterRow() {
-  dom.filterRow.innerHTML = filterMeta.map((item) => `
-    <button class="chip ${state.selectedFilters.has(item.key) ? "active" : ""}" data-key="${item.key}">
-      ${item.label}
-    </button>
-  `).join("");
+  document.getElementById("filterRow").innerHTML = filterMeta.map((filter) =>
+    '<button class="sig-chip ' + filter.cls + " " + (state.selectedFilters.has(filter.key) ? "sig-active" : "") + '" data-filter="' + filter.key + '">' + filter.label + "</button>"
+  ).join("");
 }
 
-function renderRepPills() {
-  const pills = [{ name: "all", label: "All Routing", color: "#152126" }].concat(
-    reps.map((rep) => ({ name: rep.name, label: rep.name, color: rep.color }))
+function renderOwnerPills() {
+  const pills = [{ id: "all", label: "All Routing", color: "#1e293b" }].concat(
+    reps.map((rep) => ({ id: rep.id, label: rep.name, color: rep.color }))
   );
 
-  dom.repPills.innerHTML = pills.map((pill) => `
-    <button
-      class="chip rep-pill ${state.ownerFilter === pill.name ? "active" : ""}"
-      data-owner="${pill.name}"
-      style="${state.ownerFilter === pill.name ? "background:" + pill.color + ";" : ""}">
-      ${pill.label}
-    </button>
-  `).join("");
+  document.getElementById("ownerPills").innerHTML = pills.map((pill) =>
+    '<button class="owner-pill ' + (state.ownerFilter === pill.id ? "active" : "") + '" data-owner="' + pill.id + '" style="' +
+    (state.ownerFilter === pill.id ? "background:" + pill.color + ";" : "") +
+    '">' + pill.label + "</button>"
+  ).join("");
 }
 
-function renderCoveragePanel() {
-  const visible = getFilteredAccounts();
-  const totalTam = sum(visible.map((account) => account.tam));
-  const ownerLabel = state.ownerFilter === "all" ? "all routed books" : state.ownerFilter;
-
-  const rows = visible.map((account) => `
-    <tr data-account="${account.id}">
-      <td>
-        <div class="account-name">
-          <div class="account-dot" style="background:${dotColorFor(account.recommendation)};"></div>
-          <div>
-            <div class="account-title">${account.name}</div>
-            <div class="account-sub">${account.region} · ${account.segment} · ${account.tier}</div>
-          </div>
-        </div>
-      </td>
-      <td class="mono">${account.region}</td>
-      <td>${account.segment}</td>
-      <td>
-        <div class="signal-stack">
-          ${getAccountSignals(account).map((signal) => `<span class="badge ${signal.key}">${signal.label}</span>`).join("")}
-        </div>
-      </td>
-      <td>${shortMoney(account.tam)}</td>
-      <td>${account.engagement}%</td>
-      <td class="owner-cell">${account.currentOwner}</td>
-      <td class="owner-cell">${account.suggestedOwner === account.currentOwner ? account.suggestedOwner : account.currentOwner + ' <span class="owner-arrow">to</span> ' + account.suggestedOwner}</td>
-      <td><span class="badge ${account.recommendation}">${recommendationMeta[account.recommendation].label}</span></td>
-      <td><span class="score-pill">${account.score}</span></td>
-      <td><button class="details-btn" data-open="${account.id}">Details</button></td>
-    </tr>
-  `).join("");
-
-  const sortableHeaders = [
-    { key: "name", label: "Account" },
-    { key: "region", label: "Region" },
-    { key: "segment", label: "Segment" },
-    { key: "signals", label: "Signal Stack", sortable: false },
-    { key: "tam", label: "TAM" },
-    { key: "engagement", label: "Engagement" },
-    { key: "currentOwner", label: "Current Owner" },
-    { key: "suggestedOwner", label: "Suggested Route" },
-    { key: "recommendation", label: "Recommendation" },
-    { key: "score", label: "Score" },
-    { key: "detail", label: "", sortable: false }
-  ];
-
-  dom.coveragePanel.innerHTML = `
-    <div class="panel-shell">
-      <div class="panel-head">
-        <div>
-          <h2 class="panel-title">Coverage Grid</h2>
-          <p class="panel-copy">
-            Showing ${visible.length} accounts and ${shortMoney(totalTam)} in TAM across ${ownerLabel}.
-            Sort the table, stack filters, or open an account for full routing context.
-          </p>
-        </div>
-        <div class="panel-aside">
-          Score blends TAM, engagement, and relationship edge. Release calls are usually about
-          capacity and fit, not account quality alone.
-        </div>
-      </div>
-      <div class="table-wrap">
-        <table class="grid-table">
-          <thead>
-            <tr>
-              ${sortableHeaders.map((header) => {
-                if (header.sortable === false) return `<th>${header.label}</th>`;
-                const active = state.sortKey === header.key;
-                const arrow = active ? (state.sortDir === "asc" ? " ↑" : " ↓") : "";
-                return `<th><button class="sort-btn ${active ? "active" : ""}" data-sort="${header.key}">${header.label}${arrow}</button></th>`;
-              }).join("")}
-            </tr>
-          </thead>
-          <tbody>
-            ${rows || `<tr><td colspan="11" class="empty-state">No accounts match the current filters.</td></tr>`}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
+function badgeHtml(account) {
+  let html = "";
+  const bestConn = getBestConnectionCount(account);
+  if (bestConn > 0) html += '<span class="badge b-conn">1st Conn (' + bestConn + ")</span> ";
+  if (hasFormerEmployer(account)) html += '<span class="badge b-fe">F. Employer</span> ';
+  if (account.intent && account.intent !== "Low") html += '<span class="badge b-intent">' + account.intent + " Intent</span> ";
+  if (hasWarmLead(account)) html += '<span class="badge b-warm">Warm Lead</span> ';
+  if (account.open_opps > 0) html += '<span class="badge b-opp">' + account.open_opps + " Opp</span> ";
+  if (account.currentOwner !== "Open Pool" && account.currentOwner === account.suggestedOwner) html += '<span class="badge ' + getRecommendationClass(account) + '">' + getRecommendationLabel(account) + "</span> ";
+  if (account.currentOwner === "Open Pool" || account.currentOwner !== account.suggestedOwner) html += '<span class="badge ' + getRecommendationClass(account) + '">' + getRecommendationLabel(account) + "</span> ";
+  return html;
 }
 
-function renderRepPanel() {
-  const selectedRep = reps.find((rep) => rep.name === state.selectedRepCard) || reps[0];
-  const cards = reps.map((rep) => {
-    const summary = getRepSummary(rep.name);
-    return `
-      <button
-        class="rep-card ${selectedRep.name === rep.name ? "active" : ""}"
-        data-rep-card="${rep.name}"
-        style="${selectedRep.name === rep.name ? "background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246,248,249,0.94)); box-shadow:0 16px 28px rgba(21,33,38,0.08); border-color:" + rep.color + ";" : ""}">
-        <div class="rep-head">
-          <div>
-            <div class="rep-name">${rep.name}</div>
-            <div class="rep-role">${rep.role} · ${rep.focus}</div>
-          </div>
-          <div class="rep-capacity" style="color:${rep.color};">${rep.capacity}% cap</div>
-        </div>
-        <div class="rep-metrics">
-          <div class="rep-metric">
-            <div class="rep-metric-label">Suggested TAM</div>
-            <div class="rep-metric-value">${shortMoney(summary.suggestedTam)}</div>
-          </div>
-          <div class="rep-metric">
-            <div class="rep-metric-label">Suggested Accounts</div>
-            <div class="rep-metric-value">${summary.suggestedCount}</div>
-          </div>
-          <div class="rep-metric">
-            <div class="rep-metric-label">Protected</div>
-            <div class="rep-metric-value">${summary.protectedCount}</div>
-          </div>
-          <div class="rep-metric">
-            <div class="rep-metric-label">Inbound / Outbound</div>
-            <div class="rep-metric-value">${summary.inbound} / ${summary.outbound}</div>
-          </div>
-        </div>
-      </button>
-    `;
+function renderOverview() {
+  const visibleAccounts = getVisibleAccounts();
+  const repRows = reps.map((rep) => {
+    const stats = getRepStats(rep);
+    return (
+      "<tr>" +
+      '<td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:10px;">' +
+      '<div class="rep-avatar" style="background:' + rep.color + ';width:32px;height:32px;font-size:11px;">' + rep.initials + "</div>" +
+      "<div><div style=\"font-weight:700;font-size:13px;color:#1e293b;\">" + rep.name + "</div>" +
+      '<div style="font-size:10px;color:#94a3b8;">' + rep.title + "</div></div></div></td>" +
+      '<td style="padding:10px 8px;text-align:center;"><div class="num" style="color:' + rep.color + ';">' + stats.currentCount + "</div></td>" +
+      '<td style="padding:10px 8px;text-align:center;"><div class="num">' + rep.suggestedCount + "</div></td>" +
+      '<td style="padding:10px 8px;text-align:center;"><div class="num">' + shortMoney(stats.suggestedTam) + "</div></td>" +
+      '<td style="padding:10px 8px;text-align:center;font-size:12px;color:#15803d;font-weight:600;">' + stats.keepCount + "</td>" +
+      '<td style="padding:10px 8px;text-align:center;font-size:12px;color:#b45309;font-weight:600;">' + stats.reviewCount + "</td>" +
+      '<td style="padding:10px 8px;text-align:center;font-size:12px;color:#991b1b;font-weight:600;">' + stats.releaseCount + "</td>" +
+      '<td style="padding:10px 8px;text-align:center;font-size:12px;color:#0369a1;font-weight:600;">' + stats.assignCount + "</td>" +
+      '<td style="padding:10px 8px;text-align:center;font-size:12px;color:#10b981;font-weight:600;">' + stats.connectionPaths + "</td>" +
+      "</tr>"
+    );
+  }).join("");
+
+  const repCards = reps.map((rep) => {
+    const stats = getRepStats(rep);
+    return (
+      '<div class="rep-card" data-open-rep="' + rep.id + '">' +
+      '<div class="rep-card-top">' +
+      '<div class="rep-avatar" style="background:' + rep.color + ';">' + rep.initials + "</div>" +
+      "<div>" +
+      '<div class="rep-card-name">' + rep.name + "</div>" +
+      '<div class="rep-card-sub">' + stats.currentCount + " current | " + stats.suggestedCount + " suggested | " + shortMoney(stats.suggestedTam) + "</div>" +
+      "</div></div>" +
+      '<div class="rep-card-foot">' +
+      '<span style="color:#15803d;">Keep ' + stats.keepCount + "</span>" +
+      '<span style="color:#b45309;">Review ' + stats.reviewCount + "</span>" +
+      '<span style="color:#991b1b;">Release ' + stats.releaseCount + "</span>" +
+      '<span style="color:#0369a1;">Assign ' + stats.assignCount + "</span>" +
+      "</div>" +
+      '<div class="rep-card-actions">' +
+      '<button class="rep-card-btn" data-open-rep="' + rep.id + '">Profile</button>' +
+      '<button class="rep-card-btn" data-open-book="' + rep.id + '">Open Book</button>' +
+      "</div></div>"
+    );
+  }).join("");
+
+  const rows = visibleAccounts.map((account) =>
+    '<tr class="acc-row" data-open-account="' + account.id + '">' +
+    "<td><div class=\"acc-name\">" + account.account_name + "</div><div class=\"acc-sub\">" + account.region + " | " + account.classification + " | " + account.priority_tier + "</div></td>" +
+    "<td>" + badgeHtml(account) + "</td>" +
+    '<td style="font-weight:600;">' + shortMoney(account.tam) + "</td>" +
+    "<td>" + account.engagement + "</td>" +
+    "<td>" + ownerButton(account.currentOwner) + "</td>" +
+    "<td>" + routeCell(account) + "</td>" +
+    '<td><span class="badge ' + getRecommendationClass(account) + '">' + getRecommendationLabel(account) + "</span></td>" +
+    "<td>" + account.score + "</td>" +
+    "</tr>"
+  ).join("");
+
+  document.getElementById("tab_overview").innerHTML =
+    '<div class="hint">Rep cards now open profile detail and LinkedIn-path context. Use "Open Book" to jump directly into a rep-specific account view.</div>' +
+    '<div class="section-title">Coverage Summary</div>' +
+    '<div class="table-wrap"><table class="acc-table summary-table"><thead><tr>' +
+    "<th>Rep</th><th>Current</th><th>Suggested</th><th>Suggested TAM</th><th>Keep</th><th>Review</th><th>Release</th><th>Assign</th><th>1st Conn</th>" +
+    "</tr></thead><tbody>" + repRows + "</tbody></table></div>" +
+    '<div class="section-title">Rep Cards</div>' +
+    '<div class="card-grid">' + repCards + "</div>" +
+    '<div class="section-title">All Accounts</div>' +
+    '<div class="table-wrap"><table class="acc-table"><thead><tr>' +
+    '<th class="th-sort ' + (state.sortKey === "account_name" ? "sort-" + state.sortDir : "") + '" data-sort="account_name">Account</th>' +
+    "<th>Signals</th>" +
+    '<th class="th-sort ' + (state.sortKey === "tam" ? "sort-" + state.sortDir : "") + '" data-sort="tam">TAM</th>' +
+    '<th class="th-sort ' + (state.sortKey === "engagement" ? "sort-" + state.sortDir : "") + '" data-sort="engagement">Eng</th>' +
+    "<th>Current Owner</th>" +
+    "<th>Suggested Route</th>" +
+    '<th class="th-sort ' + (state.sortKey === "recommendation" ? "sort-" + state.sortDir : "") + '" data-sort="recommendation">Recommendation</th>' +
+    '<th class="th-sort ' + (state.sortKey === "score" ? "sort-" + state.sortDir : "") + '" data-sort="score">Score</th>' +
+    "</tr></thead><tbody>" + rows + "</tbody></table></div>";
+}
+
+function accountMatchesRepSignal(account, repName) {
+  if (state.repSignal === "all") return true;
+  if (state.repSignal === "conn") return ((account.li_connections || {})[repName] || []).length > 0;
+  if (state.repSignal === "fe") return (account.formerEmployerReps || []).includes(repName);
+  if (state.repSignal === "opp") return account.open_opps > 0;
+  return getRecommendationKey(account) === state.repSignal;
+}
+
+function renderRepBooks() {
+  const selectedRep = getRepById(state.selectedRepId) || reps[0];
+  const stats = getRepStats(selectedRep);
+  const repCards = reps.map((rep) => {
+    const repStats = getRepStats(rep);
+    return (
+      '<div class="rep-card ' + (rep.id === selectedRep.id ? "active" : "") + '" data-select-rep="' + rep.id + '">' +
+      '<div class="rep-card-top">' +
+      '<div class="rep-avatar" style="background:' + rep.color + ';">' + rep.initials + "</div>" +
+      "<div>" +
+      '<div class="rep-card-name">' + rep.name + "</div>" +
+      '<div class="rep-card-sub">' + repStats.suggestedCount + " accounts | " + shortMoney(repStats.suggestedTam) + "</div>" +
+      "</div></div>" +
+      '<div class="rep-card-foot">' +
+      '<span style="color:#10b981;">1st Conn ' + repStats.connectionPaths + "</span>" +
+      '<span style="color:#6296ad;">F. Employer ' + repStats.formerEmployerCount + "</span>" +
+      '<span style="color:#991b1b;">Release ' + repStats.releaseCount + "</span>" +
+      "</div>" +
+      '<div class="rep-card-actions">' +
+      '<button class="rep-card-btn" data-open-rep="' + rep.id + '">Profile</button>' +
+      "</div></div>"
+    );
   }).join("");
 
   const repAccounts = sortAccounts(
-    accounts.filter((account) => account.currentOwner === selectedRep.name || account.suggestedOwner === selectedRep.name)
+    getRepPortfolio(selectedRep).filter((account) => accountMatchesRepSignal(account, selectedRep.name))
   );
 
-  const repSummary = getRepSummary(selectedRep.name);
-  const repRows = repAccounts.map((account) => `
-    <tr data-account="${account.id}">
-      <td>
-        <div class="account-title">${account.name}</div>
-        <div class="account-sub">${account.region} · ${account.segment}</div>
-      </td>
-      <td><span class="badge ${account.recommendation}">${recommendationMeta[account.recommendation].label}</span></td>
-      <td class="owner-cell">${account.currentOwner}</td>
-      <td class="owner-cell">${account.suggestedOwner}</td>
-      <td>${shortMoney(account.tam)}</td>
-      <td>${account.engagement}%</td>
-      <td>${account.why}</td>
-    </tr>
-  `).join("");
+  const repRows = repAccounts.map((account) =>
+    '<tr class="acc-row" data-open-account="' + account.id + '">' +
+    "<td><div class=\"acc-name\">" + account.account_name + "</div><div class=\"acc-sub\">" + account.region + " | " + account.classification + "</div></td>" +
+    "<td>" + badgeHtml(account) + "</td>" +
+    '<td style="font-weight:600;">' + shortMoney(account.tam) + "</td>" +
+    "<td>" + account.engagement + "</td>" +
+    "<td>" + routeCell(account) + "</td>" +
+    "<td>" + account.why[0] + "</td>" +
+    "</tr>"
+  ).join("");
 
-  dom.repsPanel.innerHTML = `
-    <div class="panel-shell">
-      <div class="panel-head">
-        <div>
-          <h2 class="panel-title">Rep Loadout</h2>
-          <p class="panel-copy">
-            Use this view to pressure-test how each book changes if the routing calls are accepted.
-          </p>
-        </div>
-        <div class="panel-aside">
-          Suggested TAM is based on the proposed routing outcome, not just the current book.
-        </div>
-      </div>
-      <div class="rep-grid">${cards}</div>
-      <div class="rep-detail">
-        <div class="rep-detail-head">
-          <div>
-            <h3 class="rep-detail-title">${selectedRep.name}</h3>
-            <p class="rep-detail-copy">
-              ${selectedRep.role} focused on ${selectedRep.focus}. This view includes accounts the rep
-              owns today and accounts they are proposed to inherit after the redesign.
-            </p>
-          </div>
-          <div class="rep-kpis">
-            <div class="rep-kpi">
-              <div class="rep-kpi-label">Suggested TAM</div>
-              <div class="rep-kpi-value">${shortMoney(repSummary.suggestedTam)}</div>
-            </div>
-            <div class="rep-kpi">
-              <div class="rep-kpi-label">Suggested Accounts</div>
-              <div class="rep-kpi-value">${repSummary.suggestedCount}</div>
-            </div>
-            <div class="rep-kpi">
-              <div class="rep-kpi-label">Protected</div>
-              <div class="rep-kpi-value">${repSummary.protectedCount}</div>
-            </div>
-            <div class="rep-kpi">
-              <div class="rep-kpi-label">Inbound / Outbound</div>
-              <div class="rep-kpi-value">${repSummary.inbound} / ${repSummary.outbound}</div>
-            </div>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table class="grid-table">
-            <thead>
-              <tr>
-                <th>Account</th>
-                <th>Recommendation</th>
-                <th>Current Owner</th>
-                <th>Suggested Owner</th>
-                <th>TAM</th>
-                <th>Engagement</th>
-                <th>Routing Rationale</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${repRows}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  `;
+  document.getElementById("tab_reps").innerHTML =
+    '<div class="section-title">Rep Cards</div>' +
+    '<div class="card-grid">' + repCards + "</div>" +
+    '<div class="rep-hdr">' +
+    '<div class="rep-avatar" style="background:' + selectedRep.color + ';">' + selectedRep.initials + "</div>" +
+    '<div class="rep-hdr-copy">' +
+    '<div class="rep-hdr-name">' + selectedRep.name + "</div>" +
+    '<div class="rep-hdr-meta">' +
+    stats.currentCount + " current | " + stats.suggestedCount + " suggested | " + shortMoney(stats.suggestedTam) +
+    " | Keep " + stats.keepCount +
+    " | Review " + stats.reviewCount +
+    " | F. Employer " + stats.formerEmployerCount +
+    " | 1st Conn " + stats.connectionPaths +
+    "</div></div>" +
+    '<div class="rep-hdr-actions">' +
+    repSignalMeta.map((item) =>
+      '<button class="mini-btn ' + (state.repSignal === item.key ? "active" : "") + '" data-rep-signal="' + item.key + '">' + item.label + "</button>"
+    ).join("") +
+    "</div></div>" +
+    '<div class="table-wrap"><table class="acc-table"><thead><tr>' +
+    "<th>Account</th><th>Signals</th><th>TAM</th><th>Eng</th><th>Suggested Route</th><th>Routing Rationale</th>" +
+    "</tr></thead><tbody>" +
+    (repRows || '<tr><td colspan="6" style="padding:14px;color:#64748b;">No accounts match the current rep filter.</td></tr>') +
+    "</tbody></table></div>";
 }
 
-function renderQueuePanel() {
-  const queueAccounts = getQueueAccounts();
-  const columns = ["keep", "review", "release", "assign"].map((key) => {
-    const bucket = queueAccounts.filter((account) => account.recommendation === key);
-    return {
-      key,
-      label: recommendationMeta[key].label,
-      blurb: recommendationMeta[key].blurb,
-      accounts: bucket,
-      tam: shortMoney(sum(bucket.map((account) => account.tam)))
-    };
-  });
+function renderQueue() {
+  const visibleAccounts = getVisibleAccounts();
+  const columns = [
+    { key: "keep", title: "Keep", sub: "Protect continuity on the right book." },
+    { key: "review", title: "Review", sub: "Manager judgment still required." },
+    { key: "release", title: "Release", sub: "Create capacity and improve fit." },
+    { key: "assign", title: "Assign", sub: "Open-pool accounts with a clear owner." }
+  ];
 
-  dom.queuePanel.innerHTML = `
-    <div class="panel-shell">
-      <div class="panel-head">
-        <div>
-          <h2 class="panel-title">Decision Queue</h2>
-          <p class="panel-copy">
-            Same account set, reorganized by action. This is the manager's routing board for the quarter.
-          </p>
-        </div>
-        <div class="panel-aside">
-          Review means leadership judgment is still required. Release and Assign are the clearest operational calls.
-        </div>
-      </div>
-      <div class="queue-board">
-        ${columns.map((column) => `
-          <div class="queue-column">
-            <div class="queue-head" data-tone="${column.key}">
-              <div class="queue-title">${column.label}</div>
-              <div class="queue-sub">${column.accounts.length} accounts · ${column.tam}</div>
-              <div class="queue-sub">${column.blurb}</div>
-            </div>
-            ${column.accounts.length ? column.accounts.map((account) => `
-              <button class="queue-card" data-open="${account.id}">
-                <div class="queue-card-title">${account.name}</div>
-                <div class="queue-card-copy">${account.why}</div>
-                <div class="queue-card-foot">
-                  <span>${shortMoney(account.tam)}</span>
-                  <span>${account.currentOwner} to ${account.suggestedOwner}</span>
-                </div>
-              </button>
-            `).join("") : `<div class="empty-state">No accounts in this column under the current filters.</div>`}
-          </div>
-        `).join("")}
-      </div>
-    </div>
-  `;
+  document.getElementById("tab_queue").innerHTML =
+    '<div class="queue-grid">' +
+    columns.map((column) => {
+      const list = visibleAccounts.filter((account) => getRecommendationKey(account) === column.key);
+      const cards = list.length ? list.map((account) =>
+        '<button class="queue-card" data-open-account="' + account.id + '">' +
+        '<div class="queue-card-title">' + account.account_name + "</div>" +
+        '<div class="queue-card-copy">' + account.queueNote + "</div>" +
+        '<div class="queue-card-foot">' + shortMoney(account.tam) + " | " + account.currentOwner + " to " + account.suggestedOwner + "</div>" +
+        "</button>"
+      ).join("") : '<div class="empty-state">No accounts in this column under the current filters.</div>';
+
+      return (
+        '<div class="queue-col">' +
+        '<div class="queue-head"><div class="queue-title">' + column.title + "</div>" +
+        '<div class="queue-sub">' + list.length + " accounts | " + shortMoney(sum(list.map((account) => account.tam))) + "</div>" +
+        '<div class="queue-sub">' + column.sub + "</div></div>" +
+        cards +
+        "</div>"
+      );
+    }).join("") +
+    "</div>";
 }
 
 function renderPanels() {
-  dom.coveragePanel.classList.toggle("active", state.activeTab === "coverage");
-  dom.repsPanel.classList.toggle("active", state.activeTab === "reps");
-  dom.queuePanel.classList.toggle("active", state.activeTab === "queue");
+  document.getElementById("tab_overview").classList.toggle("active", state.activeTab === "overview");
+  document.getElementById("tab_reps").classList.toggle("active", state.activeTab === "reps");
+  document.getElementById("tab_queue").classList.toggle("active", state.activeTab === "queue");
 
-  renderCoveragePanel();
-  renderRepPanel();
-  renderQueuePanel();
+  renderOverview();
+  renderRepBooks();
+  renderQueue();
 }
 
 function renderAll() {
-  renderHero();
+  renderHeaderCallout();
   renderStatsBar();
-  renderSummaryGrid();
   renderTabs();
+  renderSummaryRow();
   renderFilterRow();
-  renderRepPills();
+  renderOwnerPills();
   renderPanels();
 }
 
-function openModal(accountId) {
-  const account = accounts.find((item) => item.id === accountId);
-  if (!account) return;
+function openAccountModal(accountId) {
+  const acc = accounts.find((account) => account.id === accountId);
+  if (!acc) return;
+  if (state.activeRepId) closeRepModal();
 
   state.activeAccountId = accountId;
-  const meta = recommendationMeta[account.recommendation];
+  const currentRep = getRepByName(acc.suggestedOwner === "Open Pool" ? acc.currentOwner : acc.suggestedOwner) || getRepByName(acc.currentOwner);
+  const col = currentRep ? currentRep.color : "#64748b";
 
-  dom.modalKicker.textContent = meta.label + " Recommendation";
-  dom.modalDot.style.background = dotColorFor(account.recommendation);
-  dom.modalTitle.textContent = account.name;
-  dom.modalMeta.innerHTML = `
-    ${account.region} · ${account.segment} · ${account.tier}
-    <br>
-    Current owner: ${account.currentOwner} · Suggested owner: ${account.suggestedOwner}
-  `;
-  dom.modalBadges.innerHTML = getAccountSignals(account)
-    .map((signal) => `<span class="badge ${signal.key}">${signal.label}</span>`)
-    .join("");
-  dom.modalRecommendation.className = "recommendation-box " + meta.tone;
-  dom.modalRecommendation.innerHTML = `<strong>${meta.label}:</strong> ${meta.blurb}`;
-  dom.modalMetrics.innerHTML = [
-    ["TAM", currencyWhole.format(account.tam)],
-    ["Score", account.score],
-    ["Engagement", account.engagement + "%"],
-    ["Intent", account.intent],
-    ["Open Opps", account.openOpps],
-    ["1st Conns", account.relationshipCount],
-    ["Current Owner", account.currentOwner],
-    ["Suggested Owner", account.suggestedOwner]
-  ].map(([label, value]) => `
-    <div class="metric-card">
-      <div class="metric-label">${label}</div>
-      <div class="metric-value">${value}</div>
-    </div>
-  `).join("");
-  dom.modalWhy.textContent = account.why;
-  dom.modalNext.textContent = account.nextMove;
-  dom.modalRelationships.innerHTML = account.relationshipEdge.map((item) => `<li>${item}</li>`).join("");
-  dom.modalChanges.innerHTML = account.changeNotes.map((item) => `<li>${item}</li>`).join("");
-  dom.modalContacts.innerHTML = account.contacts.map((contact) => `
-    <div class="contact-card">
-      <div class="contact-name">${contact.name}</div>
-      <div class="contact-title">${contact.title}</div>
-      <div class="contact-signal">${contact.signal}</div>
-    </div>
-  `).join("");
+  document.getElementById("mDot").style.background = col;
+  document.getElementById("mName").textContent = acc.account_name;
+  document.getElementById("mMeta").textContent = acc.region + " | " + acc.classification + " | " + acc.website;
+  document.getElementById("mBadges").innerHTML = badgeHtml(acc);
 
-  dom.overlay.classList.add("open");
+  const recClass = getRecommendationKey(acc) === "keep" ? "keep-box-keep" :
+    getRecommendationKey(acc) === "review" ? "keep-box-review" :
+    getRecommendationKey(acc) === "release" ? "keep-box-release" :
+    "keep-box-assign";
+  const recLabel = getRecommendationLabel(acc).toUpperCase();
+  document.getElementById("mKeepBox").className = recClass;
+  document.getElementById("mKeepBox").textContent = recLabel + ": " + acc.keep_reason;
+
+  document.getElementById("mWhy").innerHTML = acc.why.join("<br>");
+
+  document.getElementById("mMetrics").innerHTML =
+    '<div class="metric-card"><div class="mc-lbl">TAM</div><div class="mc-val">' + wholeMoney(acc.tam) + "</div></div>" +
+    '<div class="metric-card"><div class="mc-lbl">Employees</div><div class="mc-val">' + acc.emp_size.toLocaleString() + "</div></div>" +
+    '<div class="metric-card"><div class="mc-lbl">Engagement</div><div class="mc-val">' + acc.engagement + "</div></div>" +
+    '<div class="metric-card"><div class="mc-lbl">Open Opps</div><div class="mc-val">' + acc.open_opps + "</div></div>" +
+    '<div class="metric-card"><div class="mc-lbl">Closed Won</div><div class="mc-val">' + acc.closed_won + "</div></div>" +
+    '<div class="metric-card"><div class="mc-lbl">Intent</div><div class="mc-val">' + acc.intent + "</div></div>";
+
+  document.getElementById("mRep").innerHTML =
+    '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">' +
+    '<span>Current: ' + routeCell({ currentOwner: acc.currentOwner, suggestedOwner: acc.currentOwner }) + '</span>' +
+    '<span style="color:#94a3b8;">|</span>' +
+    '<span>Suggested: ' + routeCell({ currentOwner: acc.suggestedOwner, suggestedOwner: acc.suggestedOwner }) + "</span>" +
+    "</div>";
+
+  const connSection = document.getElementById("mConnSec");
+  const connBody = document.getElementById("mConnBody");
+  const connectionEntries = Object.entries(acc.li_connections || {}).sort((a, b) => b[1].length - a[1].length);
+  if (connectionEntries.length) {
+    connSection.style.display = "block";
+    connBody.innerHTML = '<div style="display:flex;flex-direction:column;gap:6px;">' + connectionEntries.map(([repName, contacts], index) => {
+      const rep = getRepByName(repName);
+      const panelId = "li-panel-" + index;
+      return (
+        '<div style="background:#f8fafc;border-radius:8px;overflow:hidden;">' +
+        '<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;">' +
+        '<div class="rep-avatar" style="background:' + (rep ? rep.color : "#64748b") + ';width:28px;height:28px;font-size:11px;">' + (rep ? rep.initials : repName.slice(0, 2).toUpperCase()) + "</div>" +
+        '<div style="flex:1;"><div style="font-size:12px;font-weight:700;color:#1e293b;">' + repName + "</div>" +
+        '<div style="font-size:11px;color:#64748b;">' + contacts.length + " connection" + (contacts.length === 1 ? "" : "s") + "</div></div>" +
+        '<button class="mini-btn" data-toggle-panel="' + panelId + '">View</button>' +
+        "</div>" +
+        '<div id="' + panelId + '" style="display:none;padding:8px 12px 10px 46px;border-top:1px solid #e2e8f0;">' +
+        contacts.map((contact) =>
+          '<div style="font-size:12px;margin-bottom:5px;"><a class="contact-link" href="' + contact.url + '" target="_blank" rel="noreferrer">' + contact.name + "</a>" +
+          '<span style="color:#64748b;font-size:10px;"> - ' + contact.title + "</span></div>"
+        ).join("") +
+        "</div></div>"
+      );
+    }).join("") + "</div>";
+  } else {
+    connSection.style.display = "none";
+    connBody.innerHTML = "";
+  }
+
+  const feSection = document.getElementById("mFESec");
+  const feBody = document.getElementById("mFEBody");
+  if ((acc.formerEmployerReps || []).length) {
+    feSection.style.display = "block";
+    feBody.innerHTML = '<div class="li-box">' + acc.formerEmployerReps.map((repName) => {
+      const rep = getRepByName(repName);
+      return (
+        '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;">' +
+        '<div class="rep-avatar" style="background:' + (rep ? rep.color : "#64748b") + ';width:24px;height:24px;font-size:10px;">' + (rep ? rep.initials : repName.slice(0, 2).toUpperCase()) + "</div>" +
+        '<span style="font-size:13px;font-weight:600;color:#6296ad;">' + repName + " is a former employee</span></div>"
+      );
+    }).join("") + "</div>";
+  } else {
+    feSection.style.display = "none";
+    feBody.innerHTML = "";
+  }
+
+  const champSection = document.getElementById("mChampSec");
+  const champBody = document.getElementById("mChampBody");
+  if ((acc.champions || []).length) {
+    champSection.style.display = "block";
+    champBody.innerHTML = acc.champions.map((contact) =>
+      '<div class="contact-card"><div class="contact-name"><a class="contact-link" href="' + contact.linkedin + '" target="_blank" rel="noreferrer">' + contact.name + "</a></div>" +
+      '<div class="contact-title">' + contact.title + "</div><div class=\"contact-signal\">" + contact.signal + "</div></div>"
+    ).join("");
+  } else {
+    champSection.style.display = "none";
+    champBody.innerHTML = "";
+  }
+
+  const warmSection = document.getElementById("mWarmSec");
+  const warmBody = document.getElementById("mWarmBody");
+  if ((acc.warm_leads || []).length) {
+    warmSection.style.display = "block";
+    warmBody.innerHTML = acc.warm_leads.map((contact) =>
+      '<div class="contact-card"><div class="contact-name"><a class="contact-link" href="' + contact.linkedin + '" target="_blank" rel="noreferrer">' + contact.name + "</a></div>" +
+      '<div class="contact-title">' + contact.title + "</div><div class=\"contact-signal\">" + contact.signal + "</div></div>"
+    ).join("");
+  } else {
+    warmSection.style.display = "none";
+    warmBody.innerHTML = "";
+  }
+
+  document.getElementById("accountOverlay").classList.add("open");
   document.body.classList.add("modal-open");
 }
 
-function closeModal() {
-  state.activeAccountId = null;
-  dom.overlay.classList.remove("open");
-  document.body.classList.remove("modal-open");
+function openRepModal(repId) {
+  const rep = getRepById(repId);
+  if (!rep) return;
+
+  state.activeRepId = repId;
+  const stats = getRepStats(rep);
+  const suggestedBook = sortAccounts(getRepSuggestedBook(rep));
+  const connectionCards = [];
+
+  accounts.forEach((account) => {
+    const contacts = ((account.li_connections || {})[rep.name]) || [];
+    contacts.forEach((contact) => {
+      connectionCards.push({ account: account.account_name, contact });
+    });
+  });
+
+  document.getElementById("rpAvatar").style.background = rep.color;
+  document.getElementById("rpAvatar").textContent = rep.initials;
+  document.getElementById("rpName").textContent = rep.name;
+  document.getElementById("rpRole").textContent = rep.title + " | " + rep.territory + " | " + rep.location;
+  document.getElementById("rpActions").innerHTML =
+    '<a class="profile-link" href="' + rep.linkedin + '" target="_blank" rel="noreferrer">LinkedIn Profile</a>' +
+    '<button class="profile-link" data-open-book="' + rep.id + '" style="border:none;background:#fff;cursor:pointer;">Open Book</button>';
+
+  document.getElementById("rpMetrics").innerHTML =
+    '<div class="metric-card"><div class="mc-lbl">Current Book</div><div class="mc-val">' + stats.currentCount + "</div></div>" +
+    '<div class="metric-card"><div class="mc-lbl">Suggested Book</div><div class="mc-val">' + stats.suggestedCount + "</div></div>" +
+    '<div class="metric-card"><div class="mc-lbl">Suggested TAM</div><div class="mc-val">' + shortMoney(stats.suggestedTam) + "</div></div>" +
+    '<div class="metric-card"><div class="mc-lbl">1st Conn Paths</div><div class="mc-val">' + stats.connectionPaths + "</div></div>" +
+    '<div class="metric-card"><div class="mc-lbl">Former Employer</div><div class="mc-val">' + stats.formerEmployerCount + "</div></div>" +
+    '<div class="metric-card"><div class="mc-lbl">Territory</div><div class="mc-val">' + rep.territory + "</div></div>";
+
+  document.getElementById("rpSummary").textContent = rep.summary;
+  document.getElementById("rpFocus").textContent = rep.focus;
+  document.getElementById("rpFormerEmployers").innerHTML = rep.formerEmployers.map((item) => "<li>" + item + "</li>").join("");
+  document.getElementById("rpHighlights").innerHTML = rep.highlights.map((item) => "<li>" + item + "</li>").join("");
+
+  document.getElementById("rpConnections").innerHTML = connectionCards.length ? connectionCards.slice(0, 8).map((item) =>
+    '<div class="contact-card"><div class="contact-name"><a class="contact-link" href="' + item.contact.url + '" target="_blank" rel="noreferrer">' + item.contact.name + "</a></div>" +
+    '<div class="contact-title">' + item.contact.title + " | " + item.account + "</div></div>"
+  ).join("") : '<div class="empty-state">No LinkedIn-path contacts are mapped for this rep yet.</div>';
+
+  document.getElementById("rpAccounts").innerHTML = suggestedBook.map((account) =>
+    '<div class="account-inline"><div><div class="acc-name">' + account.account_name + '</div><div class="acc-sub">' + shortMoney(account.tam) + " | " + getRecommendationLabel(account) + "</div></div>" +
+    '<button data-open-account="' + account.id + '">Open Account</button></div>'
+  ).join("");
+
+  document.getElementById("repOverlay").classList.add("open");
+  document.body.classList.add("modal-open");
 }
 
-dom.tabs.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-tab]");
-  if (!button) return;
-  state.activeTab = button.dataset.tab;
+function closeAccountModal() {
+  state.activeAccountId = null;
+  document.getElementById("accountOverlay").classList.remove("open");
+  if (!document.getElementById("repOverlay").classList.contains("open")) document.body.classList.remove("modal-open");
+}
+
+function closeRepModal() {
+  state.activeRepId = null;
+  document.getElementById("repOverlay").classList.remove("open");
+  if (!document.getElementById("accountOverlay").classList.contains("open")) document.body.classList.remove("modal-open");
+}
+
+function switchTab(tabKey) {
+  state.activeTab = tabKey;
   renderAll();
+}
+
+function openBook(repId) {
+  state.selectedRepId = repId;
+  state.activeTab = "reps";
+  renderAll();
+  closeRepModal();
+}
+
+document.getElementById("tabs").addEventListener("click", (event) => {
+  const tab = event.target.closest("[data-tab]");
+  if (!tab) return;
+  switchTab(tab.dataset.tab);
 });
 
-dom.filterRow.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-key]");
-  if (!button) return;
-  const key = button.dataset.key;
+document.getElementById("filterRow").addEventListener("click", (event) => {
+  const chip = event.target.closest("[data-filter]");
+  if (!chip) return;
+  const key = chip.dataset.filter;
   if (state.selectedFilters.has(key)) state.selectedFilters.delete(key);
   else state.selectedFilters.add(key);
   renderAll();
 });
 
-dom.repPills.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-owner]");
-  if (!button) return;
-  state.ownerFilter = button.dataset.owner;
-  renderAll();
-});
-
-dom.clearFilters.addEventListener("click", () => {
+document.getElementById("clearFilters").addEventListener("click", () => {
   state.selectedFilters.clear();
   state.ownerFilter = "all";
   state.search = "";
-  dom.searchInput.value = "";
+  document.getElementById("searchInput").value = "";
   renderAll();
 });
 
-dom.searchInput.addEventListener("input", (event) => {
+document.getElementById("searchInput").addEventListener("input", (event) => {
   state.search = event.target.value;
   renderAll();
 });
 
-dom.coveragePanel.addEventListener("click", (event) => {
-  const sortButton = event.target.closest("[data-sort]");
-  if (sortButton) {
-    const key = sortButton.dataset.sort;
+document.getElementById("ownerPills").addEventListener("click", (event) => {
+  const pill = event.target.closest("[data-owner]");
+  if (!pill) return;
+  state.ownerFilter = pill.dataset.owner;
+  renderAll();
+});
+
+document.getElementById("tab_overview").addEventListener("click", (event) => {
+  const sort = event.target.closest("[data-sort]");
+  if (sort) {
+    const key = sort.dataset.sort;
     if (state.sortKey === key) state.sortDir = state.sortDir === "asc" ? "desc" : "asc";
     else {
       state.sortKey = key;
-      state.sortDir = key === "name" || key === "region" || key === "segment" || key === "currentOwner" || key === "suggestedOwner" ? "asc" : "desc";
+      state.sortDir = key === "account_name" ? "asc" : "desc";
     }
     renderAll();
     return;
   }
 
-  const openTarget = event.target.closest("[data-open]");
-  if (openTarget) {
-    openModal(openTarget.dataset.open);
+  const openBookBtn = event.target.closest("[data-open-book]");
+  if (openBookBtn) {
+    openBook(openBookBtn.dataset.openBook);
     return;
   }
 
-  const row = event.target.closest("[data-account]");
-  if (row) openModal(row.dataset.account);
+  const repProfile = event.target.closest("[data-open-rep]");
+  if (repProfile) {
+    openRepModal(repProfile.dataset.openRep);
+    return;
+  }
+
+  const openAccount = event.target.closest("[data-open-account]");
+  if (openAccount) openAccountModal(openAccount.dataset.openAccount);
 });
 
-dom.repsPanel.addEventListener("click", (event) => {
-  const repButton = event.target.closest("[data-rep-card]");
-  if (repButton) {
-    state.selectedRepCard = repButton.dataset.repCard;
+document.getElementById("tab_reps").addEventListener("click", (event) => {
+  const repProfile = event.target.closest("[data-open-rep]");
+  if (repProfile) {
+    openRepModal(repProfile.dataset.openRep);
+    return;
+  }
+
+  const selectRep = event.target.closest("[data-select-rep]");
+  if (selectRep) {
+    state.selectedRepId = selectRep.dataset.selectRep;
     renderAll();
     return;
   }
 
-  const row = event.target.closest("[data-account]");
-  if (row) openModal(row.dataset.account);
+  const repSignal = event.target.closest("[data-rep-signal]");
+  if (repSignal) {
+    state.repSignal = repSignal.dataset.repSignal;
+    renderAll();
+    return;
+  }
+
+  const openAccount = event.target.closest("[data-open-account]");
+  if (openAccount) openAccountModal(openAccount.dataset.openAccount);
 });
 
-dom.queuePanel.addEventListener("click", (event) => {
-  const openTarget = event.target.closest("[data-open]");
-  if (openTarget) openModal(openTarget.dataset.open);
+document.getElementById("tab_queue").addEventListener("click", (event) => {
+  const openAccount = event.target.closest("[data-open-account]");
+  if (openAccount) openAccountModal(openAccount.dataset.openAccount);
 });
 
-dom.overlay.addEventListener("click", (event) => {
-  if (event.target === dom.overlay) closeModal();
+document.getElementById("accountOverlay").addEventListener("click", (event) => {
+  if (event.target === event.currentTarget) closeAccountModal();
 });
 
-dom.closeModalBtn.addEventListener("click", closeModal);
+document.getElementById("repOverlay").addEventListener("click", (event) => {
+  if (event.target === event.currentTarget) closeRepModal();
+});
+
+document.getElementById("closeAccountModal").addEventListener("click", closeAccountModal);
+document.getElementById("closeRepModal").addEventListener("click", closeRepModal);
+
+document.getElementById("accountModal").addEventListener("click", (event) => {
+  const toggle = event.target.closest("[data-toggle-panel]");
+  if (toggle) {
+    const panel = document.getElementById(toggle.dataset.togglePanel);
+    if (!panel) return;
+    panel.style.display = panel.style.display === "none" ? "block" : "none";
+    toggle.textContent = panel.style.display === "none" ? "View" : "Hide";
+    return;
+  }
+
+  const openRep = event.target.closest("[data-open-rep]");
+  if (openRep) {
+    openRepModal(openRep.dataset.openRep);
+    return;
+  }
+});
+
+document.getElementById("repModal").addEventListener("click", (event) => {
+  const openAccount = event.target.closest("[data-open-account]");
+  if (openAccount) {
+    openAccountModal(openAccount.dataset.openAccount);
+    return;
+  }
+
+  const openBookBtn = event.target.closest("[data-open-book]");
+  if (openBookBtn) {
+    openBook(openBookBtn.dataset.openBook);
+  }
+});
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && state.activeAccountId) closeModal();
+  if (event.key !== "Escape") return;
+  if (state.activeAccountId) closeAccountModal();
+  if (state.activeRepId) closeRepModal();
 });
 
 renderAll();
