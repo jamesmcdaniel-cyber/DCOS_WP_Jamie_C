@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Territory Design | Backstory</title>
+<title>Territory Expansion Map</title>
 <style>
 *,
 *::before,
@@ -23,85 +23,6 @@ body {
 button,
 input {
   font: inherit;
-}
-
-.header {
-  background: #000;
-  color: #fff;
-  padding: 18px 32px;
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  flex-wrap: wrap;
-}
-
-.header-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.header-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #6296ad, #1e293b);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.8px;
-}
-
-.header-meta {
-  border-left: 1px solid rgba(255, 255, 255, 0.18);
-  padding-left: 20px;
-}
-
-.header-meta p {
-  margin: 0;
-  font-size: 11px;
-  opacity: 0.55;
-  letter-spacing: 0.2px;
-  text-transform: uppercase;
-}
-
-.header-meta h1 {
-  margin: 6px 0 0;
-  font-size: 28px;
-  line-height: 1.05;
-  letter-spacing: -0.5px;
-}
-
-.header-meta .sub {
-  margin-top: 6px;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.68);
-}
-
-.header-callout {
-  margin-left: auto;
-  max-width: 360px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.header-callout .k {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.52);
-  text-transform: uppercase;
-  letter-spacing: 0.7px;
-}
-
-.header-callout .v {
-  margin-top: 4px;
-  font-size: 14px;
-  line-height: 1.5;
 }
 
 .stats-bar {
@@ -934,7 +855,6 @@ body.modal-open {
 }
 
 @media (max-width: 780px) {
-  .header,
   .stats-bar,
   .nav,
   .summary-row,
@@ -951,11 +871,6 @@ body.modal-open {
     grid-template-columns: 1fr;
   }
 
-  .header-callout {
-    margin-left: 0;
-    max-width: none;
-  }
-
   .modal-hdr,
   .modal-body {
     padding-left: 16px;
@@ -965,18 +880,6 @@ body.modal-open {
 </style>
 </head>
 <body>
-<header class="header">
-  <div class="header-logo">
-    <div class="header-mark">DCS</div>
-    <div class="header-meta">
-      <p>Backstory RevOps Command Center</p>
-      <h1>Territory Design</h1>
-      <div class="sub">4 sellers | 12 routed accounts | synthetic territory design model | May 27, 2026</div>
-    </div>
-  </div>
-  <div class="header-callout" id="headerCallout"></div>
-</header>
-
 <section class="stats-bar" id="statsBar"></section>
 
 <div class="nav" id="tabs"></div>
@@ -1814,23 +1717,6 @@ function getRepStats(rep) {
   };
 }
 
-function getHeaderCallout() {
-  const releaseCount = accounts.filter((account) => getRecommendationKey(account) === "release").length;
-  const reviewCount = accounts.filter((account) => getRecommendationKey(account) === "review").length;
-  const assignCount = accounts.filter((account) => getRecommendationKey(account) === "assign").length;
-  return {
-    label: "Routing Signal",
-    value: releaseCount + " release calls, " + reviewCount + " manager reviews, and " + assignCount + " direct assignments are ready now."
-  };
-}
-
-function renderHeaderCallout() {
-  const callout = getHeaderCallout();
-  document.getElementById("headerCallout").innerHTML =
-    '<div class="k">' + callout.label + '</div>' +
-    '<div class="v">' + callout.value + "</div>";
-}
-
 function renderStatsBar() {
   const totalTam = sum(accounts.map((account) => account.tam));
   const protectedTam = sum(accounts.filter((account) => getRecommendationKey(account) === "keep").map((account) => account.tam));
@@ -2104,7 +1990,6 @@ function renderPanels() {
 }
 
 function renderAll() {
-  renderHeaderCallout();
   renderStatsBar();
   renderTabs();
   renderSummaryRow();
