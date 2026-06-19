@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADP — Full Account Plan | Backstory</title>
+<style>
+  :root {
+    --blue: #1a3a5c;
+    --accent: #0072ce;
+    --light: #e8f1fb;
+    --green: #1a7a4a;
+    --green-bg: #e6f5ee;
+    --red: #c0392b;
+    --red-bg: #fdecea;
+    --amber: #b45309;
+    --amber-bg: #fef3cd;
+    --gray: #6b7280;
+    --border: #d1d9e0;
+    --bg: #f4f7fb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: #1e2a38;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  /* —— HEADER —— */
+  .report-header {
+    background: linear-gradient(135deg, #1a3a5c 0%, #0f2640 60%, #0a1e35 100%);
+    color: #fff;
+    padding: 36px 48px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(0,114,206,0.15);
+  }
+  .report-header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 30%;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .header-brand { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 6px; }
+  .header-company { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+  .header-sub { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .badge-white { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+  .badge-green { background: var(--green-bg); color: var(--green); }
+  .badge-amber { background: var(--amber-bg); color: var(--amber); }
+  .badge-red { background: var(--red-bg); color: var(--red); }
+  .badge-blue { background: var(--light); color: var(--accent); }
+  .header-kpis {
+    display: flex;
+    gap: 0;
+    margin-top: 24px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .hkpi {
+    flex: 1;
+    padding: 14px 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    z-index: 1;
+  }
+  .hkpi:last-child { border-right: none; }
+  .hkpi-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  .hkpi-value { font-size: 20px; font-weight: 700; color: #fff; }
+  .hkpi-sub { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+
+  /* —— LAYOUT —— */
+  .content { padding: 32px 48px 60px; max-width: 1200px; margin: 0 auto; }
+
+  /* —— SECTIONS —— */
+  .section { margin-bottom: 40px; }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--blue);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-num {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* —— KPI GRID —— */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .kpi-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .kpi-label { font-size: 10px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--gray); margin-bottom: 6px; }
+  .kpi-value { font-size: 22px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .kpi-sub { font-size: 11px; color: var(--gray); margin-top: 4px; }
+  .kpi-green .kpi-value { color: var(--green); }
+  .kpi-red .kpi-value { color: var(--red); }
+  .kpi-amber .kpi-value { color: var(--amber); }
+
+  /* —— ALERTS —— */
+  .alert {
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    border-left: 4px solid;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .alert-icon { flex-shrink: 0; font-size: 15px; margin-top: 1px; }
+  .alert-content { flex: 1; }
+  .alert-title { font-weight: 700; margin-bottom: 2px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .alert-red { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+  .alert-amber { background: var(--amber-bg); border-color: #f59e0b; color: var(--amber); }
+  .alert-green { background: var(--green-bg); border-color: #16a34a; color: var(--green); }
+  .alert-blue { background: var(--light); border-color: var(--accent); color: #1e40af; }
+
+  /* —— TABLES —— */
+  .table-wrap { background: #fff; border-radius: 10px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: var(--blue); }
+  thead th { color: #fff; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 14px; text-align: left; }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--bg); }
+  tbody td { padding: 10px 14px; font-size: 13px; vertical-align: top; }
+  .td-label { font-weight: 600; color: var(--blue); white-space: nowrap; }
+  .td-right { text-align: right; }
+  .td-center { text-align: center; }
+
+  /* —— TWO-COL —— */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .col-block { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .col-block-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--blue); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* —— STAKEHOLDER CARD —— */
+  .stakeholder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .stakeholder-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    border-left: 4px solid var(--border);
+    position: relative;
+  }
+  .stakeholder-card.champion { border-left-color: var(--green); }
+  .stakeholder-card.risk { border-left-color: var(--red); }
+  .stakeholder-card.neutral { border-left-color: #94a3b8; }
+  .stakeholder-card.sponsor { border-left-color: var(--accent); }
+  .stakeholder-card.unknown { border-left-color: var(--amber); }
+  .sk-name { font-weight: 700; font-size: 14px; color: var(--blue); margin-bottom: 2px; }
+  .sk-title { font-size: 12px; color: var(--gray); margin-bottom: 8px; }
+  .sk-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .sk-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .tag-champion { background: var(--green-bg); color: var(--green); }
+  .tag-risk { background: var(--red-bg); color: var(--red); }
+  .tag-neutral { background: #f1f5f9; color: #475569; }
+  .tag-sponsor { background: var(--light); color: var(--accent); }
+  .tag-unknown { background: var(--amber-bg); color: var(--amber); }
+  .sk-note { font-size: 12px; color: #374151; margin-top: 8px; line-height: 1.4; }
+  .sk-stats { font-size: 11px; color: var(--gray); margin-top: 6px; font-weight: 600; }
+
+  /* —— TIMELINE (30/60/90) —— */
+  .timeline { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .tl-block {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .tl-header { padding: 12px 16px; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .tl-30 .tl-header { background: var(--light); color: var(--accent); }
+  .tl-60 .tl-header { background: var(--amber-bg); color: var(--amber); }
+  .tl-90 .tl-header { background: var(--green-bg); color: var(--green); }
+  .tl-body { padding: 14px 16px; }
+  .tl-item { display: flex; gap: 8px; margin-bottom: 10px; font-size: 13px; line-height: 1.4; }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .dot-blue { background: var(--accent); }
+  .dot-amber { background: #f59e0b; }
+  .dot-green { background: #16a34a; }
+
+  /* —— RISK REGISTER —— */
+  .risk-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    gap: 14px;
+    align-items: start;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .risk-severity { text-align: center; }
+  .risk-sev-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+  .sev-critical { color: var(--red); }
+  .sev-high { color: #e65c00; }
+  .sev-medium { color: var(--amber); }
+  .sev-low { color: var(--green); }
+  .risk-sev-bar { height: 6px; border-radius: 3px; margin-top: 4px; width: 100%; }
+  .sev-bar-critical { background: var(--red); }
+  .sev-bar-high { background: #e65c00; }
+  .sev-bar-medium { background: #f59e0b; }
+  .sev-bar-low { background: #16a34a; }
+  .risk-title { font-weight: 700; font-size: 13px; color: var(--blue); margin-bottom: 4px; }
+  .risk-desc { font-size: 12px; color: #374151; line-height: 1.45; }
+  .risk-owner { font-size: 11px; font-weight: 600; color: var(--gray); white-space: nowrap; text-align: right; }
+
+  /* —— EXEC SUMMARY —— */
+  .exec-box {
+    background: linear-gradient(135deg, #1a3a5c 0%, #0f2640 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+  }
+  .exec-box h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+  .exec-box p { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.85); }
+  .exec-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .exec-pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* —— PROGRESS BAR —— */
+  .eng-bar-wrap { background: #e2e8f0; border-radius: 4px; height: 8px; overflow: hidden; margin-top: 4px; }
+  .eng-bar { height: 100%; border-radius: 4px; background: var(--accent); }
+  .eng-bar.high { background: var(--green); }
+  .eng-bar.mid { background: #f59e0b; }
+  .eng-bar.low { background: var(--red); }
+
+  /* —— MISC —— */
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 14px; }
+  ul.check-list { list-style: none; padding: 0; }
+  ul.check-list li { padding: 5px 0; font-size: 13px; display: flex; gap: 8px; align-items: flex-start; }
+  ul.check-list li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+  ul.x-list li::before { content: '✗'; color: var(--red); }
+  ul.dot-list li::before { content: '•'; color: var(--accent); }
+
+  .footnote { font-size: 11px; color: var(--gray); margin-top: 8px; }
+  .divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+  .opp-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .opp-amount { font-size: 24px; font-weight: 700; color: var(--green); white-space: nowrap; }
+  .opp-amount.stalled { color: var(--red); }
+  .opp-name { font-weight: 700; font-size: 14px; color: var(--blue); }
+  .opp-meta { font-size: 12px; color: var(--gray); margin-top: 3px; }
+  .opp-right { margin-left: auto; text-align: right; }
+
+  @media (max-width: 768px) {
+    .content { padding: 20px; }
+    .report-header { padding: 24px 20px; }
+    .header-kpis { flex-direction: column; }
+    .two-col { grid-template-columns: 1fr; }
+    .timeline { grid-template-columns: 1fr; }
+    .risk-item { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ————————————————————————————————————————————————————— HEADER -->
+<div class="report-header">
+  <div class="header-top">
+    <div>
+      <div class="header-brand">Backstory · Full Account Plan · Module 05</div>
+      <div class="header-company">ADP</div>
+      <div class="header-sub">Account Executive: Kieran Wells &nbsp;·&nbsp; Renewal Owner: James McDaniel &nbsp;·&nbsp; Generated: June 19, 2026</div>
+    </div>
+    <div class="header-meta">
+      <span class="badge badge-white">&#9733; Customer · HCM</span>
+      <span class="badge badge-green">&#9679; Engagement 100</span>
+      <span class="badge badge-red">&#9651; Renewal Overdue</span>
+    </div>
+  </div>
+  <div class="header-kpis">
+    <div class="hkpi">
+      <div class="hkpi-label">Company Revenue</div>
+      <div class="hkpi-value">$15B</div>
+      <div class="hkpi-sub">Annual — flat YoY</div>
+    </div>
+    <div class="hkpi">
+      <div class="hkpi-label">Current ARR</div>
+      <div class="hkpi-value">$41K</div>
+      <div class="hkpi-sub">Active contract value</div>
+    </div>
+    <div class="hkpi">
+      <div class="hkpi-label">Open Pipeline</div>
+      <div class="hkpi-value">$121K</div>
+      <div class="hkpi-sub">2 live opportunities</div>
+    </div>
+    <div class="hkpi">
+      <div class="hkpi-label">Engagement Level</div>
+      <div class="hkpi-value">100</div>
+      <div class="hkpi-sub">Account — fully active</div>
+    </div>
+    <div class="hkpi">
+      <div class="hkpi-label">Next Meeting</div>
+      <div class="hkpi-value">Jun 21</div>
+      <div class="hkpi-sub">2 days out</div>
+    </div>
+    <div class="hkpi">
+      <div class="hkpi-label">Account Health</div>
+      <div class="hkpi-value">Yellow</div>
+      <div class="hkpi-sub">Intent score 94</div>
+    </div>
+  </div>
+</div>
+
+<!-- ————————————————————————————————————————————————————— CONTENT -->
+<div class="content">
+
+  <!-- ——— SECTION 1: Company Intelligence ——————————————————————— -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">1</span> Company Intelligence &amp; Strategic Alignment</div>
+
+    <div class="two-col">
+      <div class="col-block">
+        <div class="col-block-title">Company Profile</div>
+        <table>
+          <tbody>
+            <tr><td class="td-label">Full Name</td><td>ADP (Automatic Data Processing)</td></tr>
+            <tr><td class="td-label">Domain</td><td>adp.com</td></tr>
+            <tr><td class="td-label">Employees</td><td>~58,000</td></tr>
+            <tr><td class="td-label">Annual Revenue</td><td>$15B — staying flat YoY</td></tr>
+            <tr><td class="td-label">Industry</td><td>Human Capital Management (HCM)</td></tr>
+            <tr><td class="td-label">Intent Score</td><td>94 — high</td></tr>
+            <tr><td class="td-label">Relationship</td><td>Customer · Account Health: Yellow</td></tr>
+            <tr><td class="td-label">Their Competitors</td><td>HCM/outsourcing vendors, cloud HCM, ERP providers</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-block">
+        <div class="col-block-title">Strategic Initiatives (from filings)</div>
+        <ul class="check-list">
+          <li><strong>AI &amp; Automation:</strong> Expanding AI-enabled HCM products across payroll and workforce management.</li>
+          <li><strong>Global Payroll &amp; Enterprise HCM:</strong> Scaling enterprise client base and global payroll footprint.</li>
+          <li><strong>Retention &amp; Productivity:</strong> Improving client satisfaction, retention, and operational productivity.</li>
+          <li><strong>Compliance &amp; Security:</strong> Continued investment in compliance and data security posture.</li>
+          <li><strong>Cyber Risk Reduction:</strong> Reducing exposure following a prior $1.5M security breach — an active internal mandate and a key buying driver.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <div class="alert-icon">💡</div>
+      <div class="alert-content">
+        <div class="alert-title">Strategic Alignment to Keyslogic / Backstory</div>
+        ADP's mandate to reduce cyber risk after a $1.5M breach, combined with its push into AI and enterprise HCM, maps directly to Keyslogic's Data Governance Suite: automated compliance monitoring (GDPR / HIPAA / CCPA), AES-256 encryption, real-time analytics, and data virtualization across silos. ADP also confirms an internal AI Security Council, signaling executive-level focus on exactly the governance value Keyslogic delivers. The wedge is risk reduction + data governance, framed in financial terms for a budget-sensitive buyer.
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="col-block">
+        <div class="col-block-title">Account Team (Keyslogic)</div>
+        <table>
+          <tbody>
+            <tr><td class="td-label">AE (New Business)</td><td>Kieran Wells — 36 emails / 12 mtgs (30d)</td></tr>
+            <tr><td class="td-label">Renewal Owner</td><td>James McDaniel</td></tr>
+            <tr><td class="td-label">AE (coverage)</td><td>Calla Brooks</td></tr>
+            <tr><td class="td-label">Sales Director</td><td>Darius Johnson — pricing / ROI lead</td></tr>
+            <tr><td class="td-label">Sales Engineer</td><td>Priya Nair (+ Priya Pont, technical)</td></tr>
+            <tr><td class="td-label">CSM</td><td>Ryan Foster</td></tr>
+            <tr><td class="td-label">Counsel</td><td>Linda Chen</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-block">
+        <div class="col-block-title">Coverage &amp; Pipeline Snapshot</div>
+        <table>
+          <tbody>
+            <tr><td class="td-label">Segment</td><td>Enterprise — HCM</td></tr>
+            <tr><td class="td-label">Backstory ICP</td><td>Customer — Tier 1 focus</td></tr>
+            <tr><td class="td-label">Open Opportunities</td><td>2 (New Business + Renewal)</td></tr>
+            <tr><td class="td-label">Director+ Coverage</td><td>100% — 9 external engaged</td></tr>
+            <tr><td class="td-label">Executives Engaged</td><td>2 (CIO, CFO)</td></tr>
+            <tr><td class="td-label">Activities (30d)</td><td>49 total — 11 mtgs, 38 emails</td></tr>
+            <tr><td class="td-label">Last Touch</td><td>June 14, 2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ——— SECTION 2: Current Opportunities & Engagement ——————————— -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">2</span> Current Opportunities &amp; Engagement Status</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-green">
+        <div class="kpi-label">Current ARR</div>
+        <div class="kpi-value">$41,000</div>
+        <div class="kpi-sub">Active contract value</div>
+      </div>
+      <div class="kpi-card kpi-green">
+        <div class="kpi-label">New Business Opp</div>
+        <div class="kpi-value">$41,000</div>
+        <div class="kpi-sub">Eng 100 · closes Jul 11</div>
+      </div>
+      <div class="kpi-card kpi-red">
+        <div class="kpi-label">Renewal Opp</div>
+        <div class="kpi-value">$80,000</div>
+        <div class="kpi-sub">Eng 2 · was due May 31</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Open Pipeline</div>
+        <div class="kpi-value">$121,000</div>
+        <div class="kpi-sub">2 live opportunities</div>
+      </div>
+      <div class="kpi-card kpi-amber">
+        <div class="kpi-label">Account Health</div>
+        <div class="kpi-value">Yellow</div>
+        <div class="kpi-sub">Competitive + budget pressure</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Intent Score</div>
+        <div class="kpi-value">94</div>
+        <div class="kpi-sub">High buying intent</div>
+      </div>
+    </div>
+
+    <div class="alert alert-red">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-content">
+        <div class="alert-title">Competitive Offer on the Table</div>
+        ADP has explicitly referenced a competing solution with a more favorable cost projection. CFO Abigail Wright and CIO Luis Travis have repeatedly questioned the $41K annual fee and pushed for pricing flexibility and stronger ROI proof. At one point Abigail signaled intent to proceed with an alternative. This deal is live and winnable — but it is price-pressured and competitively contested. The revised proposal (committed by Kieran Wells, due end of week) must lead with quantified ROI and flexible commercial terms.
+      </div>
+    </div>
+
+    <div class="alert alert-amber">
+      <div class="alert-icon">⏰</div>
+      <div class="alert-content">
+        <div class="alert-title">Renewal Overdue — Engagement Critically Low</div>
+        The $80,000 renewal opportunity (owned by James McDaniel) has an engagement level of just 2 and a close date of May 31, 2026 that has already passed. While the New Business motion is hot (Eng 100), the renewal has gone quiet and is now overdue. These two motions must be reconnected: the renewal cannot be allowed to lapse while the team is focused on the new deal. Re-engage renewal stakeholders within 7 days.
+      </div>
+    </div>
+
+    <div class="col-block">
+      <div class="col-block-title">Live Opportunities in Pipeline</div>
+      <div class="opp-card">
+        <div>
+          <div class="opp-name">ADP — New Business</div>
+          <div class="opp-meta">Type: New Business &nbsp;·&nbsp; Engagement: 100 &nbsp;·&nbsp; Owner: Kieran Wells</div>
+          <div class="opp-meta" style="margin-top:6px;">Next steps: Revised proposal (pricing flexibility + ROI) · Jun 21 meeting · address Finance, Procurement &amp; Legal objections</div>
+        </div>
+        <div class="opp-right">
+          <div class="opp-amount">$41,000</div>
+          <div class="opp-meta">Closes Jul 11, 2026</div>
+          <span class="badge badge-amber" style="margin-top:6px;display:inline-flex;">Contested — Close Now</span>
+        </div>
+      </div>
+      <div class="opp-card">
+        <div>
+          <div class="opp-name">ADP — Renewal</div>
+          <div class="opp-meta">Type: Renewal &nbsp;·&nbsp; Engagement: 2 &nbsp;·&nbsp; Owner: James McDaniel</div>
+          <div class="opp-meta" style="margin-top:6px;">Next steps: Re-engage stakeholders · frame realized value · confirm renewal scope &amp; new close date</div>
+        </div>
+        <div class="opp-right">
+          <div class="opp-amount stalled">$80,000</div>
+          <div class="opp-meta">Was due Jan 1 – May 31 (overdue)</div>
+          <span class="badge badge-red" style="margin-top:6px;display:inline-flex;">Stalled — Rescue</span>
+        </div>
+      </div>
+      <p class="footnote">Next scheduled meeting: June 21, 2026. New Business is at maximum engagement; the renewal needs an urgent re-engagement push to avoid lapse.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ——— SECTION 3: White Space + Green Space ———————————————————— -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">3</span> White Space &amp; Green Space Analysis</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-green">
+        <div class="kpi-label">New Business Opp</div>
+        <div class="kpi-value">$41,000</div>
+        <div class="kpi-sub">Green space — close now</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Renewal Recovery</div>
+        <div class="kpi-value">$80,000</div>
+        <div class="kpi-sub">Defend &amp; re-sign</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Pilot — Expansion</div>
+        <div class="kpi-value">Adjacent</div>
+        <div class="kpi-sub">Land use case, then grow</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="col-block">
+        <div class="col-block-title">🟢 Green Space — Active &amp; Near-Term</div>
+        <ul class="check-list dot-list">
+          <li><strong>New Business Close ($41K):</strong> High-engagement, active negotiation. Win path is a revised proposal centered on flexible/tiered pricing and a quantified ROI story (case studies show 20% cost reduction, 30% efficiency gain, ~$500K annual revenue recapture).</li>
+          <li><strong>Pilot / Phased Deployment:</strong> A pilot was already proposed and agreed in May. Use it to de-risk the buying decision — prove value before full commitment and neutralize the cheaper competing offer.</li>
+          <li><strong>Renewal Recovery ($80K):</strong> Re-engaging the renewal and framing realized value reopens an $80K motion that is currently dormant — the single largest near-term recovery.</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <div class="col-block-title">⬜ White Space — Unexplored Potential</div>
+        <ul class="check-list dot-list">
+          <li><strong>Adjacent Teams on Same Platform:</strong> If the initial Data Governance use case lands, expand to adjacent teams using the same data platform — a classic land-and-expand path.</li>
+          <li><strong>Security &amp; Compliance Org:</strong> Strong IT/security alignment (Timothy White, Catherine Carter) opens governance, data sovereignty, and compliance-monitoring expansion tied to the AI Security Council.</li>
+          <li><strong>Finance / RevOps Analytics:</strong> Deeper finance validation (CFO Abigail Wright, RevOps Gerald Garcia) creates a path to real-time analytics and reporting use cases beyond the initial scope.</li>
+          <li><strong>Enterprise HCM Data Integration:</strong> ADP's global payroll / enterprise HCM scaling needs unified data across systems — a fit for data virtualization without physical migration.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-amber">
+      <div class="alert-icon">⚡</div>
+      <div class="alert-content">
+        <div class="alert-title">Sequence — Win the Core Before Expanding</div>
+        The primary threat is competitive + budget, not a technical loss. Do not pursue white-space expansion until the contested $41K new business is secured and the overdue renewal is re-anchored. Sequence: close &amp; defend the core, then expand into adjacent teams once value is realized.
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Expansion Area</th>
+            <th>Signal Source</th>
+            <th>Est. Value</th>
+            <th>Priority</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>New Business Close</strong></td>
+            <td>Live opp — Backstory</td>
+            <td>$41,000</td>
+            <td><span class="badge badge-red">P1 — Close Now</span></td>
+            <td>Kieran Wells</td>
+          </tr>
+          <tr>
+            <td><strong>Renewal Recovery</strong></td>
+            <td>Live opp — Backstory (Eng 2)</td>
+            <td>$80,000</td>
+            <td><span class="badge badge-red">P1 — Rescue</span></td>
+            <td>James McDaniel</td>
+          </tr>
+          <tr>
+            <td><strong>Pilot — Adjacent Teams</strong></td>
+            <td>Backstory next steps</td>
+            <td>TBD — qualify</td>
+            <td><span class="badge badge-amber">P2 — Post-Close</span></td>
+            <td>Kieran Wells / Ryan Foster</td>
+          </tr>
+          <tr>
+            <td><strong>Security / Compliance Org</strong></td>
+            <td>AI Security Council signal</td>
+            <td>Est. expansion</td>
+            <td><span class="badge badge-blue">P2</span></td>
+            <td>Priya Nair + Kieran Wells</td>
+          </tr>
+          <tr>
+            <td><strong>Finance / RevOps Analytics</strong></td>
+            <td>Stakeholder coverage</td>
+            <td>Est. expansion</td>
+            <td><span class="badge badge-green">P3 — Explore</span></td>
+            <td>Darius Johnson</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ——— SECTION 4: Stakeholder Map ——————————————————————————— -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">4</span> Stakeholder Map (Director+)</div>
+
+    <div class="alert alert-blue">
+      <div class="alert-icon">ℹ️</div>
+      <div class="alert-content">
+        <div class="alert-title">Mapping Methodology</div>
+        Roles and engagement reflect the last 30 days of matched activity in Backstory. Engagement stats are emails / meetings per contact. 100% Director+ coverage with 9 external stakeholders engaged and 2 executives (CIO + CFO) active. The buying group spans IT, Security, Finance, Procurement, Legal, and RevOps — a full enterprise committee, with decision pressure concentrated on price and ROI.
+      </div>
+    </div>
+
+    <div class="stakeholder-grid">
+
+      <div class="stakeholder-card risk">
+        <div class="sk-name">Luis Travis</div>
+        <div class="sk-title">Chief Information Officer</div>
+        <div class="sk-tags">
+          <span class="sk-tag tag-sponsor">Economic Buyer</span>
+          <span class="sk-tag tag-risk">Price Pressure</span>
+        </div>
+        <div class="sk-note">Most senior technical buyer and a primary decision-maker. Drives the integration/deployment-timeline and competitiveness questions; openly weighing a cheaper competing offer. Win him with a clean integration plan + competitive commercial structure.</div>
+        <div class="sk-stats">19 emails · 7 meetings · last Jun 14</div>
+      </div>
+
+      <div class="stakeholder-card risk">
+        <div class="sk-name">Abigail Wright</div>
+        <div class="sk-title">Chief Finance Officer</div>
+        <div class="sk-tags">
+          <span class="sk-tag tag-sponsor">Economic Buyer</span>
+          <span class="sk-tag tag-risk">Budget Gatekeeper</span>
+        </div>
+        <div class="sk-note">The hardest objection. Questions ROI on the $41K fee and at one point favored an alternative. Needs concrete financial impact data and pricing flexibility. The revised proposal must answer her TCO concerns head-on.</div>
+        <div class="sk-stats">18 emails · 7 meetings · last Jun 14</div>
+      </div>
+
+      <div class="stakeholder-card champion">
+        <div class="sk-name">Catherine Carter</div>
+        <div class="sk-title">IT Director</div>
+        <div class="sk-tags">
+          <span class="sk-tag tag-champion">Technical Champion</span>
+        </div>
+        <div class="sk-note">Most engaged stakeholder in the account. Coordinates technical sessions, organizes IT workshops, and has moved from integration concerns toward collaboration. Closest thing to a working champion — invest in and test her.</div>
+        <div class="sk-stats">27 emails · 7 meetings · last Jun 12</div>
+      </div>
+
+      <div class="stakeholder-card neutral">
+        <div class="sk-name">Timothy White</div>
+        <div class="sk-title">Senior Information Security Manager</div>
+        <div class="sk-tags">
+          <span class="sk-tag tag-neutral">Security Gate</span>
+        </div>
+        <div class="sk-note">Owns the security/compliance gate — GDPR, HIPAA, data sovereignty, fault tolerance, high availability. Given ADP's prior breach, his sign-off is mandatory. Provide documented compliance evidence and HA architecture detail.</div>
+        <div class="sk-stats">23 emails · 6 meetings · last Jun 12</div>
+      </div>
+
+      <div class="stakeholder-card risk">
+        <div class="sk-name">Brandon Thomas</div>
+        <div class="sk-title">Director of Procurement</div>
+        <div class="sk-tags">
+          <span class="sk-tag tag-risk">Contract Risk</span>
+        </div>
+        <div class="sk-note">Focused on contract flexibility and scalability without excessive cost. A key blocker on commercial terms — engage early with tiered pricing scenarios in the revised proposal.</div>
+        <div class="sk-stats">11 emails · 3 meetings · last Jun 14</div>
+      </div>
+
+      <div class="stakeholder-card risk">
+        <div class="sk-name">Isaac Tran</div>
+        <div class="sk-title">Senior Corporate Counsel</div>
+        <div class="sk-tags">
+          <span class="sk-tag tag-risk">Legal Terms</span>
+        </div>
+        <div class="sk-note">Raising contractual delegation, liability clauses, and scalability of terms. Loop in Keyslogic counsel (Linda Chen) proactively to keep legal from becoming a late-stage blocker.</div>
+        <div class="sk-stats">2 emails · 2 meetings · last Jun 14</div>
+      </div>
+
+      <div class="stakeholder-card neutral">
+        <div class="sk-name">Alexis Green</div>
+        <div class="sk-title">Senior IT Project Manager</div>
+        <div class="sk-tags">
+          <span class="sk-tag tag-neutral">Implementation</span>
+        </div>
+        <div class="sk-note">Focused on data integrity and a clear implementation plan. Operational counterpart to Catherine Carter — keep close for deployment scoping and pilot execution.</div>
+        <div class="sk-stats">17 emails · 3 meetings · last May 30</div>
+      </div>
+
+      <div class="stakeholder-card unknown">
+        <div class="sk-name">Gerald Garcia</div>
+        <div class="sk-title">Director of Revenue Operations</div>
+        <div class="sk-tags">
+          <span class="sk-tag tag-unknown">Low Touch</span>
+        </div>
+        <div class="sk-note">Concerned about integration time and resources. Low engagement so far (meeting-only) but a natural sponsor for future RevOps analytics white space. Develop the relationship.</div>
+        <div class="sk-stats">0 emails · 1 meeting · last Jun 7</div>
+      </div>
+
+      <div class="stakeholder-card unknown">
+        <div class="sk-name">George Hall</div>
+        <div class="sk-title">Vice President of Sales</div>
+        <div class="sk-tags">
+          <span class="sk-tag tag-unknown">Sentiment TBD</span>
+        </div>
+        <div class="sk-note">Senior commercial leader, lightly engaged. Potential executive sponsor and a route into sales-org use cases — qualify interest and authority.</div>
+        <div class="sk-stats">1 email · 2 meetings · last May 30</div>
+      </div>
+
+    </div>
+
+    <p class="footnote" style="margin-top:12px;">⚠️ Scorecard flags a retention risk of "EB / Champion left" and names Anaya Whitlock as both a prior champion and the competition's champion — confirm her current status and whether she is steering the evaluation toward the competing vendor. Validate the live champion (Catherine Carter) is tested and willing to sell internally.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ——— SECTION 5: 30/60/90 Day Plan ———————————————————————— -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">5</span> 30 / 60 / 90 Day Plan</div>
+
+    <div class="timeline">
+      <div class="tl-block tl-30">
+        <div class="tl-header">📅 Days 1–30 &nbsp;· Close &amp; Defend</div>
+        <div class="tl-body">
+          <div class="tl-item">
+            <div class="tl-dot dot-blue"></div>
+            <div><strong>Jun 21 meeting:</strong> Lead with the revised proposal — flexible/tiered pricing, quantified ROI, and a clear integration timeline. Leave with explicit decision criteria and next steps.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-blue"></div>
+            <div><strong>Beat the competing offer:</strong> Build a side-by-side value case for Abigail Wright (CFO) and Luis Travis (CIO) — TCO, risk reduction, and the ~$500K revenue-recapture model.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-blue"></div>
+            <div><strong>Rescue the renewal:</strong> James McDaniel re-engages the $80K renewal (Eng 2, overdue) — frame realized value, confirm scope, and set a new close date within 7 days.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-blue"></div>
+            <div><strong>Clear procurement &amp; legal:</strong> Engage Brandon Thomas and Isaac Tran directly on contract flexibility and liability terms; loop in Linda Chen early.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-blue"></div>
+            <div><strong>Security sign-off:</strong> Deliver Timothy White documented GDPR/HIPAA/CCPA evidence + HA architecture detail, anchored to ADP's post-breach mandate.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-block tl-60">
+        <div class="tl-header">📅 Days 31–60 &nbsp;· Prove &amp; Align</div>
+        <div class="tl-body">
+          <div class="tl-item">
+            <div class="tl-dot dot-amber"></div>
+            <div><strong>Land a quantified business case</strong> tied to ADP priorities: security risk reduction, compliance, efficiency, and deployment simplicity — validated by Finance.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-amber"></div>
+            <div><strong>Confirm pilot path:</strong> Lock the phased / pilot deployment (already agreed in principle) to de-risk the decision and demonstrate value before full commitment.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-amber"></div>
+            <div><strong>Drive committee alignment</strong> across IT, Finance, Procurement, and Legal — remove remaining technical and commercial objections one stakeholder at a time.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-amber"></div>
+            <div><strong>Test the champion:</strong> Confirm Catherine Carter has power, access to the economic buyers, and is willing to sell internally; neutralize any competitor-aligned influence.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-amber"></div>
+            <div><strong>Close the $41K New Business</strong> by the Jul 11 target if the value case lands; otherwise isolate the precise blocker.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-block tl-90">
+        <div class="tl-header">📅 Days 61–90 &nbsp;· Convert &amp; Expand</div>
+        <div class="tl-body">
+          <div class="tl-item">
+            <div class="tl-dot dot-green"></div>
+            <div><strong>Convert to decision:</strong> Close the revised proposal, or reopen with a narrower, scoped offer that isolates remaining blockers. Re-sign the $80K renewal.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-green"></div>
+            <div><strong>Frame realized value:</strong> With CS (Ryan Foster), document early value to close the scorecard's "no value framed / realized" retention gap.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-green"></div>
+            <div><strong>White-space discovery:</strong> Once the core is secured, open expansion conversations with the security org and RevOps (Gerald Garcia) on the same data platform.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dot-green"></div>
+            <div><strong>QBR &amp; account plan refresh:</strong> Host a QBR with the economic buyers; advance the scorecard (currently 53% complete) and lock H2 2026 expansion targets.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ——— SECTION 6: Risk Register ———————————————————————————— -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">6</span> Risk Register</div>
+
+    <div class="risk-item">
+      <div class="risk-severity">
+        <div class="risk-sev-label sev-critical">Critical</div>
+        <div class="risk-sev-bar sev-bar-critical"></div>
+      </div>
+      <div>
+        <div class="risk-title">Competing Offer with Better Cost Projection</div>
+        <div class="risk-desc">ADP has explicitly referenced an alternative solution with more favorable pricing, and the CFO at one point favored proceeding with it. This is an active, in-flight competitive threat — not hypothetical. The revised proposal must win on quantified ROI and commercial flexibility, not features alone.</div>
+      </div>
+      <div class="risk-owner">Owner: Kieran Wells + Darius Johnson<br><span style="color:var(--red);font-weight:700;">Act: ≤7 days</span></div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-severity">
+        <div class="risk-sev-label sev-critical">Critical</div>
+        <div class="risk-sev-bar sev-bar-critical"></div>
+      </div>
+      <div>
+        <div class="risk-title">$80K Renewal Overdue — Engagement = 2</div>
+        <div class="risk-desc">The renewal opportunity is past its close date (May 31) with near-zero engagement while attention sits on the new deal. An unmanaged renewal can lapse silently. Re-engage stakeholders, frame realized value, and set a new close date immediately.</div>
+      </div>
+      <div class="risk-owner">Owner: James McDaniel<br><span style="color:var(--red);font-weight:700;">Re-engage: ≤7 days</span></div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-severity">
+        <div class="risk-sev-label sev-high">High</div>
+        <div class="risk-sev-bar sev-bar-high"></div>
+      </div>
+      <div>
+        <div class="risk-title">ROI Skepticism &amp; Budget Pressure</div>
+        <div class="risk-desc">CFO Abigail Wright repeatedly questions the $41K fee and demands concrete financial impact. The scorecard flags "No value is framed" as a retention risk. Without a validated ROI model and framed value, the deal stalls on price.</div>
+      </div>
+      <div class="risk-owner">Owner: Darius Johnson<br><span style="color:#e65c00;font-weight:700;">Model: ≤14 days</span></div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-severity">
+        <div class="risk-sev-label sev-high">High</div>
+        <div class="risk-sev-bar sev-bar-high"></div>
+      </div>
+      <div>
+        <div class="risk-title">Champion Ambiguity / Competitor-Aligned Influence</div>
+        <div class="risk-desc">The scorecard lists Anaya Whitlock as both a prior champion and the competition's champion, and flags "EB/Champion left." Champion status is unconfirmed and may be steering the evaluation toward the competitor. Confirm and test the live champion (Catherine Carter).</div>
+      </div>
+      <div class="risk-owner">Owner: Kieran Wells<br><span style="color:#e65c00;font-weight:700;">Confirm: ≤21 days</span></div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-severity">
+        <div class="risk-sev-label sev-medium">Medium</div>
+        <div class="risk-sev-bar sev-bar-medium"></div>
+      </div>
+      <div>
+        <div class="risk-title">Security &amp; Compliance Gate (Post-Breach Scrutiny)</div>
+        <div class="risk-desc">Following a prior $1.5M breach, Timothy White is applying stringent scrutiny on GDPR/HIPAA, data sovereignty, fault tolerance, and high availability. Incomplete compliance evidence will block sign-off regardless of commercial agreement.</div>
+      </div>
+      <div class="risk-owner">Owner: Priya Nair (SE)<br>Evidence: ≤14 days</div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-severity">
+        <div class="risk-sev-label sev-medium">Medium</div>
+        <div class="risk-sev-bar sev-bar-medium"></div>
+      </div>
+      <div>
+        <div class="risk-title">Integration Complexity with Legacy Architecture</div>
+        <div class="risk-desc">IT (Catherine Carter, Alexis Green) and RevOps (Gerald Garcia) cite concerns about integration with legacy systems, downtime, and resourcing. A credible phased deployment plan and pilot are required to de-risk perceived disruption.</div>
+      </div>
+      <div class="risk-owner">Owner: Priya Nair + Alexis Green<br>Plan: ≤30 days</div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-severity">
+        <div class="risk-sev-label sev-low">Low</div>
+        <div class="risk-sev-bar sev-bar-low"></div>
+      </div>
+      <div>
+        <div class="risk-title">Contract Flexibility &amp; Legal Terms</div>
+        <div class="risk-desc">Procurement (Brandon Thomas) and Counsel (Isaac Tran) want scalable terms and clearer liability/delegation clauses. Manageable, but if left late it becomes a close-stage blocker. Engage Linda Chen proactively.</div>
+      </div>
+      <div class="risk-owner">Owner: Linda Chen (Counsel)<br>Engage early in cycle</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ——— SECTION 7: Executive Summary ———————————————————————— -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">7</span> Executive Summary</div>
+
+    <div class="exec-box">
+      <h3>ADP — Contested Deal, Maximum Engagement, Two Motions to Win</h3>
+      <p>
+        ADP is a highly active enterprise HCM account ($15B revenue, ~58,000 employees) at peak engagement — 49 activities, 11 meetings, and 38 emails in the last 30 days, with 100% Director+ coverage and both the CIO and CFO at the table. Two motions are open: a hot $41K New Business deal (Eng 100, closes Jul 11) led by Kieran Wells, and an $80K Renewal (Eng 2, overdue since May 31) owned by James McDaniel. Intent is high (94) and the technical fit is strong — Keyslogic's Data Governance Suite maps directly to ADP's post-breach cyber-risk mandate and AI Security Council.
+      </p>
+      <p style="margin-top:12px;">
+        The deal is winnable but genuinely contested. ADP has referenced a competing solution with a better cost projection, and CFO Abigail Wright has openly challenged the $41K fee and ROI. The scorecard (53% complete) flags "no value framed," competition, and champion-left as retention risks, and names Anaya Whitlock as a potential competitor-aligned influence. The single most important move in the next two weeks is the revised proposal — flexible pricing plus a quantified, Finance-validated ROI story — delivered at the June 21 meeting, while James McDaniel simultaneously rescues the overdue renewal before it lapses.
+      </p>
+      <p style="margin-top:12px;">
+        If the team wins on value and commercial flexibility, closes the $41K New Business, re-signs the $80K renewal, and clears the security/legal gates, ADP becomes a strong land-and-expand foundation — with adjacent teams, the security org, and RevOps analytics all reachable on the same data platform once initial value is realized.
+      </p>
+      <div class="exec-pills">
+        <div class="exec-pill">$41K New Business · Eng 100</div>
+        <div class="exec-pill">$80K Renewal · Overdue</div>
+        <div class="exec-pill">$121K Open Pipeline</div>
+        <div class="exec-pill">Competing Offer Active</div>
+        <div class="exec-pill">CFO Budget Pressure</div>
+        <div class="exec-pill">Post-Breach Security Mandate</div>
+        <div class="exec-pill">Next Meeting Jun 21</div>
+        <div class="exec-pill">Health: Yellow</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="col-block">
+        <div class="col-block-title">🔴 Immediate Actions Required (≤7 days)</div>
+        <ul class="check-list x-list" style="list-style:none;">
+          <li>Deliver revised proposal — flexible pricing + quantified ROI — ahead of Jun 21</li>
+          <li>James McDaniel re-engages the overdue $80K renewal (Eng 2)</li>
+          <li>Build CFO/CIO competitive value case vs. the cheaper offer</li>
+          <li>Send Timothy White compliance + HA evidence (post-breach context)</li>
+          <li>Engage Procurement &amp; Legal on flexible contract terms</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <div class="col-block-title">🟢 Wins to Protect &amp; Accelerate</div>
+        <ul class="check-list">
+          <li>Eng=100 with 100% Director+ coverage — full committee is at the table</li>
+          <li>Catherine Carter (IT Director) is an engaged, working technical champion</li>
+          <li>Pilot / phased deployment already agreed in principle — use it to de-risk</li>
+          <li>Strong technical fit to ADP's cyber-risk &amp; AI Security Council mandate</li>
+          <li>Next meeting locked for Jun 21 — momentum is live, not stalled</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-green">
+      <div class="alert-icon">🎯</div>
+      <div class="alert-content">
+        <div class="alert-title">Target Outcome — 90 Days</div>
+        $41K New Business closed on flexible terms · $80K renewal re-engaged and signed · competing offer neutralized with a Finance-validated ROI case · security &amp; legal gates cleared · pilot framed value documented · QBR completed and account scorecard advanced beyond 53% · land-and-expand path opened
+      </div>
+    </div>
+
+    <p class="footnote" style="text-align:center; margin-top:20px;">
+      Backstory Revenue Intelligence Platform &nbsp;·&nbsp; ADP Full Account Plan &nbsp;·&nbsp; AE: Kieran Wells · Renewal: James McDaniel &nbsp;·&nbsp; Generated: June 19, 2026 &nbsp;·&nbsp; Module 05 &nbsp;·&nbsp; Data: People.ai / Backstory
+    </p>
+  </div>
+
+</div><!-- /content -->
+</body>
+</html>
