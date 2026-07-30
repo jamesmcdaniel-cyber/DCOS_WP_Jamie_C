@@ -3,814 +3,497 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Chief of Staff - Operating Workspace</title>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Demo Hub | Backstory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #08111a;
-  --bg-2: #0d1723;
-  --panel: rgba(15, 24, 38, 0.9);
-  --panel-soft: rgba(255, 255, 255, 0.05);
-  --line: rgba(255, 255, 255, 0.09);
-  --line-strong: rgba(255, 255, 255, 0.16);
-  --text: #eff4f9;
-  --muted: #95a5b7;
-  --muted-strong: #c9d4df;
-  --shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+  --bg: #070c13;
+  --bg-rail: #05090f;
+  --grid-line: rgba(255, 255, 255, 0.032);
+  --grid-size: 64px;
+  --text: #eef3f9;
+  --muted: #8fa0b4;
+  --muted-dim: #63748a;
+  --line: rgba(255, 255, 255, 0.08);
+  --accent: #6ba0e8;
+  --accent-soft: rgba(107, 160, 232, 0.1);
+  --accent-line: rgba(107, 160, 232, 0.3);
+  --rail-w: 288px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html,
-body {
-  min-height: 100%;
-}
+html, body { height: 100%; }
 
 body {
-  font-family: "Lexend", sans-serif;
-  background:
-    radial-gradient(circle at top left, rgba(78, 132, 159, 0.22), transparent 26%),
-    radial-gradient(circle at top right, rgba(90, 145, 121, 0.12), transparent 22%),
-    linear-gradient(180deg, #071019 0%, #0b1520 48%, #09111a 100%);
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
 }
 
-button,
-input,
-a {
-  font: inherit;
+button, input, a { font: inherit; color: inherit; }
+a { text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
-a {
-  color: inherit;
-}
-
-#indexView {
-  min-height: 100vh;
-}
-
-.shell {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 28px 28px 72px;
-}
-
-.eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #c8d8e6;
-}
-
-.hero {
+.app {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.95fr);
-  gap: 22px;
-  margin-bottom: 24px;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr);
+  height: 100%;
 }
 
-.hero-copy,
-.hero-panel,
-.library {
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-}
+/* ---------- Sidebar ---------- */
 
-.hero-copy {
-  position: relative;
-  overflow: hidden;
-  min-height: 320px;
-  border-radius: 28px;
-  padding: 38px 40px;
-  background:
-    linear-gradient(135deg, rgba(6, 10, 14, 0.72), rgba(10, 16, 23, 0.84)),
-    url("assets/header-bg.png") center/cover no-repeat;
-}
-
-.hero-copy::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 24%, rgba(0, 0, 0, 0.22) 100%),
-    radial-gradient(circle at top right, rgba(132, 193, 214, 0.18), transparent 24%);
-  pointer-events: none;
-}
-
-.hero-copy > * {
-  position: relative;
-  z-index: 1;
-}
-
-.hero-copy h1 {
-  max-width: 640px;
-  margin-top: 18px;
-  font-size: clamp(36px, 5vw, 56px);
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-}
-
-.hero-sub {
-  max-width: 620px;
-  margin-top: 16px;
-  font-size: 16px;
-  line-height: 1.7;
-  color: rgba(239, 244, 249, 0.8);
-}
-
-.hero-tags {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 24px;
-}
-
-.hero-tag {
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.08);
-  font-size: 12px;
-  color: rgba(239, 244, 249, 0.92);
-}
-
-.hero-panel {
-  border-radius: 28px;
-  padding: 26px;
-  background:
-    linear-gradient(180deg, rgba(17, 28, 43, 0.92), rgba(11, 18, 28, 0.96));
+.rail {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  border-right: 1px solid var(--line);
+  background: var(--bg-rail);
+  overflow-y: auto;
 }
 
-.panel-kicker {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #90a2b6;
-}
-
-.panel-title {
-  margin-top: 8px;
-  font-size: 24px;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-}
-
-.panel-sub {
-  margin-top: 10px;
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--muted);
-}
-
-.metric-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.metric-card {
-  padding: 16px;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-}
-
-.metric-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #93a6ba;
-}
-
-.metric-value {
-  margin-top: 10px;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
-.metric-copy {
-  margin-top: 8px;
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--muted);
-}
-
-.hero-rail {
-  padding: 14px 16px;
-  border-radius: 18px;
-  border: 1px solid rgba(140, 195, 180, 0.2);
-  background: rgba(95, 142, 126, 0.1);
-  font-size: 13px;
-  line-height: 1.6;
-  color: #d2e4dc;
-}
-
-.library {
-  border-radius: 28px;
-  padding: 24px;
-  background: linear-gradient(180deg, rgba(14, 22, 34, 0.92), rgba(9, 15, 23, 0.95));
-}
-
-.library-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 18px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-
-.library-copy h2 {
-  margin-top: 10px;
-  font-size: 28px;
-  line-height: 1;
-  letter-spacing: -0.03em;
-}
-
-.results-meta {
-  margin-top: 12px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.controls {
-  min-width: min(100%, 470px);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.search-box {
+.rail-head {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.04);
+  padding: 26px 22px 22px;
 }
 
-.search-box svg {
-  color: #8ea1b4;
+.rail-mark {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(107, 160, 232, 0.14);
   flex-shrink: 0;
 }
 
-.search-box input {
-  width: 100%;
+.rail-brand {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nav-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 12px 0 16px;
+}
+
+.group-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
   border: none;
+  border-radius: 8px;
   background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+
+.group-toggle:hover { background: rgba(255, 255, 255, 0.05); color: var(--text); }
+
+.group-toggle svg { transition: transform 0.2s ease; }
+.group-toggle[aria-expanded="false"] svg { transform: rotate(180deg); }
+
+.group-link {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   color: var(--text);
-  outline: none;
+  transition: background 0.16s ease;
 }
 
-.search-box input::placeholder {
-  color: #70839a;
+.group-link:hover { background: rgba(255, 255, 255, 0.05); }
+
+.nav-list {
+  list-style: none;
+  padding: 4px 12px 20px 22px;
 }
 
-.filter-pills {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
+.nav-list[hidden] { display: none; }
 
-.filter-pill {
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--muted-strong);
-  cursor: pointer;
-  transition: all 0.18s ease;
-}
-
-.filter-pill:hover {
-  border-color: var(--line-strong);
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.filter-pill.active {
-  border-color: transparent;
-  background: #ebf2f8;
-  color: #09111a;
-}
-
-.demo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-  gap: 16px;
-}
-
-.workspace-card {
+.nav-link {
+  display: block;
   position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: 262px;
-  padding: 22px;
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025));
-  cursor: pointer;
-  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  padding: 9px 12px 9px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--muted);
+  transition: color 0.16s ease, background 0.16s ease;
 }
 
-.workspace-card::after {
+.nav-link::before {
   content: "";
   position: absolute;
-  top: -80px;
-  right: -60px;
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--card-accent) 36%, transparent) 0%, transparent 70%);
-  opacity: 0.8;
-  pointer-events: none;
+  left: 6px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  border-radius: 2px;
+  background: transparent;
+  transition: background 0.16s ease, top 0.16s ease, bottom 0.16s ease;
 }
 
-.workspace-card:hover,
-.workspace-card:focus-visible {
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
-  outline: none;
+.nav-link:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.card-top {
+.nav-link:hover::before { background: var(--line); top: 8px; bottom: 8px; }
+
+.nav-link.active {
+  color: var(--text);
+  background: var(--accent-soft);
+}
+
+.nav-link.active::before { background: var(--accent); top: 8px; bottom: 8px; }
+
+/* ---------- Main column ---------- */
+
+.main {
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 18px;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 42%, rgba(107, 160, 232, 0.07), transparent 70%),
+    linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / var(--grid-size) var(--grid-size),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / var(--grid-size) var(--grid-size),
+    var(--bg);
 }
 
-.card-kickers {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.topbar {
+  display: none;
+  align-items: center;
+  gap: 14px;
+  height: 62px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(7, 12, 19, 0.86);
+  backdrop-filter: blur(14px);
+  flex-shrink: 0;
 }
 
-.card-badge {
+body[data-view="demo"] .topbar { display: flex; }
+
+.crumb {
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.crumb-home {
+  color: var(--muted);
+  transition: color 0.16s ease;
+}
+
+.crumb-home:hover { color: var(--text); }
+
+.crumb-sep { color: var(--muted-dim); margin: 0 8px; }
+
+body[data-view="home"] .crumb-home { color: var(--text); }
+
+body[data-view="home"] .crumb-sep,
+body[data-view="home"] #crumbCurrent,
+body[data-view="home"] #openDirect { display: none; }
+
+.bar-btn {
   display: inline-flex;
   align-items: center;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.06);
-  font-size: 11px;
-  font-weight: 700;
-  color: #f0f5fb;
-}
-
-.card-badge.subtle {
-  color: #b9c7d5;
-}
-
-.card-file {
-  font-size: 11px;
-  color: #8394a7;
+  gap: 8px;
+  height: 36px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 13px;
+  cursor: pointer;
   white-space: nowrap;
+  transition: background 0.16s ease, border-color 0.16s ease;
 }
 
-.card-title {
-  position: relative;
-  z-index: 1;
-  font-size: 24px;
-  line-height: 1.1;
-  letter-spacing: -0.04em;
+.bar-btn:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.16); }
+
+.spacer { flex: 1; }
+
+.rail-toggle { display: none; }
+
+.scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(3, 6, 10, 0.6);
 }
 
-.card-desc {
-  position: relative;
-  z-index: 1;
+/* ---------- Home view ---------- */
+
+.home {
   flex: 1;
-  margin-top: 12px;
-  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 28px 96px;
+  text-align: center;
+}
+
+body[data-view="demo"] .home { display: none; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  border: 1px solid var(--accent-line);
+  border-radius: 6px;
+  background: var(--accent-soft);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.badge span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.home h1 {
+  margin-top: 34px;
+  font-size: clamp(52px, 8.5vw, 104px);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.home p {
+  max-width: 30ch;
+  margin-top: 22px;
+  font-size: clamp(17px, 1.6vw, 20px);
+  font-weight: 300;
   line-height: 1.65;
   color: var(--muted);
 }
 
-.card-meta {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 18px;
+.home hr {
+  width: 52px;
+  margin-top: 54px;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
-.meta-pill {
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 11px;
-  color: #c1d0de;
-}
-
-.card-actions {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.card-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 42px;
-  padding: 10px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
-}
-
-.card-btn:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-.card-btn.primary {
-  background: #edf3f8;
-  color: #09111a;
-  border-color: transparent;
-}
-
-.card-btn.primary:hover {
-  background: #ffffff;
-}
-
-.empty-state {
-  padding: 32px;
-  border-radius: 22px;
-  border: 1px dashed rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.03);
+.home-foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 30px;
   text-align: center;
-  color: var(--muted);
-}
-
-#pageView {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #071019;
-  z-index: 100;
-}
-
-#pageBar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  height: 70px;
-  padding: 0 22px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(7, 13, 20, 0.92);
-  backdrop-filter: blur(16px);
-}
-
-.bar-btn,
-.bar-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 0 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text);
-  text-decoration: none;
-}
-
-.bar-btn {
-  cursor: pointer;
-}
-
-.bar-btn:hover,
-.bar-link:hover {
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.bar-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.page-kicker {
-  font-size: 10px;
-  font-weight: 700;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #8ea1b4;
+  color: var(--muted-dim);
 }
 
-.page-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #f2f6fa;
+body[data-view="demo"] .home-foot { display: none; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
 }
 
-.spacer {
+.reveal:nth-child(1) { animation-delay: 0.05s; }
+.reveal:nth-child(2) { animation-delay: 0.14s; }
+.reveal:nth-child(3) { animation-delay: 0.23s; }
+.reveal:nth-child(4) { animation-delay: 0.34s; }
+
+@keyframes rise {
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Viewer ---------- */
+
+.viewer {
+  display: none;
   flex: 1;
+  min-height: 0;
+  padding: 14px;
 }
 
-#pageFrameWrap {
-  height: calc(100vh - 70px);
-  padding: 14px;
-  background:
-    radial-gradient(circle at top left, rgba(93, 145, 168, 0.16), transparent 22%),
-    linear-gradient(180deg, #09111a 0%, #08111a 100%);
-}
+body[data-view="demo"] .viewer { display: block; }
 
 #pageFrame {
   width: 100%;
   height: 100%;
   border: none;
-  border-radius: 20px;
+  border-radius: 16px;
   background: #fff;
-  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
 }
 
-@media (max-width: 980px) {
-  .hero {
-    grid-template-columns: 1fr;
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: minmax(0, 1fr); }
+
+  .rail {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: min(84vw, var(--rail-w));
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.24s ease;
   }
 
-  .controls {
-    min-width: 100%;
+  body[data-rail="open"] .rail { transform: none; }
+
+  body[data-rail="open"] .scrim { display: block; }
+
+  .topbar { display: flex; }
+
+  .rail-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    flex-shrink: 0;
   }
+
+  .home { padding: 40px 22px 84px; }
+  .home p { max-width: 26ch; }
+  .viewer { padding: 10px; }
 }
 
-@media (max-width: 720px) {
-  .shell {
-    padding: 18px 18px 56px;
-  }
-
-  .hero-copy,
-  .hero-panel,
-  .library {
-    border-radius: 22px;
-  }
-
-  .hero-copy,
-  .hero-panel {
-    padding: 24px;
-  }
-
-  .hero-copy h1 {
-    font-size: 36px;
-  }
-
-  .metric-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .library {
-    padding: 18px;
-  }
-
-  .library-copy h2 {
-    font-size: 24px;
-  }
-
-  .card-title {
-    font-size: 22px;
-  }
-
-  .card-actions {
-    flex-direction: column;
-  }
-
-  #pageBar {
-    height: auto;
-    padding: 14px;
-    flex-wrap: wrap;
-  }
-
-  .spacer {
-    display: none;
-  }
-
-  #pageFrameWrap {
-    height: calc(100vh - 116px);
-    padding: 10px;
-  }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
 }
 </style>
 </head>
-<body>
+<body data-view="home">
 
-<div id="indexView">
-  <main class="shell">
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">Digital Chief of Staff</div>
-        <h1>Operating Workspace Index</h1>
-        <p class="hero-sub">Launch account reviews, whitespace planning, territory coverage analysis, and pipeline diagnostics from a single internal workspace.</p>
-        <div class="hero-tags">
-          <span class="hero-tag">Account Planning</span>
-          <span class="hero-tag">Territory Design</span>
-          <span class="hero-tag">Revenue Operations</span>
-          <span class="hero-tag">Scenario Reviews</span>
-        </div>
+<div class="app">
+  <aside class="rail" id="rail">
+    <div class="rail-head">
+      <div class="rail-mark" aria-hidden="true"></div>
+      <div class="rail-brand">Backstory</div>
+    </div>
+
+    <div class="nav-group">
+      <button class="group-toggle" id="groupToggle" type="button" aria-expanded="true" aria-controls="navList" aria-label="Collapse Demo Hub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 15L12 9L18 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <a class="group-link" href="#" id="homeLink">Demo Hub</a>
+    </div>
+
+    <ul class="nav-list" id="navList"></ul>
+  </aside>
+
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <div class="topbar">
+      <button class="bar-btn rail-toggle" id="railToggle" type="button" aria-label="Show navigation" aria-controls="rail" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="crumb">
+        <a class="crumb-home" href="#">Demo Hub</a><span class="crumb-sep">/</span><span id="crumbCurrent"></span>
       </div>
+      <div class="spacer"></div>
+      <a class="bar-btn" id="openDirect" target="_blank" rel="noreferrer">Open direct</a>
+    </div>
 
-      <aside class="hero-panel">
-        <div>
-          <div class="panel-kicker">Portfolio Snapshot</div>
-          <div class="panel-title">One entry point for operating reviews</div>
-          <div class="panel-sub">Search by account, function, or scenario. Launch in the embedded viewer for continuity, or open the underlying HTML directly when you need the standalone file.</div>
-        </div>
-
-        <div class="metric-grid">
-          <div class="metric-card">
-            <div class="metric-label">Workspaces</div>
-            <div class="metric-value" id="workspaceCount"></div>
-            <div class="metric-copy">Active pages indexed in this shell</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Tracks</div>
-            <div class="metric-value" id="trackCount"></div>
-            <div class="metric-copy">Distinct operating functions covered</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Account Views</div>
-            <div class="metric-value" id="accountCount"></div>
-            <div class="metric-copy">Planning and analysis workspaces</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Territory Views</div>
-            <div class="metric-value" id="territoryCount"></div>
-            <div class="metric-copy">Coverage and whitespace scenarios</div>
-          </div>
-        </div>
-
-        <div class="hero-rail">Viewer routes preserve deep links, so a shared hash can reopen the exact workspace from this index without exposing raw file paths.</div>
-      </aside>
+    <section class="home">
+      <div class="badge reveal"><span aria-hidden="true"></span>Backstory</div>
+      <h1 class="reveal">Demo Hub</h1>
+      <p class="reveal">Examples of user experiences powered by Backstory Data.</p>
+      <hr class="reveal">
     </section>
 
-    <section class="library">
-      <div class="library-toolbar">
-        <div class="library-copy">
-          <div class="eyebrow">Workspace Browser</div>
-          <h2>Active Workspaces</h2>
-          <div class="results-meta" id="resultsMeta"></div>
-        </div>
+    <div class="home-foot">Backstory.ai&nbsp;&nbsp;|&nbsp;&nbsp;Internal Use Only</div>
 
-        <div class="controls">
-          <label class="search-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M21 21L15.8 15.8M17 10.5C17 14.0899 14.0899 17 10.5 17C6.91015 17 4 14.0899 4 10.5C4 6.91015 6.91015 4 10.5 4C14.0899 4 17 6.91015 17 10.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-            <input id="searchInput" type="search" placeholder="Search by account, function, or scenario">
-          </label>
-          <div class="filter-pills" id="filterPills"></div>
-        </div>
-      </div>
-
-      <div class="demo-grid" id="cardGrid"></div>
+    <section class="viewer">
+      <iframe id="pageFrame" title="Demo viewer"></iframe>
     </section>
   </main>
 </div>
 
-<div id="pageView">
-  <div id="pageBar">
-    <button id="backButton" class="bar-btn" type="button">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-      Back
-    </button>
-    <div class="bar-meta">
-      <div class="page-kicker" id="pageLabel"></div>
-      <div class="page-title" id="pageTitle"></div>
-    </div>
-    <div class="spacer"></div>
-    <a id="pageOpenDirect" class="bar-link" target="_blank" rel="noreferrer">Open Direct</a>
-  </div>
-  <div id="pageFrameWrap">
-    <iframe id="pageFrame" title="Workspace Viewer"></iframe>
-  </div>
-</div>
-
 <script>
 const PAGES = [
-  {
-    key: "account-plan-adp",
-    file: "demos/account-plan-adp.html",
-    label: "Account Plan",
-    title: "ADP",
-    context: "Strategic Review",
-    accent: "#bf7a6c",
-    desc: "Contested enterprise HCM account with a hot $41K new-business deal, an overdue $80K renewal, and a full buying committee to align."
-  },
-  {
-    key: "account-plan-windy-city",
-    file: "demos/account-plan-windy-city.html",
-    label: "Account Plan",
-    title: "Windy City Storage",
-    context: "Strategic Review",
-    accent: "#7ca686",
-    desc: "Strategic account review with stakeholder context, opportunity pipeline, and expansion sequencing."
-  },
-  {
-    key: "account-plan-lakefront",
-    file: "demos/account-plan-lakefront.html",
-    label: "Account Plan",
-    title: "Lakefront Technologies",
-    context: "Strategic Review",
-    accent: "#7f98b8",
-    desc: "Executive account plan with engagement signals, decision makers, and expansion priorities."
-  },
-  {
-    key: "mops-funnel",
-    file: "demos/mops-funnel.html",
-    label: "MOPS",
-    title: "MOPS Funnel Analysis",
-    context: "Conversion Review",
-    accent: "#8bb49c",
-    desc: "Full-funnel performance analysis with conversion gaps, segment breakdowns, and operator takeaways."
-  },
-  {
-    key: "pipeline-progression",
-    file: "demos/pipeline-progression.html",
-    label: "Rev Ops",
-    title: "Pipeline Progression",
-    context: "Velocity Review",
-    accent: "#5d91a8",
-    desc: "Stage-by-stage pipeline flow with velocity patterns and progression risk across the operating funnel."
-  },
-  {
-    key: "out-quarter-pipeline",
-    file: "demos/out-quarter-pipeline.html",
-    label: "Rev Ops",
-    title: "Out Quarter Pipeline",
-    context: "Forecast Review",
-    accent: "#9aa86c",
-    desc: "Out-quarter pipeline assessment with category mix, coverage posture, and forecast execution risk."
-  },
-  {
-    key: "whitespace-david-park",
-    file: "demos/whitespace-david-park.html",
-    label: "Whitespace",
-    title: "David Park Territory Expansion",
-    context: "Coverage Map",
-    accent: "#c09a66",
-    desc: "Whitespace and green-space analysis for David Park with expansion plays, meetings, and account strategy."
-  },
-  {
-    key: "territory-design",
-    file: "demos/territory-design.html",
-    label: "Territory Design",
-    title: "Territory Expansion Map",
-    context: "Routing Review",
-    accent: "#78a7bb",
-    desc: "Coverage routing workspace for reassignment, seller load balancing, and decision-ready territory changes."
-  },
-  {
-    key: "account-analysis-se",
-    file: "demos/account-analysis.html",
-    label: "Account Analysis",
-    title: "Alex Mercer Expansion Analysis",
-    context: "Coverage Brief",
-    accent: "#a482b8",
-    desc: "Expansion analysis with whitespace priorities, activation gaps, and meeting-ready customer guidance."
-  }
+  { key: "account-plan-windy-city", file: "demos/account-plan-windy-city.html", title: "Windy City - Account Plan" },
+  { key: "account-plan-lakefront", file: "demos/account-plan-lakefront.html", title: "Lakefront - Account Plan" },
+  { key: "account-plan-adp", file: "demos/account-plan-adp.html", title: "ADP - Account Plan" },
+  { key: "account-analysis", file: "demos/account-analysis.html", title: "Account Analysis" },
+  { key: "territory-design", file: "demos/territory-design.html", title: "Territory Design" },
+  { key: "whitespace-david-park", file: "demos/whitespace-david-park.html", title: "Territory Expansion Map" },
+  { key: "mops-funnel", file: "demos/mops-funnel.html", title: "MOPS Funnel Analysis" },
+  { key: "pipeline-progression", file: "demos/pipeline-progression.html", title: "Pipeline Progression" },
+  { key: "out-quarter-pipeline", file: "demos/out-quarter-pipeline.html", title: "Out Quarter Pipeline" }
 ];
 
-const libraryState = {
-  search: "",
-  filter: "all"
-};
-
-const cardGrid = document.getElementById("cardGrid");
-const filterPills = document.getElementById("filterPills");
-const resultsMeta = document.getElementById("resultsMeta");
-const searchInput = document.getElementById("searchInput");
-const indexView = document.getElementById("indexView");
-const pageView = document.getElementById("pageView");
-const pageTitle = document.getElementById("pageTitle");
-const pageLabel = document.getElementById("pageLabel");
-const pageOpenDirect = document.getElementById("pageOpenDirect");
+const navList = document.getElementById("navList");
+const groupToggle = document.getElementById("groupToggle");
+const railToggle = document.getElementById("railToggle");
+const scrim = document.getElementById("scrim");
+const crumbCurrent = document.getElementById("crumbCurrent");
+const openDirect = document.getElementById("openDirect");
 const frame = document.getElementById("pageFrame");
 
-const labels = [...new Set(PAGES.map((page) => page.label))];
+function renderNav() {
+  PAGES.forEach((page) => {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.className = "nav-link";
+    link.href = "#" + page.key;
+    link.textContent = page.title;
+    link.dataset.key = page.key;
+    item.appendChild(link);
+    navList.appendChild(item);
+  });
+}
+
+function setActive(key) {
+  navList.querySelectorAll(".nav-link").forEach((link) => {
+    const isActive = link.dataset.key === key;
+    link.classList.toggle("active", isActive);
+    if (isActive) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+}
 
 function setFrame(url) {
   try {
@@ -820,175 +503,61 @@ function setFrame(url) {
   }
 }
 
-function updateHeroMetrics() {
-  const accountCount = PAGES.filter((page) => page.label === "Account Plan" || page.label === "Account Analysis").length;
-  const territoryCount = PAGES.filter((page) => page.label === "Whitespace" || page.label === "Territory Design").length;
-
-  document.getElementById("workspaceCount").textContent = String(PAGES.length);
-  document.getElementById("trackCount").textContent = String(labels.length);
-  document.getElementById("accountCount").textContent = String(accountCount);
-  document.getElementById("territoryCount").textContent = String(territoryCount);
+function closeRail() {
+  document.body.removeAttribute("data-rail");
+  railToggle.setAttribute("aria-expanded", "false");
 }
 
-function getVisiblePages() {
-  const query = libraryState.search.trim().toLowerCase();
-
-  return PAGES.filter((page) => {
-    const matchesFilter = libraryState.filter === "all" || page.label === libraryState.filter;
-    if (!matchesFilter) return false;
-
-    if (!query) return true;
-
-    const haystack = [page.label, page.title, page.context, page.desc, page.file].join(" ").toLowerCase();
-    return haystack.includes(query);
-  });
-}
-
-function renderResultsMeta(visiblePages) {
-  const filterText = libraryState.filter === "all" ? "all tracks" : libraryState.filter;
-  const searchText = libraryState.search.trim() ? ' matching "' + libraryState.search.trim() + '"' : "";
-  resultsMeta.textContent = visiblePages.length + " workspace" + (visiblePages.length === 1 ? "" : "s") + " in " + filterText + searchText + ".";
-}
-
-function renderFilterPills() {
-  const filters = [{ label: "All", value: "all" }].concat(labels.map((label) => ({ label, value: label })));
-
-  filterPills.innerHTML = "";
-  filters.forEach((filter) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "filter-pill" + (libraryState.filter === filter.value ? " active" : "");
-    button.textContent = filter.label;
-    button.addEventListener("click", () => {
-      libraryState.filter = filter.value;
-      renderLibrary();
-    });
-    filterPills.appendChild(button);
-  });
-}
-
-function createCard(page) {
-  const card = document.createElement("article");
-  card.className = "workspace-card";
-  card.tabIndex = 0;
-  card.style.setProperty("--card-accent", page.accent);
-  card.setAttribute("role", "button");
-  card.setAttribute("aria-label", "Open " + page.title);
-
-  card.innerHTML =
-    '<div class="card-top">' +
-      '<div class="card-kickers">' +
-        '<span class="card-badge">' + page.label + "</span>" +
-        '<span class="card-badge subtle">' + page.context + "</span>" +
-      "</div>" +
-      '<div class="card-file">' + page.file.replace("demos/", "") + "</div>" +
-    "</div>" +
-    '<div class="card-title">' + page.title + "</div>" +
-    '<div class="card-desc">' + page.desc + "</div>" +
-    '<div class="card-meta">' +
-      '<span class="meta-pill">Viewer Ready</span>' +
-      '<span class="meta-pill">Deep Link Enabled</span>' +
-    "</div>" +
-    '<div class="card-actions">' +
-      '<button class="card-btn primary" type="button">Open in Viewer</button>' +
-      '<a class="card-btn secondary" href="' + page.file + '" target="_blank" rel="noreferrer">Open Direct</a>' +
-    "</div>";
-
-  card.addEventListener("click", () => openPage(page));
-  card.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      openPage(page);
-    }
-  });
-
-  const primary = card.querySelector(".primary");
-  primary.addEventListener("click", (event) => {
-    event.stopPropagation();
-    openPage(page);
-  });
-
-  const secondary = card.querySelector(".secondary");
-  secondary.addEventListener("click", (event) => {
-    event.stopPropagation();
-  });
-
-  return card;
-}
-
-function renderCards(visiblePages) {
-  cardGrid.innerHTML = "";
-
-  if (!visiblePages.length) {
-    cardGrid.innerHTML = '<div class="empty-state">No workspaces match the current filter. Adjust the search or switch tracks.</div>';
-    return;
-  }
-
-  visiblePages.forEach((page) => {
-    cardGrid.appendChild(createCard(page));
-  });
-}
-
-function renderLibrary() {
-  const visiblePages = getVisiblePages();
-  renderResultsMeta(visiblePages);
-  renderFilterPills();
-  renderCards(visiblePages);
-}
-
-function showPage(page, pushState) {
-  pageTitle.textContent = page.title;
-  pageLabel.textContent = page.label;
-  pageOpenDirect.href = page.file;
-  indexView.style.display = "none";
-  pageView.style.display = "block";
+function showPage(page) {
+  document.title = page.title + " | Backstory Demo Hub";
+  document.body.dataset.view = "demo";
+  crumbCurrent.textContent = page.title;
+  openDirect.href = page.file;
+  setActive(page.key);
   setFrame(page.file);
-
-  if (pushState) {
-    history.pushState({ page: page.key }, "", "#" + page.key);
-  }
+  closeRail();
 }
 
-function showIndex() {
-  pageView.style.display = "none";
-  indexView.style.display = "block";
+function showHome() {
+  document.title = "Demo Hub | Backstory";
+  document.body.dataset.view = "home";
+  setActive(null);
   setFrame("about:blank");
-}
-
-function openPage(page) {
-  showPage(page, true);
-}
-
-function goBack() {
-  if (window.location.hash) {
-    history.back();
-  } else {
-    showIndex();
-  }
+  closeRail();
 }
 
 function syncFromLocation() {
   const hash = window.location.hash.replace("#", "");
-  if (!hash) {
-    showIndex();
-    return;
-  }
-
-  const page = PAGES.find((entry) => entry.key === hash);
-  if (page) showPage(page, false);
-  else showIndex();
+  const page = hash && PAGES.find((entry) => entry.key === hash);
+  if (page) showPage(page);
+  else showHome();
 }
 
-document.getElementById("backButton").addEventListener("click", goBack);
-searchInput.addEventListener("input", (event) => {
-  libraryState.search = event.target.value;
-  renderLibrary();
+groupToggle.addEventListener("click", () => {
+  const expanded = groupToggle.getAttribute("aria-expanded") === "true";
+  groupToggle.setAttribute("aria-expanded", String(!expanded));
+  groupToggle.setAttribute("aria-label", expanded ? "Expand Demo Hub" : "Collapse Demo Hub");
+  navList.hidden = expanded;
 });
 
-window.addEventListener("popstate", syncFromLocation);
+railToggle.addEventListener("click", () => {
+  const open = document.body.dataset.rail === "open";
+  if (open) closeRail();
+  else {
+    document.body.dataset.rail = "open";
+    railToggle.setAttribute("aria-expanded", "true");
+  }
+});
 
-updateHeroMetrics();
-renderLibrary();
+scrim.addEventListener("click", closeRail);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeRail();
+});
+
+window.addEventListener("hashchange", syncFromLocation);
+
+renderNav();
 syncFromLocation();
 </script>
 
