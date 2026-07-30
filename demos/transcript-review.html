@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly Conversation Analysis — Week of July 16–18, 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" crossorigin="anonymous"></script>
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f6f7f9; --card:#ffffff; --ink:#1a1f29; --muted:#5b6675; --line:#e6e9ee;
+  --brand:#3b4cca; --brand2:#6b5bd6;
+  --pos:#1f9d6b; --neu:#c7902a; --neg:#d2453f;
+  --chip:#eef0f6; --shadow:0 1px 3px rgba(20,25,40,.06),0 6px 18px rgba(20,25,40,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 18px 80px}
+header.top{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+h1{font-size:24px;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:14px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pill{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:12.5px;color:var(--muted)}
+.tabs{position:sticky;top:0;z-index:20;background:var(--bg);padding:14px 0 10px;display:flex;gap:8px;border-bottom:1px solid var(--line);margin:18px 0 6px}
+.tab{cursor:pointer;border:1px solid var(--line);background:var(--card);padding:9px 16px;border-radius:10px;font-weight:600;font-size:14px;color:var(--muted)}
+.tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+section.view{display:none}
+section.view.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);margin:14px 0}
+h2{font-size:19px;margin:26px 2px 6px;letter-spacing:-.2px}
+h2 .em{color:var(--brand)}
+h3{font-size:15.5px;margin:2px 0 10px}
+p{margin:8px 0}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:820px){.g2,.g3,.g4{grid-template-columns:1fr}.tabs{flex-wrap:wrap}}
+.kpi{display:flex;flex-direction:column;gap:2px}
+.kpi .n{font-size:26px;font-weight:700;letter-spacing:-.5px}
+.kpi .l{color:var(--muted);font-size:12.5px}
+.chartbox{position:relative;height:260px}
+.chartbox.sm{height:230px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+td .why{color:var(--muted);font-size:12.5px}
+.badge{display:inline-block;border-radius:6px;padding:2px 8px;font-size:11.5px;font-weight:600}
+.b-up{background:#fdeceb;color:#b5322c}
+.b-stable{background:#fff5e0;color:#9a6c12}
+.b-down{background:#e8f6ef;color:#157a52}
+.b-new{background:#eceaff;color:#4a3bc0}
+.s-pos{background:#e8f6ef;color:#157a52}
+.s-neu{background:#fff5e0;color:#9a6c12}
+.s-neg{background:#fdeceb;color:#b5322c}
+.quote{border-left:3px solid var(--brand);background:#f7f8fc;padding:9px 13px;border-radius:0 8px 8px 0;margin:9px 0;font-size:13.5px}
+.quote .src{display:block;color:var(--muted);font-size:12px;margin-top:4px;font-style:normal}
+.quote em{font-style:italic}
+ul.clean{margin:6px 0;padding-left:18px}
+ul.clean li{margin:4px 0}
+.cols2{columns:2;column-gap:26px}
+@media(max-width:820px){.cols2{columns:1}}
+.tag{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin:2px;font-size:12px}
+.note{font-size:12.5px;color:var(--muted);background:#fafbfd;border:1px dashed var(--line);border-radius:10px;padding:10px 13px}
+.fact{border-left:3px solid var(--pos)}
+.infer{border-left:3px solid var(--neu)}
+.flag{font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.flag.f-fact{color:var(--pos)}
+.flag.f-infer{color:var(--neu)}
+.acct{font-weight:600}
+.tier{border-radius:12px;padding:14px 16px;border:1px solid var(--line)}
+.tier h4{margin:0 0 8px;font-size:14px;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:820px){.rec-grid{grid-template-columns:1fr}}
+ol.recs{margin:6px 0;padding-left:20px}
+ol.recs li{margin:6px 0;font-size:13.5px}
+.changed li{margin:8px 0}
+hr.sep{border:none;border-top:1px solid var(--line);margin:22px 0}
+.legend{font-size:12px;color:var(--muted);margin-top:6px}
+.callacct{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Weekly Customer &amp; Prospect Conversation Analysis</h1>
+    <div class="sub">Backstory / People.ai · meeting transcripts for the week of <strong>July 16–18, 2026</strong></div>
+    <div class="meta">
+      <span class="pill">22 transcripts analyzed</span>
+      <span class="pill">19 existing-customer meetings</span>
+      <span class="pill">2 prospect meetings</span>
+      <span class="pill">1 excluded (inbound vendor pitch)</span>
+      <span class="pill">Source: Google Drive — Outbound Transcript Analysis</span>
+    </div>
+  </header>
+
+  <div class="note" style="margin-top:14px">
+    <strong>How to read this:</strong> Findings are prioritized by <em>trend</em>, not individual anecdotes. Counts are out of the analyzed meetings (e.g. "8 of 19 customer conversations"). Quotes are verbatim from auto-generated transcripts (minor speech-to-text artifacts preserved).
+    <span class="flag f-fact">■ Fact</span> = stated directly on a call. <span class="flag f-infer">■ Inference</span> = our interpretation. The "Growstack" transcript was excluded because it is a vendor selling <em>to</em> People.ai, not a customer/prospect conversation.
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-view="cust">Existing Customers (19)</div>
+    <div class="tab" data-view="prosp">Prospects (2)</div>
+    <div class="tab" data-view="changed">What Changed This Week</div>
+  </div>
+
+  <!-- ============================= CUSTOMERS ============================= -->
+  <section class="view active" id="cust">
+
+    <h2><span class="em">1.</span> Executive Summary — Existing Customers</h2>
+    <div class="grid g4">
+      <div class="card kpi"><span class="n" style="color:var(--neu)">Mixed&nbsp;/&nbsp;Cautiously&nbsp;+</span><span class="l">Overall sentiment</span></div>
+      <div class="card kpi"><span class="n" style="color:var(--pos)">10</span><span class="l">Positive meetings</span></div>
+      <div class="card kpi"><span class="n" style="color:var(--neu)">6</span><span class="l">Neutral meetings</span></div>
+      <div class="card kpi"><span class="n" style="color:var(--neg)">3</span><span class="l">Negative / at-risk</span></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>Sentiment distribution</h3>
+        <div class="chartbox sm"><canvas id="custSentiment"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Top themes this week</h3>
+        <ul class="clean">
+          <li><strong>AI/MCP interoperability is now the dominant conversation.</strong> Customers increasingly want Backstory to be a <em>data source feeding their own Claude/Copilot/Gemini stack</em>, not just a Salesforce overlay (Five9, Cohesity, Intenseye, Thoughtworks, Dataiku, Keysight, Quad, Hexagon).</li>
+          <li><strong>Consumption / credit pricing is creating friction at renewal</strong> (Kong, 3Pillar, Cohesity).</li>
+          <li><strong>"Show me the reasoning, not just the number"</strong> — demand for explainable signal/engagement values (Quad, Hexagon, Five9).</li>
+          <li><strong>Provisioning &amp; Salesforce-config friction</strong> is a real adoption tax (Thales, Samba, Keysight, Quad).</li>
+          <li><strong>The rebrand to "Backstory"</strong> is incompletely propagated in-product (Samba, 3Pillar).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="color:var(--neg)">Biggest risks identified</h3>
+        <ul class="clean">
+          <li><strong>Build-vs-buy at Cohesity</strong> — standing up ~90 internal AI agents that overlap Backstory; "we don't see the value today."</li>
+          <li><strong>Kong renewal</strong> — buyer refuses to commit to a credit number; no usage visibility or admin controls.</li>
+          <li><strong>Thales fully blocked</strong> — SE has zero access; champion starting 4-week leave; value realization at zero.</li>
+          <li><strong>Apptio forecasting regression</strong> — IBM ISC migration (August 20) removes line-item ownership, disabling the forecasting module Apptio uses today.</li>
+          <li><strong>Contact attrition at Thoughtworks</strong> — multiple long-tenured contacts (incl. 20-yr veteran) gone; relationship continuity thin.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--pos)">Biggest opportunities identified</h3>
+        <ul class="clean">
+          <li><strong>Five9</strong> — CEO-level "holy s*** moment"; scoping MCP/Claude professional services + CS/renewals expansion (~2-week timeline).</li>
+          <li><strong>Cohesity</strong> — pivot from stale user-based deployment to consumption-based AI-platform play; champion runs their AI task force.</li>
+          <li><strong>IBM</strong> — Americas live, EMEA go-live August 6, APAC + works-council countries named as future waves (land-and-expand).</li>
+          <li><strong>Anaplan</strong> — Phase 2 expansion (custom MedPICC scorecards, M&amp;A signals); free contact enrichment offered.</li>
+          <li><strong>MCP "value + reasoning"</strong> launch (late Sep) directly answers the top recurring ask (Quad, Hexagon).</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2><span class="em">2.</span> Top Business Problems Customers Are Solving</h2>
+    <div class="card">
+      <div class="chartbox"><canvas id="custPain"></canvas></div>
+      <div class="legend">Frequency = number of the 19 customer meetings in which the theme appeared.</div>
+    </div>
+    <div class="card" style="padding:0">
+      <table>
+        <thead><tr><th>#</th><th>Pain point</th><th>Conv.</th><th>Representative quote</th><th>Trend</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>1</td><td><strong>Make Backstory the data layer for our own AI/MCP stack</strong></td><td>9</td>
+            <td><div class="quote" style="margin:0"><em>"how can your AI agents … talk to my AI and agents in process"</em><span class="src">Michael Goldberg, Cohesity</span></div></td>
+            <td><span class="badge b-up">Increasing</span></td>
+            <td class="why">Existential positioning shift: if Backstory isn't <em>in</em> the customer's AI orchestration, it gets bypassed by tools the customer builds.</td>
+          </tr>
+          <tr>
+            <td>2</td><td><strong>Data accuracy: activity↔opportunity↔contact matching &amp; hygiene</strong></td><td>7</td>
+            <td><div class="quote" style="margin:0"><em>"the dashboards were pulling in activities that specific people hadn't been on … it's not accurate."</em><span class="src">Alexa Brown (People.ai), re: Samba</span></div></td>
+            <td><span class="badge b-stable">Stable</span></td>
+            <td class="why">Inaccurate matching undermines every downstream metric and erodes trust before value is realized.</td>
+          </tr>
+          <tr>
+            <td>3</td><td><strong>Provisioning / auth / Salesforce config friction</strong></td><td>6</td>
+            <td><div class="quote" style="margin:0"><em>"Yeah, I don't have any access at all."</em><span class="src">Aidan Lennie, Thales</span></div></td>
+            <td><span class="badge b-up">Increasing</span></td>
+            <td class="why">Onboarding/auth blockers stall adoption and put value realization at risk — a churn-adjacent tax.</td>
+          </tr>
+          <tr>
+            <td>4</td><td><strong>Forecasting accuracy, hygiene &amp; submission automation</strong></td><td>5</td>
+            <td><div class="quote" style="margin:0"><em>"my team does a very bad job of updating Salesforce. So I constantly have to be after them"</em><span class="src">Rob Bar, Keysight</span></div></td>
+            <td><span class="badge b-stable">Stable</span></td>
+            <td class="why">Forecasting is the wedge that earns manager/exec adoption; bugs &amp; capability loss here are high-visibility.</td>
+          </tr>
+          <tr>
+            <td>5</td><td><strong>Change management / low feature adoption</strong></td><td>5</td>
+            <td><div class="quote" style="margin:0"><em>"the RVPs are not doing that."</em><span class="src">Darrell Dodge, Anaplan (on MedPICC scoring)</span></div></td>
+            <td><span class="badge b-stable">Stable</span></td>
+            <td class="why">Scorecards/close plans go unused; weak value realization is the quiet precursor to churn.</td>
+          </tr>
+          <tr>
+            <td>6</td><td><strong>Pipeline hygiene — stale opps, no SLA enforcement</strong></td><td>4</td>
+            <td><div class="quote" style="margin:0"><em>"they just have ops open for 300 days … we can't really enforce conversion rates and SLAs."</em><span class="src">Jordan Walker, Intenseye</span></div></td>
+            <td><span class="badge b-stable">Stable</span></td>
+            <td class="why">Core, durable value prop — and the easiest "win" to demonstrate ROI quickly.</td>
+          </tr>
+          <tr>
+            <td>7</td><td><strong>Explainability — "value + the reasoning behind it"</strong></td><td>3</td>
+            <td><div class="quote" style="margin:0"><em>"give our customers the ability to pull signal values and the reasoning behind those values … mid August."</em><span class="src">Nico Alvarez (People.ai), Quad</span></div></td>
+            <td><span class="badge b-up">Increasing</span></td>
+            <td class="why">Trust in AI outputs depends on verifiability; an engagement score with no traceable activity actively erodes confidence.</td>
+          </tr>
+          <tr>
+            <td>8</td><td><strong>Consumption / credit pricing forecastability &amp; controls</strong></td><td>3</td>
+            <td><div class="quote" style="margin:0"><em>"I don't see how we're going to get to an accurate credit forecast … how I can commit to spending dollars on credits"</em><span class="src">Varun Bellur, Kong</span></div></td>
+            <td><span class="badge b-up">Increasing</span></td>
+            <td class="why">Low count but high severity — directly gates renewals and expansion dollars.</td>
+          </tr>
+          <tr>
+            <td>9</td><td><strong>Global rollout gates — data privacy, works councils, time zones</strong></td><td>2</td>
+            <td><div class="quote" style="margin:0"><em>"for DH and Netherlands we are going to need that level of separation."</em><span class="src">Martin Esser, IBM</span></div></td>
+            <td><span class="badge b-new">Emerging</span></td>
+            <td class="why">Per-region anonymization &amp; non-US training coverage are prerequisites to scaling enterprise accounts globally.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2><span class="em">3.</span> Product Feedback</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="color:var(--pos)">Features customers love</h3>
+        <ul class="clean">
+          <li>Signals surfaced inside Salesforce with <strong>named-contact action plans</strong> ("not an AI blackbox … it's literally naming names" — Five9).</li>
+          <li><strong>Opportunity 360</strong> deal summaries: topics, next steps, risks (Keysight, Hexagon).</li>
+          <li><strong>PeopleGlass bulk-update / table view</strong> for fast pipeline updates (Anaplan, Energy Toolbase, Jeppesen).</li>
+          <li><strong>AI relationship maps / hierarchy</strong> — "getting really great feedback" (Dataiku).</li>
+          <li>Forecasting headlines &amp; <strong>comment-to-assign-task</strong>; "the learning curve … really really easy" (Keysight).</li>
+          <li>The <strong>MCP/Claude "cockpit"</strong> art-of-the-possible demo (Cohesity, Five9, Dataiku).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--neg)">Features causing friction</h3>
+        <ul class="clean">
+          <li><strong>Matching logic</strong> mis-attributes activities / can't model multi-sided orgs (Samba).</li>
+          <li><strong>Engagement metrics lack context</strong> — "last engagement 17 days ago" is meaningless without type; score of 45 with no activity (Five9, Hexagon).</li>
+          <li><strong>Can't inherit Salesforce-specific logic</strong> — deactivated/duplicate contacts surface (Quad); field write-back gaps (Jeppesen).</li>
+          <li><strong>Meeting categorization beta capped at ~10</strong> categories, not editable, no SFDC sync (Dataiku).</li>
+          <li><strong>Login / credential / hierarchy</strong> failures mid-call (Keysight, Thales).</li>
+          <li><strong>No attachment scanning</strong> — quote PDFs not surfaced (Energy Toolbase).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <h3>Enhancement requests</h3>
+        <ul class="clean">
+          <li>Macro/cohort roll-up dashboards by CSM &amp; leader (Five9)</li>
+          <li>Push meeting-category beta to 20 + sync to SFDC (Dataiku)</li>
+          <li>In-product credit-usage visibility + per-user limits (Kong)</li>
+          <li>Red/yellow/green MedPICC stoplight in PeopleGlass (Anaplan)</li>
+          <li>Surface signal <strong>reasoning</strong> via MCP (Quad)</li>
+          <li>Per-region visibility/anonymization settings (IBM)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Missing capabilities</h3>
+        <ul class="clean">
+          <li>Cohort/trend roll-up (only renewal-by-renewal) — Five9</li>
+          <li>MCP doesn't yet expose signal values (coming late Sep) — Quad</li>
+          <li>Forecasting blocked without line-item ownership — IBM/Apptio</li>
+          <li>No attachment scanning — Energy Toolbase</li>
+          <li>Can't inherit SFDC deactivation/hide logic — Quad</li>
+          <li>Activity categorization in-platform only, not via API — Thoughtworks</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Adoption challenges</h3>
+        <ul class="clean">
+          <li>Day-two/CS teams not yet using it — Five9</li>
+          <li>Scorecards/close plans barely used — Intenseye, Anaplan</li>
+          <li>Call recording not default-on — Keysight</li>
+          <li>Managers declined the tool previously — Jeppesen</li>
+          <li>Only 2 users enabled, minimal enablement — Kong</li>
+          <li>Total access failure — Thales</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2><span class="em">4.</span> Competitive Intelligence</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Competitors / adjacent tools mentioned (customers + prospects)</h3>
+        <div class="chartbox sm"><canvas id="compChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Why they come up &amp; how we're positioned</h3>
+        <ul class="clean">
+          <li><strong>Gong (5)</strong> — used for call recording/forecasting; we win on the <em>capture-intelligence/context layer</em>: "everyone who tries to use Gong for this comes to us with the same hurdles" (David Benitez, Canva). Several customers ingest Gong <em>into</em> Backstory (Intenseye, Apptio).</li>
+          <li><strong>Clari (2)</strong> — incumbent forecasting (Dataiku, Canva); noted as not improving in accuracy.</li>
+          <li><strong>Salesloft (2)</strong> — dialer/cadences; "the dialer is not great" (Canva); candidate for replacement.</li>
+          <li><strong>ZoomInfo / Lusha / Cognism (4)</strong> — enrichment incumbents; we counter with <em>free included contact enrichment</em> (Anaplan).</li>
+          <li><strong>Microsoft Copilot / Salesforce MCP (2)</strong> — platform-level AI threat; customers are "Claude shops + Copilot shops" (Cohesity); Salesforce shipping its own MCP servers (Dataiku).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Objections against our platform &amp; feature gaps vs. competitors</h3>
+      <div class="grid g2">
+        <div>
+          <strong>Objections</strong>
+          <ul class="clean">
+            <li>Consumption/credit pricing is unforecastable &amp; lacks controls (Kong, 3Pillar).</li>
+            <li>"We don't see the value today" on the current (stale) version (Cohesity).</li>
+            <li>"Data subjects" terminology feels "scientific rather than user friendly" (3Pillar).</li>
+            <li>Authentication overhead — "an hour every day just for ID stuff" (Thales).</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Feature gaps cited</strong>
+          <ul class="clean">
+            <li>No HubSpot CRM support (asked by Canva &amp; Altimetrik — both on Salesforce, so not blocking).</li>
+            <li>Signal latency — leadership-change/earnings alerts can lag ~a week (Altimetrik).</li>
+            <li>Customer-built Gong→BigQuery→MCP pipelines outpacing our native integration (Intenseye).</li>
+            <li>No per-region privacy/anonymization toggle yet (IBM).</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note infer" style="margin-top:12px"><span class="flag f-infer">Inference</span> &nbsp;No competitor was named in a head-to-head "bake-off" this week. The real competitive threat is <strong>build-vs-buy / platform AI</strong> (customers' own Claude/Copilot stacks and Salesforce's MCP servers), not a point solution.</p>
+    </div>
+
+    <h2><span class="em">5.</span> Renewal &amp; Expansion Signals</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="color:var(--pos)">Upsell / cross-sell / expansion</h3>
+        <ul class="clean">
+          <li><span class="acct">Five9</span> — MCP/Claude pro-services, churn-save automation, CS/renewals expansion.</li>
+          <li><span class="acct">Cohesity</span> — user-based → consumption AI-platform; "give it to as many people as you want."</li>
+          <li><span class="acct">IBM</span> — EMEA (Aug 6) → APAC + works-council countries.</li>
+          <li><span class="acct">Anaplan</span> — Phase 2 scorecards, M&amp;A signals, API/MCP for trending.</li>
+          <li><span class="acct">3Pillar</span> — adding 7–9 seats; early-renewal offer ($27K, ~$13.5K credit).</li>
+          <li><span class="acct">Keysight</span> — full-team forecasting rollout in ~2 weeks.</li>
+          <li><span class="acct">Quad</span> — AR assistant + CRM sentiment; awaiting late Sep MCP value feature.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--neg)">Churn risk / budget / sponsorship</h3>
+        <ul class="clean">
+          <li><span class="acct">Kong</span> — <span class="badge s-neg">Budget</span> won't commit to credits; needs visibility + controls first.</li>
+          <li><span class="acct">Cohesity</span> — <span class="badge s-neg">Build-vs-buy</span> ~90 internal agents; value gap.</li>
+          <li><span class="acct">Thales</span> — <span class="badge s-neg">Blocked</span> zero access; champion on 4-wk leave; Quentin left.</li>
+          <li><span class="acct">Apptio</span> — <span class="badge s-neu">Consolidation</span> loses forecasting in IBM ISC (Aug 20).</li>
+          <li><span class="acct">Thoughtworks</span> — <span class="badge s-neu">Attrition</span> multiple key contacts departed.</li>
+          <li><span class="acct">Dataiku</span> — <span class="badge s-neu">Sponsor change</span> new CRO starting early August.</li>
+          <li><span class="acct">Samba</span> — <span class="badge s-neu">Key-person</span> integration owner unreachable.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2><span class="em">6.</span> Customer Sentiment Categorization</h2>
+    <div class="grid g3">
+      <div class="card tier">
+        <h4><span class="dot" style="background:var(--pos)"></span>Strong Advocate</h4>
+        <p class="callacct"><span class="acct">Keysight</span> — "This is fantastic. I can't thank you enough"; planning full-team rollout.</p>
+        <p class="callacct"><span class="acct">IBM</span> — sponsor actively selling Backstory internally as the next Rev Tech "building block."</p>
+        <p class="callacct"><span class="acct">Dataiku</span> — high-trust weekly partner, leaning into MCP/AI roadmap.</p>
+      </div>
+      <div class="card tier">
+        <h4><span class="dot" style="background:#7bc49f"></span>Generally Positive</h4>
+        <p class="callacct"><span class="acct">Five9</span> — exec momentum, expansion scoping.</p>
+        <p class="callacct"><span class="acct">Anaplan</span> — engaged, planning Phase 2.</p>
+        <p class="callacct"><span class="acct">Quad</span> — stable, reducing cadence, expanding use cases.</p>
+        <p class="callacct"><span class="acct">Jeppesen</span> — driving rollout &amp; training.</p>
+        <p class="callacct"><span class="acct">Thoughtworks</span> — strong technical engagement.</p>
+        <p class="callacct"><span class="acct">Energy Toolbase</span> — committing to data migration.</p>
+        <p class="callacct"><span class="acct">Apptio</span> — responsive triage, fixes landing.</p>
+      </div>
+      <div class="card tier">
+        <h4><span class="dot" style="background:var(--neu)"></span>Neutral</h4>
+        <p class="callacct"><span class="acct">Samba TV</span> — productive but accuracy &amp; reauth issues open.</p>
+        <p class="callacct"><span class="acct">Hexagon ALI</span> — collaborative but data-trust question + expansion pending budget.</p>
+        <p class="callacct"><span class="acct">3Pillar</span> — expanding but skeptical of pricing model.</p>
+        <p class="callacct"><span class="acct">IBM/Apptio UAT</span> — methodical migration; capability-loss concern.</p>
+      </div>
+      <div class="card tier">
+        <h4><span class="dot" style="background:#e08a2b"></span>At Risk</h4>
+        <p class="callacct"><span class="acct">Kong</span> — strong pricing pushback; won't commit to credit spend.</p>
+        <p class="callacct"><span class="acct">Cohesity</span> — "we don't see the value today"; build-vs-buy with ~90 internal agents.</p>
+      </div>
+      <div class="card tier">
+        <h4><span class="dot" style="background:var(--neg)"></span>High Risk</h4>
+        <p class="callacct"><span class="acct">Thales</span> — SE has zero access, nothing resolved on the call, champion starting 4-week leave; value realization is currently zero.</p>
+      </div>
+      <div class="card tier" style="background:#fafbfd">
+        <h4>Why categorized this way</h4>
+        <p class="callacct">Tiering blends <strong>stated sentiment</strong> (tone, explicit praise/complaint) with <strong>value realization</strong> (are they using it and getting outcomes) and <strong>commercial signals</strong> (renewal/expansion vs. budget/build-vs-buy). <span class="flag f-infer">Inference</span> applied where tone was positive but value was blocked (e.g. Thales tone was collegial, but access failure forces High Risk).</p>
+      </div>
+    </div>
+
+    <h2><span class="em">7.</span> Actionable Insights</h2>
+    <div class="grid g3">
+      <div class="card">
+        <h3>Top 5 themes for leadership</h3>
+        <ol class="recs">
+          <li>Backstory is being repositioned by customers as <strong>the data/agent layer under their own AI</strong> — lean in via MCP or risk disintermediation.</li>
+          <li>The <strong>consumption pricing rollout is generating renewal friction</strong> (Kong, 3Pillar, Cohesity) and needs usage visibility + controls to land.</li>
+          <li><strong>Build-vs-buy is now a live threat</strong> (Cohesity's 90 agents; Intenseye's homegrown MCP).</li>
+          <li><strong>Provisioning/auth friction is silently capping adoption</strong> and value realization.</li>
+          <li><strong>IBM/Apptio</strong> is a marquee global rollout with both big expansion upside and a forecasting-regression risk to manage carefully.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Top 5 product improvements</h3>
+        <ol class="recs">
+          <li>Ship <strong>signal "value + reasoning" via MCP</strong> (late Sep) — top recurring ask (Quad, Hexagon, Five9).</li>
+          <li>Add <strong>in-product consumption/credit dashboards + per-user limits</strong> (Kong, 3Pillar).</li>
+          <li>Improve <strong>engagement metrics with context</strong> (type, completion history) — not raw counts/recency.</li>
+          <li>Support <strong>per-region privacy/anonymization</strong> settings for EMEA/works-council rollouts (IBM).</li>
+          <li>Honor <strong>Salesforce-specific logic</strong> (deactivated-contact hiding, status write-back) (Quad, Jeppesen).</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--neg)">Top 5 risks needing action now</h3>
+        <ol class="recs">
+          <li><strong>Thales</strong> — escalate the access failure (Mon call w/ Roger + David) before champion's leave.</li>
+          <li><strong>Kong renewal</strong> — bring usage-visibility commitment + flexible year-1 terms.</li>
+          <li><strong>Cohesity</strong> — upgrade off the stale version &amp; reframe as consumption AI platform before renewal.</li>
+          <li><strong>Apptio (Aug 20 cutover)</strong> — own the forecasting-regression communication; assign a single owner.</li>
+          <li><strong>Thoughtworks</strong> — re-map relationships after attrition; re-establish exec sponsor.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= PROSPECTS ============================= -->
+  <section class="view" id="prosp">
+
+    <div class="note" style="margin-top:6px">Only <strong>2</strong> clear prospect (pre-sale) conversations occurred this week — <strong>Canva</strong> (technical deep dive) and <strong>Altimetrik</strong> (post-demo discovery + partner/reseller exploration). Findings below are therefore directional; quantification is small-sample and flagged accordingly.</div>
+
+    <h2><span class="em">1.</span> Executive Summary — Prospects</h2>
+    <div class="grid g3">
+      <div class="card kpi"><span class="n" style="color:var(--pos)">Positive</span><span class="l">Overall buying sentiment</span></div>
+      <div class="card kpi"><span class="n">2 / 2</span><span class="l">Advancing to next step</span></div>
+      <div class="card kpi"><span class="n">Q4</span><span class="l">Both targeting near-term timeline</span></div>
+    </div>
+    <div class="card">
+      <ul class="clean">
+        <li><strong>Pipeline health:</strong> thin this week (2 conversations) but both high-quality and progressing — Canva requested pricing + a meeting with the economic buyer; Altimetrik is pulling Backstory into three motions (internal use, reseller/white-label, joint GTM).</li>
+        <li><strong>Most common buying triggers:</strong> (1) replacing/augmenting <em>activity-capture intelligence</em> that Gong/Salesloft don't provide; (2) feeding clean data into an <em>AI/Claude orchestration layer</em>; (3) <em>scaling sales ops</em> for rapid headcount growth (Altimetrik 250→700).</li>
+      </ul>
+    </div>
+
+    <h2><span class="em">2.</span> Primary Problems Prospects Need Solved</h2>
+    <div class="card" style="padding:0">
+      <table>
+        <thead><tr><th>#</th><th>Problem</th><th>Freq.</th><th>Example quote</th><th>Industry</th><th>Business impact</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>1</td><td><strong>Activity capture lacks an intelligence/context layer</strong></td><td>1 (Canva)</td>
+            <td><div class="quote" style="margin:0"><em>"we can ingest all that data, but it's the actual capture intelligence part that we're missing."</em><span class="src">Harry McDonald, Canva</span></div></td>
+            <td>SaaS / Design</td><td class="why">Reps can't see which activities drive conversion; data team "spread thin" pulling associations manually.</td>
+          </tr>
+          <tr>
+            <td>2</td><td><strong>One-activity-to-one-opportunity Salesforce limitation</strong></td><td>1 (Canva)</td>
+            <td><div class="quote" style="margin:0"><em>"we really want to look at what activities are driving opportunity … rather than … spray and prey motions."</em><span class="src">Harry McDonald, Canva</span></div></td>
+            <td>SaaS / Design</td><td class="why">AEs run expansion + renewal simultaneously; can't attribute activity correctly → flawed insight.</td>
+          </tr>
+          <tr>
+            <td>3</td><td><strong>Scaling sales ops &amp; leadership visibility through rapid growth</strong></td><td>1 (Altimetrik)</td>
+            <td><div class="quote" style="margin:0"><em>"pretty impressive so far the product that we have seen through it."</em><span class="src">Jyoti Chaudhary, Altimetrik</span></div></td>
+            <td>IT services / GSI</td><td class="why">Team growing 250→700; manual Salesforce customization is too slow; activity data not flowing in yet.</td>
+          </tr>
+          <tr>
+            <td>4</td><td><strong>Bind market-intelligence signals to opportunity win-probability</strong></td><td>1 (Altimetrik)</td>
+            <td><div class="quote" style="margin:0"><em>"how are you associating that information from the intelligence of the opportunity that we are pursuing"</em><span class="src">Jyoti Chaudhary, Altimetrik</span></div></td>
+            <td>IT services / GSI</td><td class="why">Wants leadership-change/earnings signals to adjust deal probability — emerging "AI deal-risk scoring" expectation.</td>
+          </tr>
+          <tr>
+            <td>5</td><td><strong>Tech-stack consolidation without breaking ingestion</strong></td><td>1 (Canva)</td>
+            <td><div class="quote" style="margin:0"><em>"building from a strong foundation rather than trying to solve everything at once"</em><span class="src">Harry McDonald, Canva</span></div></td>
+            <td>SaaS / Design</td><td class="why">Wants a durable data layer so tools (e.g. Salesloft dialer) can be swapped freely.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2><span class="em">3.</span> Buying Motivations</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th>Motivation</th><th>Mentions</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>Seller productivity / capture-intelligence (replicate "what good looks like")</td><td>2</td><td>Canva, Altimetrik</td></tr>
+          <tr><td>Feed clean data into AI / Claude orchestration</td><td>2</td><td>Canva, Altimetrik</td></tr>
+          <tr><td>Pipeline / opportunity visibility for leadership</td><td>2</td><td>Canva, Altimetrik</td></tr>
+          <tr><td>Forecasting / QBR-MBR efficiency</td><td>1</td><td>Canva</td></tr>
+          <tr><td>Data quality &amp; activity-to-opp accuracy</td><td>1</td><td>Canva</td></tr>
+          <tr><td>RevOps maturity for rapid headcount scaling</td><td>1</td><td>Altimetrik</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2><span class="em">4.</span> Competitive Landscape (Prospects)</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th>Competitor</th><th>Mentions</th><th>Context</th><th>Attributed strengths</th><th>Attributed weaknesses</th><th>Why prefer us</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Gong</strong></td><td>2</td><td>Call recording/forecasting at Canva; reseller fit at Altimetrik</td><td>Strong call recording, market presence</td><td>No capture-intelligence/association layer; "same hurdles"</td><td>Non-disruptive UX; seamless activity-to-opp; data stays in Salesforce</td></tr>
+          <tr><td><strong>Salesloft</strong></td><td>1</td><td>Canva cadences + dialer</td><td>Cadence engine</td><td>"the dialer is not great"; candidate to "declare bankruptcy on"</td><td>Durable data foundation lets them swap the dialer freely</td></tr>
+          <tr><td><strong>Clari</strong></td><td>1</td><td>Forecasting reference</td><td>Established forecasting</td><td>Accuracy "not improving"</td><td>Bottoms-up forecasting from real activity</td></tr>
+          <tr><td><strong>Pocus / 6sense / Outreach</strong></td><td>1 ea.</td><td>Signal-based plays &amp; market insights (Canva, Altimetrik)</td><td>Signal/intent data</td><td>Don't unify capture intelligence into the CRM system of record</td><td>Single source of truth + AI context plug-in</td></tr>
+        </tbody>
+      </table>
+      <p class="note infer" style="margin-top:10px"><span class="flag f-infer">Inference</span> &nbsp;Neither prospect is running a formal competitive bake-off; both treat Backstory as the <em>data-foundation/intelligence layer</em> beneath their existing tools rather than a rip-and-replace of one named rival.</p>
+    </div>
+
+    <h2><span class="em">5.</span> Common Objections (Prospects)</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th>Objection type</th><th>Detail</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>Pricing / packaging</td><td>Wants tiered matrix (ingestion-only vs. full); seat-vs-consumption model questions</td><td>Canva, Altimetrik</td></tr>
+          <tr><td>Implementation / change mgmt</td><td>Foundation-first phased approach may slow the deal; convincing sales leaders to care</td><td>Canva</td></tr>
+          <tr><td>Existing vendor / integration</td><td>Does it integrate with Outreach &amp; 6sense agents?</td><td>Altimetrik</td></tr>
+          <tr><td>Partner/commercial structure</td><td>Reseller liability, rev-share, payment exposure unclear</td><td>Altimetrik</td></tr>
+          <tr><td>Product capability</td><td>Signal latency (~a week for leadership/earnings alerts); no HubSpot CRM</td><td>Altimetrik, Canva</td></tr>
+          <tr><td>Timing / decision owner</td><td>Economic buyers not yet engaged (Jess at Canva; new sales-ops lead at Altimetrik)</td><td>Both</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="color:var(--pos)">Win signals</h3>
+        <ul class="clean">
+          <li><strong>Canva:</strong> requested full feature list + preliminary pricing matrix; wants a call with economic buyer (Jess); strong internal champion (Harry); ~180 AEs/BDRs scoped, expanding org-wide; Q4 target.</li>
+          <li><strong>Altimetrik:</strong> "pretty impressive"; bringing in new sales-ops leader; wants to wrap eval "in a couple of weeks"; three parallel motions incl. reseller GTM.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--neg)">Loss / stall signals</h3>
+        <ul class="clean">
+          <li><strong>Canva:</strong> deliberate "foundation-first" pace could slow the deal; economic buyer not yet in the room.</li>
+          <li><strong>Altimetrik:</strong> decision/budget owned by an unmet new sales-ops leader (traveling); reseller structure unresolved; multiple stakeholders unaligned.</li>
+          <li><span class="flag f-infer">Inference</span> No "building internally / staying with incumbent / no-decision" loss signals surfaced this week.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2><span class="em">6.</span> Market Trends (across prospects + customers)</h2>
+    <div class="card">
+      <ul class="clean">
+        <li><strong>AI orchestration is the new buying center.</strong> Buyers want a clean data foundation feeding Claude/Copilot/Gemini — "everybody now is a prompt engineer" (Dataiku). Backstory is increasingly evaluated as the <em>data/agent layer</em>, not a UI.</li>
+        <li><strong>"AI deal-risk / quality scoring" expectation.</strong> Prospects &amp; customers want AI to <em>judge</em> deal health and data quality (Altimetrik win-probability; Anaplan scorecard grading; Energy Toolbase stage-gauge), not just capture activity.</li>
+        <li><strong>Tech-stack consolidation &amp; "declare bankruptcy" energy.</strong> Appetite to rip out point tools (Salesloft) once a durable data foundation exists (Canva).</li>
+        <li><strong>Reseller / embedded GTM interest.</strong> A GSI (Altimetrik) wants to embed Backstory in its customers' Salesforce builds — a new channel motion.</li>
+        <li><strong>Consumption pricing is reshaping the buying conversation</strong> — interest in "unlimited non-selling users free," but anxiety about forecastability.</li>
+      </ul>
+    </div>
+
+    <h2><span class="em">7.</span> Strategic Recommendations</h2>
+    <div class="rec-grid">
+      <div class="card">
+        <h3>Top 10 for Sales</h3>
+        <ol class="recs">
+          <li>Lead with the <strong>capture-intelligence layer</strong>, not activity logging — "ingestion is table stakes, intelligence is the value."</li>
+          <li>Open every deal with the <strong>multi-opportunity matching</strong> story (Salesforce can't, we can).</li>
+          <li>Position Backstory as the <strong>data foundation under the customer's AI</strong>, not another UI.</li>
+          <li>For Gong incumbents, use the <strong>"same hurdles"</strong> narrative + co-existence (ingest Gong).</li>
+          <li>Get the <strong>economic buyer in the room early</strong> (Canva's Jess; Altimetrik's sales-ops lead).</li>
+          <li>Bring a <strong>tiered pricing matrix</strong> proactively to deep-dive calls.</li>
+          <li>For consumption deals, <strong>pre-empt forecastability fears</strong> with usage benchmarks + flexible year-1 terms.</li>
+          <li>Quantify <strong>seller time saved</strong> and "what good looks like" replication in discovery.</li>
+          <li>Build a <strong>reseller/partner play</strong> for GSIs (Altimetrik) with clear rev-share/liability terms.</li>
+          <li>Map <strong>champion + sponsor early</strong>; watch for attrition (Thoughtworks-style) on existing accounts.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Top 10 for Marketing</h3>
+        <ol class="recs">
+          <li>Build the <strong>"Backstory + your AI stack (MCP)"</strong> narrative and reference architecture.</li>
+          <li>Publish a <strong>Gong/Salesloft co-exist vs. replace</strong> comparison asset.</li>
+          <li>Create <strong>2–3 pagers + customer proof stories</strong> (repeatedly requested by prospects).</li>
+          <li>Message <strong>explainable AI</strong> ("value + the reasoning behind it") as a differentiator.</li>
+          <li>Rework <strong>"data subjects" / credit terminology</strong> — it's landing poorly (3Pillar).</li>
+          <li>Lead consumption-pricing content with <strong>"unlimited non-selling users free."</strong></li>
+          <li>Develop <strong>vertical/industry proof</strong> (channel/sell-through, GSI, enterprise EMEA).</li>
+          <li>Campaign around <strong>"AI deal-risk scoring"</strong> as an emerging category.</li>
+          <li>Produce <strong>change-management / adoption playbooks</strong> (manager-first, social proof).</li>
+          <li>Tighten <strong>rebrand consistency</strong> assets (People.ai → Backstory) across touchpoints.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Top 10 for Product</h3>
+        <ol class="recs">
+          <li>Ship <strong>signal value + reasoning via MCP</strong> (late Sep) — highest-frequency ask.</li>
+          <li><strong>In-product consumption dashboards + per-user credit limits/admin controls.</strong></li>
+          <li><strong>Context-rich engagement metrics</strong> (type, completion, recency-with-meaning).</li>
+          <li><strong>Per-region privacy/anonymization</strong> settings for works-council markets.</li>
+          <li>Honor <strong>Salesforce-native logic</strong>: deactivated-contact hiding, status write-back.</li>
+          <li><strong>Multi-sided / channel matching models</strong> (agency↔advertiser; sell-through).</li>
+          <li><strong>Reduce signal latency</strong> on leadership-change/earnings alerts.</li>
+          <li><strong>Attachment scanning</strong> (quotes/PDFs) for deal context.</li>
+          <li>Expose <strong>activity categorization via API/query</strong>, not just in-platform; raise category cap.</li>
+          <li><strong>Forecasting without line-item ownership</strong> (IBM ISC) — close the regression gap.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--brand)">Top competitive actions for leadership</h3>
+        <ol class="recs">
+          <li>Treat <strong>platform AI (Salesforce MCP, MS Copilot) + customer build-vs-buy</strong> as the #1 competitive threat — formalize an MCP/partner strategy.</li>
+          <li>Stand up a <strong>consumption-pricing enablement kit</strong> (visibility, controls, benchmarks) before more renewals hit it.</li>
+          <li>Create a <strong>GSI/reseller channel program</strong> to ride partners like Altimetrik into their customer base.</li>
+          <li>Fund <strong>explainable-AI ("value + reasoning")</strong> as a category-defining differentiator vs. Gong/Clari.</li>
+          <li>Resource <strong>global delivery coverage</strong> (non-US training hours) ahead of IBM APAC/EMEA waves.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= WHAT CHANGED ============================= -->
+  <section class="view" id="changed">
+    <h2>What Changed This Week</h2>
+    <div class="note infer">
+      <span class="flag f-infer">Note on historical comparison</span> &nbsp;The source folder also contains a batch of <strong>late June (June 18–27) transcripts</strong>, but a full prior-period analysis has not been run, so the comparisons below are <strong>directional inferences</strong> from this week's content and meeting mix, not a quantified week-over-week delta. Re-run last week's analysis to baseline these properly.
+    </div>
+    <div class="card changed">
+      <ul class="clean">
+        <li><strong>Pricing friction moved from background to foreground.</strong> The consumption/credit model surfaced as an explicit objection in 3 conversations this week (Kong, 3Pillar, Cohesity). <span class="flag f-infer">Inference</span> — appears to be intensifying as the rebrand-era pricing reaches existing accounts at renewal.</li>
+        <li><strong>"Become my AI's data source" went from a Five9-specific idea to a base-wide pattern</strong> (8–9 accounts this week), including customers building their own MCP pipelines (Intenseye, Thoughtworks). <span class="flag f-infer">Inference: accelerating.</span></li>
+        <li><strong>New, concrete migration/cutover deadlines</strong> entered the picture: IBM EMEA go-live <strong>Aug 6</strong>; IBM/Apptio ISC cutover <strong>Aug 20</strong>; Hexagon close-plan conversion <strong>Sep 10</strong>. These are net-new operational commitments vs. the steady-state May syncs.</li>
+        <li><strong>A High-Risk access situation emerged at Thales</strong> that was not evident as a blocker in prior syncs — a fresh escalation this week.</li>
+        <li><strong>Prospect volume was light</strong> (2 pre-sale conversations) relative to the heavy existing-customer/implementation mix — <span class="flag f-infer">inference</span>: the week skewed toward delivery/renewal over net-new acquisition.</li>
+        <li><strong>The "explainability" ask crystallized</strong> into a dated product commitment (MCP value + reasoning, late September), tied to repeated customer demand (Quad, Hexagon).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Unexpected / emerging signals worth watching (even if rare)</h3>
+      <ul class="clean">
+        <li><strong>GSI reseller motion</strong> (Altimetrik) — a potential new channel, appeared once but strategically significant.</li>
+        <li><strong>Cohesity's ~90 internal AI agents</strong> — the clearest build-vs-buy threat seen to date.</li>
+        <li><strong>"Data subjects" terminology backlash</strong> (3Pillar) — small but a fixable positioning own-goal.</li>
+        <li><strong>People.ai's all-US delivery team can't cover EMEA/APAC training hours</strong> (IBM) — a scaling constraint flagged early.</li>
+        <li><strong>Engagement score with no underlying activity</strong> (Hexagon) — a data-trust bug pattern that, if widespread, undermines the core value prop.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer style="color:var(--muted);font-size:12px;margin-top:30px;text-align:center">
+    Generated from 22 meeting transcripts (Google Drive · week of July 16–18, 2026). Quotes verbatim; counts out of analyzed meetings. Fact vs. inference flagged inline.
+  </footer>
+</div>
+
+<script>
+const palette={pos:'#1f9d6b',neu:'#c7902a',neg:'#d2453f',brand:'#3b4cca',brand2:'#6b5bd6'};
+
+function makeCharts(){
+  if(window.__charted)return; window.__charted=true;
+  Chart.defaults.font.family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif";
+  Chart.defaults.color="#5b6675";
+
+  new Chart(document.getElementById('custSentiment'),{
+    type:'doughnut',
+    data:{labels:['Positive (10)','Neutral (6)','Negative / at-risk (3)'],
+      datasets:[{data:[10,6,3],backgroundColor:[palette.pos,palette.neu,palette.neg],borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'bottom'}}}
+  });
+  new Chart(document.getElementById('custPain'),{
+    type:'bar',
+    data:{labels:['AI/MCP as data layer','Data accuracy & matching','Provisioning / auth','Forecasting','Change mgmt / adoption','Pipeline hygiene','Explainability','Pricing forecastability','Global rollout gates'],
+      datasets:[{label:'Customer meetings mentioning',data:[9,7,6,5,5,4,3,3,2],
+        backgroundColor:palette.brand,borderRadius:6}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      scales:{x:{beginAtZero:true,ticks:{stepSize:1},grid:{color:'#eef0f4'}},y:{grid:{display:false}}},
+      plugins:{legend:{display:false}}}
+  });
+  new Chart(document.getElementById('compChart'),{
+    type:'bar',
+    data:{labels:['Gong','ZoomInfo','Clari','Salesloft','MS Copilot/SFDC MCP','6sense','Outreach','Pocus','Demandbase','Cognism','Lusha'],
+      datasets:[{label:'Mentions',data:[5,2,2,2,2,1,1,1,1,1,1],backgroundColor:palette.brand2,borderRadius:6}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{y:{beginAtZero:true,ticks:{stepSize:1},grid:{color:'#eef0f4'}},x:{grid:{display:false},ticks:{maxRotation:50,minRotation:30,font:{size:10}}}},
+      plugins:{legend:{display:false}}}
+  });
+}
+
+function boot(){
+  if(typeof Chart!=="undefined"){ makeCharts(); }
+  else { setTimeout(boot,150); }   // wait for the CDN script inside the sandboxed embed
+}
+boot();
+
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.view).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>

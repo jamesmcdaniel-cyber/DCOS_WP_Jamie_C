@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Win/Loss by Account Classification – People.ai</title>
+<style>
+:root {
+  --navy: #171721;
+  --blue: #6296AD;
+  --light-blue: #e8f1f5;
+  --green: #27a36c;
+  --green-bg: #e6f5ee;
+  --amber: #c07000;
+  --amber-bg: #fff4d6;
+  --red: #c0392b;
+  --red-bg: #fdecea;
+  --muted: #888;
+  --border: #dde3e8;
+  --bg: #f7f9fa;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background: var(--bg); color: var(--navy); font-size: 14px; }
+.page { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+/* Header */
+.page-header { background: var(--navy); color: white; border-radius: 12px; padding: 28px 32px; margin-bottom: 28px; }
+.page-header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.page-header .sub { color: rgba(255,255,255,0.6); font-size: 13px; }
+
+
+/* Grid */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
+
+/* Cards */
+.card { background: white; border-radius: 10px; border: 1px solid var(--border); padding: 20px; }
+.card-sm { background: white; border-radius: 10px; border: 1px solid var(--border); padding: 16px; }
+.card-title { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+
+.pill { display: inline-block; border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 700; }
+.pill-mixed { background: #f0c060; color: #6b4400; }
+.pill-supported { background: #5dc490; color: #0a3d20; }
+.pill-partial { background: #ffcc40; color: #6b4400; }
+.pill-red { background: #f5a0a0; color: #6b0000; }
+
+/* Win rate bars */
+.wr-bar-wrap { margin: 10px 0; }
+.wr-bar-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+.wr-bar-name { font-size: 13px; font-weight: 500; }
+.wr-bar-val { font-size: 13px; font-weight: 700; }
+.wr-bar-track { background: #e8ecf0; border-radius: 6px; height: 14px; position: relative; }
+.wr-bar-fill { border-radius: 6px; height: 14px; }
+.wr-bar-n { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.color-red { background: #e05050; }
+.color-amber { background: #e09000; }
+.color-green { background: #27a36c; }
+
+/* ACV bars */
+.acv-bar-wrap { margin: 8px 0; }
+.acv-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px; }
+.acv-track { background: #e8ecf0; border-radius: 4px; height: 10px; }
+.acv-fill { border-radius: 4px; height: 10px; background: var(--blue); }
+
+/* Cycle time */
+.cycle-card { text-align: center; }
+.cycle-big { font-size: 28px; font-weight: 700; color: var(--navy); line-height: 1; margin: 8px 0 2px; }
+.cycle-sub { font-size: 11px; color: var(--muted); }
+.cycle-diff { font-size: 12px; font-weight: 600; margin-top: 6px; }
+.cycle-diff.sig { color: var(--green); }
+.cycle-diff.ns { color: var(--muted); }
+
+/* Marketing dual bars */
+.mktg-bar { margin: 12px 0; }
+.mktg-label { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.mktg-row { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+.mktg-tag { width: 80px; font-size: 11px; color: var(--muted); text-align: right; flex-shrink: 0; }
+.mktg-track { flex: 1; background: #e8ecf0; border-radius: 4px; height: 12px; }
+.mktg-fill-won { border-radius: 4px; height: 12px; background: var(--green); }
+.mktg-fill-lost { border-radius: 4px; height: 12px; background: #e05050; }
+.mktg-num { width: 44px; font-size: 11px; font-weight: 600; }
+
+/* Outreach themes */
+.theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.theme-card { background: white; border-radius: 10px; border: 1px solid var(--border); padding: 18px; }
+.theme-won { border-top: 3px solid var(--green); }
+.theme-lost { border-top: 3px solid #e05050; }
+.theme-card h3 { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+.theme-item { background: var(--bg); border-radius: 6px; padding: 10px 12px; margin: 6px 0; }
+.theme-item .t-title { font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.theme-item .t-body { font-size: 12px; color: #555; line-height: 1.5; }
+
+/* Scorecard */
+.scorecard { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.scorecard th { background: var(--navy); color: white; padding: 10px 14px; font-size: 12px; font-weight: 600; text-align: left; }
+.scorecard td { padding: 12px 14px; font-size: 12px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.scorecard tr:nth-child(even) td { background: var(--bg); }
+.sc-supported { color: #0a3d20; font-weight: 700; }
+.sc-partial { color: #6b4400; font-weight: 700; }
+.sc-flag { color: #6b0000; font-weight: 700; }
+
+.stat-box { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; text-align: center; }
+.stat-big { font-size: 24px; font-weight: 700; color: var(--navy); }
+.stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.footer { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 24px; line-height: 1.6; }
+h2 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>Win/Loss by Account Classification</h1>
+  <div class="sub">New Business &amp; Upsell &nbsp;·&nbsp; Qualified Pipeline Only (Stage 1 + Stage 2 recorded) &nbsp;·&nbsp; <span class="js-month">Jul 2026</span></div>
+</div>
+
+<!-- NB WIN RATES -->
+<h2>New Business Win Rates</h2>
+<div class="grid-2" style="margin-bottom:24px">
+  <div class="card">
+    <div class="card-title">Win Rate by Segment</div>
+    <!-- Strategic -->
+    <div class="wr-bar-wrap">
+      <div class="wr-bar-label"><span class="wr-bar-name">Strategic</span><span class="wr-bar-val" style="color:#e05050">15.7%</span></div>
+      <div class="wr-bar-track"><div class="wr-bar-fill color-red" style="width:15.7%"></div></div>
+      <div class="wr-bar-n">18 Won / 97 Lost / 115 qualified</div>
+    </div>
+    <!-- Large Enterprise -->
+    <div class="wr-bar-wrap">
+      <div class="wr-bar-label"><span class="wr-bar-name">Large Enterprise</span><span class="wr-bar-val" style="color:#e05050">13.2%</span></div>
+      <div class="wr-bar-track"><div class="wr-bar-fill color-red" style="width:13.2%"></div></div>
+      <div class="wr-bar-n">9 Won / 59 Lost / 68 qualified</div>
+    </div>
+    <!-- Small Enterprise -->
+    <div class="wr-bar-wrap">
+      <div class="wr-bar-label"><span class="wr-bar-name">Small Enterprise</span><span class="wr-bar-val" style="color:#e09000">27.0%</span></div>
+      <div class="wr-bar-track"><div class="wr-bar-fill color-amber" style="width:27.0%"></div></div>
+      <div class="wr-bar-n">10 Won / 27 Lost / 37 qualified</div>
+    </div>
+    <!-- Velocity -->
+    <div class="wr-bar-wrap">
+      <div class="wr-bar-label"><span class="wr-bar-name">Velocity</span><span class="wr-bar-val" style="color:#27a36c">32.4%</span></div>
+      <div class="wr-bar-track"><div class="wr-bar-fill color-green" style="width:32.4%"></div></div>
+      <div class="wr-bar-n">12 Won / 25 Lost / 37 qualified</div>
+    </div>
+    <!-- Small Business -->
+    <div class="wr-bar-wrap">
+      <div class="wr-bar-label"><span class="wr-bar-name">Small Business</span><span class="wr-bar-val" style="color:#27a36c">65.8%</span></div>
+      <div class="wr-bar-track"><div class="wr-bar-fill color-green" style="width:65.8%"></div></div>
+      <div class="wr-bar-n">25 Won / 13 Lost / 38 qualified</div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted)">Chi-square across all 5 segments: p&lt;0.001 (significant)</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Median Won ACV by Segment</div>
+    <div class="acv-bar-wrap">
+      <div class="acv-label"><span>Strategic</span><span style="font-weight:700">$111,834</span></div>
+      <div class="acv-track"><div class="acv-fill" style="width:100%"></div></div>
+    </div>
+    <div class="acv-bar-wrap">
+      <div class="acv-label"><span>Large Enterprise</span><span style="font-weight:700">$78,100</span></div>
+      <div class="acv-track"><div class="acv-fill" style="width:70%"></div></div>
+    </div>
+    <div class="acv-bar-wrap">
+      <div class="acv-label"><span>Small Enterprise</span><span style="font-weight:700">$66,200</span></div>
+      <div class="acv-track"><div class="acv-fill" style="width:59%"></div></div>
+    </div>
+    <div class="acv-bar-wrap">
+      <div class="acv-label"><span>Velocity</span><span style="font-weight:700">$26,330</span></div>
+      <div class="acv-track"><div class="acv-fill" style="width:24%"></div></div>
+    </div>
+    <div class="acv-bar-wrap">
+      <div class="acv-label"><span>Small Business</span><span style="font-weight:700">$15,000</span></div>
+      <div class="acv-track"><div class="acv-fill" style="width:13%"></div></div>
+    </div>
+    <div style="margin-top:14px;font-size:12px;color:#444;line-height:1.5">Strategic wins close at 7× the ACV of Small Business wins. The prioritization argument rests entirely on deal size — win probability is actually <em>lower</em> for the largest segments.</div>
+  </div>
+</div>
+
+<!-- NB SALES CYCLE: STAGE 2 TO CLOSE -->
+<h2>Sales Cycle: Stage 2 → Close (Qualified Deals Only)</h2>
+<div class="grid-5" style="margin-bottom:8px">
+  <!-- Strategic -->
+  <div class="card-sm cycle-card">
+    <div class="card-title">Strategic</div>
+    <div class="cycle-big">212</div>
+    <div class="cycle-sub">Won median (days)</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">Lost: 130d</div>
+    <div class="cycle-diff ns">No sig. diff (p=0.47)</div>
+  </div>
+  <!-- Large Enterprise -->
+  <div class="card-sm cycle-card">
+    <div class="card-title">Large Enterprise</div>
+    <div class="cycle-big">107</div>
+    <div class="cycle-sub">Won median (days)</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">Lost: 101d</div>
+    <div class="cycle-diff ns">No sig. diff (p=0.95)</div>
+  </div>
+  <!-- Small Enterprise -->
+  <div class="card-sm cycle-card">
+    <div class="card-title">Small Enterprise</div>
+    <div class="cycle-big">80</div>
+    <div class="cycle-sub">Won median (days)</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">Lost: 104d</div>
+    <div class="cycle-diff ns">No sig. diff (p=0.72)</div>
+  </div>
+  <!-- Velocity -->
+  <div class="card-sm cycle-card" style="border-top:3px solid var(--green)">
+    <div class="card-title">Velocity</div>
+    <div class="cycle-big" style="color:var(--green)">32</div>
+    <div class="cycle-sub">Won median (days)</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">Lost: 91d</div>
+    <div class="cycle-diff sig">Sig. diff ✓ (p=0.016)</div>
+  </div>
+  <!-- Small Business -->
+  <div class="card-sm cycle-card" style="border-top:3px solid var(--green)">
+    <div class="card-title">Small Business</div>
+    <div class="cycle-big" style="color:var(--green)">20</div>
+    <div class="cycle-sub">Won median (days)</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">Lost: 60d</div>
+    <div class="cycle-diff sig">Sig. diff ✓ (p=0.018)</div>
+  </div>
+</div>
+<div style="font-size:12px;color:var(--muted);margin-bottom:24px">Green border = statistically significant difference between won and lost cycle times. Strategic, Large Enterprise, and Small Enterprise show no meaningful timing difference between wins and losses.</div>
+
+<hr/>
+
+<!-- UPSELL WIN RATES -->
+<h2>Upsell Win Rates</h2>
+<div class="grid-2" style="margin-bottom:8px">
+  <div class="card">
+    <div class="card-title">Win Rate by Segment</div>
+    <div class="wr-bar-wrap">
+      <div class="wr-bar-label"><span class="wr-bar-name">Strategic</span><span class="wr-bar-val" style="color:#27a36c">86.9%</span></div>
+      <div class="wr-bar-track"><div class="wr-bar-fill color-green" style="width:86.9%"></div></div>
+      <div class="wr-bar-n">53 Won / 8 Lost / 61 qualified</div>
+    </div>
+    <div class="wr-bar-wrap">
+      <div class="wr-bar-label"><span class="wr-bar-name">Large Enterprise</span><span class="wr-bar-val" style="color:#27a36c">77.8%</span></div>
+      <div class="wr-bar-track"><div class="wr-bar-fill color-green" style="width:77.8%"></div></div>
+      <div class="wr-bar-n">49 Won / 14 Lost / 63 qualified</div>
+    </div>
+    <div class="wr-bar-wrap">
+      <div class="wr-bar-label"><span class="wr-bar-name">Small Enterprise</span><span class="wr-bar-val" style="color:#27a36c">78.3%</span></div>
+      <div class="wr-bar-track"><div class="wr-bar-fill color-green" style="width:78.3%"></div></div>
+      <div class="wr-bar-n">18 Won / 5 Lost / 23 qualified</div>
+    </div>
+    <div class="wr-bar-wrap">
+      <div class="wr-bar-label"><span class="wr-bar-name">Velocity</span><span class="wr-bar-val" style="color:#27a36c">84.8%</span></div>
+      <div class="wr-bar-track"><div class="wr-bar-fill color-green" style="width:84.8%"></div></div>
+      <div class="wr-bar-n">28 Won / 5 Lost / 33 qualified</div>
+    </div>
+    <div class="wr-bar-wrap">
+      <div class="wr-bar-label"><span class="wr-bar-name">Small Business</span><span class="wr-bar-val" style="color:#27a36c">96.4%</span></div>
+      <div class="wr-bar-track"><div class="wr-bar-fill color-green" style="width:96.4%"></div></div>
+      <div class="wr-bar-n">27 Won / 1 Lost / 28 qualified</div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted)">Win rates not statistically different across segments (p=0.20)</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Upsell Sales Cycle: Stage 2 → Close</div>
+    <div style="margin-top:4px">
+      <div class="wr-bar-wrap" style="margin:12px 0">
+        <div class="wr-bar-label"><span class="wr-bar-name">Strategic</span><span style="font-size:12px">Won 48d / Lost 133d <span style="color:var(--green);font-weight:700">✓</span></span></div>
+        <div style="font-size:11px;color:var(--muted)">p=0.013 — significant</div>
+      </div>
+      <div class="wr-bar-wrap" style="margin:12px 0">
+        <div class="wr-bar-label"><span class="wr-bar-name">Large Enterprise</span><span style="font-size:12px">Won 19d / Lost 150d <span style="color:var(--green);font-weight:700">✓</span></span></div>
+        <div style="font-size:11px;color:var(--muted)">p&lt;0.001 — highly significant</div>
+      </div>
+      <div class="wr-bar-wrap" style="margin:12px 0">
+        <div class="wr-bar-label"><span class="wr-bar-name">Small Enterprise</span><span style="font-size:12px">Won 9d / Lost 106d <span style="color:var(--green);font-weight:700">✓</span></span></div>
+        <div style="font-size:11px;color:var(--muted)">p=0.039 — significant</div>
+      </div>
+      <div class="wr-bar-wrap" style="margin:12px 0">
+        <div class="wr-bar-label"><span class="wr-bar-name">Velocity</span><span style="font-size:12px">Won 0d / Lost 136d <span style="color:var(--green);font-weight:700">✓</span></span></div>
+        <div style="font-size:11px;color:var(--muted)">p=0.001 — significant</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;background:var(--green-bg);border-radius:6px;padding:10px 12px;font-size:12px;color:#1a4a30;line-height:1.5">
+      <strong>Pattern:</strong> All upsell segments show the same signal — deals that close take dramatically less time than deals that lose. Upsell cycles going past 3–4 months are at significant risk.
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:24px"></div>
+
+<hr/>
+
+<!-- MARKETING OUTREACH THEMES -->
+<h2>Marketing Outreach: NB Won vs Lost</h2>
+<div class="grid-3" style="margin-bottom:8px">
+  <div class="stat-box">
+    <div class="stat-big">47.7</div>
+    <div class="stat-label">Avg marketing touches<br/>NB Won accounts</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-big" style="color:#e05050">207.7</div>
+    <div class="stat-label">Avg marketing touches<br/>NB Lost accounts</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-big">66% <span style="font-size:16px;color:var(--muted)">vs</span> 48%</div>
+    <div class="stat-label">Response rate<br/>Won vs Lost</div>
+  </div>
+</div>
+<div class="grid-2" style="margin-bottom:8px">
+  <div class="card">
+    <div class="card-title">NB Won — Channel Mix (3,481 total touches)</div>
+    <!-- Nurture Email -->
+    <div class="mktg-bar">
+      <div class="mktg-row">
+        <div class="mktg-tag">Nurture Email</div>
+        <div class="mktg-track"><div class="mktg-fill-won" style="width:29.2%"></div></div>
+        <div class="mktg-num">1,017</div>
+        <span style="font-size:11px;color:var(--muted)">75% resp</span>
+      </div>
+      <div class="mktg-row">
+        <div class="mktg-tag">Web Content</div>
+        <div class="mktg-track"><div class="mktg-fill-won" style="width:28.3%"></div></div>
+        <div class="mktg-num">986</div>
+        <span style="font-size:11px;color:var(--green);font-weight:700">98% resp ↑</span>
+      </div>
+      <div class="mktg-row">
+        <div class="mktg-tag">Newsletter</div>
+        <div class="mktg-track"><div class="mktg-fill-won" style="width:17.3%"></div></div>
+        <div class="mktg-num">602</div>
+        <span style="font-size:11px;color:var(--muted)">9% resp</span>
+      </div>
+      <div class="mktg-row">
+        <div class="mktg-tag">Promo Email</div>
+        <div class="mktg-track"><div class="mktg-fill-won" style="width:10.7%"></div></div>
+        <div class="mktg-num">373</div>
+        <span style="font-size:11px;color:var(--muted)">5% resp</span>
+      </div>
+      <div class="mktg-row">
+        <div class="mktg-tag">Drip Email</div>
+        <div class="mktg-track"><div class="mktg-fill-won" style="width:7.1%"></div></div>
+        <div class="mktg-num">247</div>
+        <span style="font-size:11px;color:var(--green);font-weight:700">100% resp</span>
+      </div>
+    </div>
+    <div style="background:var(--green-bg);border-radius:6px;padding:10px 12px;font-size:12px;color:#1a4a30;margin-top:8px">
+      Won accounts: <strong>28% of touches are Web Content</strong> — the highest-intent signal. Fewer total touches, higher quality engagement.
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">NB Lost — Channel Mix (41,337 total touches)</div>
+    <div class="mktg-bar">
+      <div class="mktg-row">
+        <div class="mktg-tag">Nurture Email</div>
+        <div class="mktg-track"><div class="mktg-fill-lost" style="width:32.6%"></div></div>
+        <div class="mktg-num">13,490</div>
+        <span style="font-size:11px;color:var(--muted)">67% resp</span>
+      </div>
+      <div class="mktg-row">
+        <div class="mktg-tag">Newsletter</div>
+        <div class="mktg-track"><div class="mktg-fill-lost" style="width:23.9%"></div></div>
+        <div class="mktg-num">9,890</div>
+        <span style="font-size:11px;color:var(--muted)">17% resp</span>
+      </div>
+      <div class="mktg-row">
+        <div class="mktg-tag">Promo Email</div>
+        <div class="mktg-track"><div class="mktg-fill-lost" style="width:22.1%"></div></div>
+        <div class="mktg-num">9,118</div>
+        <span style="font-size:11px;color:var(--muted)">8% resp</span>
+      </div>
+      <div class="mktg-row">
+        <div class="mktg-tag">Drip Email</div>
+        <div class="mktg-track"><div class="mktg-fill-lost" style="width:11.2%"></div></div>
+        <div class="mktg-num">4,624</div>
+        <span style="font-size:11px;color:var(--muted)">100% resp</span>
+      </div>
+      <div class="mktg-row">
+        <div class="mktg-tag">Web Content</div>
+        <div class="mktg-track"><div class="mktg-fill-lost" style="width:3.3%"></div></div>
+        <div class="mktg-num">1,378</div>
+        <span style="font-size:11px;color:var(--green);font-weight:700">98% resp</span>
+      </div>
+    </div>
+    <div style="background:#fdecea;border-radius:6px;padding:10px 12px;font-size:12px;color:#5a1a1a;margin-top:8px">
+      Lost accounts: <strong>only 3% of touches are Web Content</strong>. Mix is dominated by Newsletter and Promo Email — low-intent broadcast channels.
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:24px"></div>
+
+<hr/>
+
+<!-- SALES OUTREACH THEMES FROM PEOPLE.AI -->
+<h2>Sales Outreach Themes (People.ai)</h2>
+<div class="theme-grid">
+  <div class="theme-card theme-won">
+    <h3>✓ NB Won — What Made Them Close</h3>
+    <div class="theme-item">
+      <div class="t-title">Cisco ($1.4M) — Technical Champion + Multi-Stakeholder</div>
+      <div class="t-body">Now managing PeopleGlass login/RBAC issues across multiple internal teams. Win was driven by broad internal adoption and a strong technical champion who escalated blockers to engineering.</div>
+    </div>
+    <div class="theme-item">
+      <div class="t-title">NVIDIA ($774K) — Proof of Concept → Pilot</div>
+      <div class="t-body">Sales.ai POC successfully transitioned to pilot phase. Key hurdles overcome: data privacy concerns, PowerBI preference, complex filtering needs. Executive sponsorship drove past technical objections.</div>
+    </div>
+    <div class="theme-item">
+      <div class="t-title">Visa ($198K) — Integration-Led Motion</div>
+      <div class="t-body">Win was tied to successfully completing MS Dynamics + Outlook integration. Rep coordinated closely on RBAC/O365 access. Deal stalled until integration was unblocked — then moved to SalesAI enablement.</div>
+    </div>
+    <div class="theme-item">
+      <div class="t-title">TransUnion ($234K) — CS-Led Expansion</div>
+      <div class="t-body">Renewal dashboard built for senior leadership. Launch of 280 licenses across 7 regions in first week of August. Value proven through a CRO dashboard — deal expanded from CS relationship.</div>
+    </div>
+    <div class="theme-item">
+      <div class="t-title">Dataiku ($300K) — Long Cycle, Integration Focus</div>
+      <div class="t-body">Deal involved complex Salesforce field additions and OCR corrections. Multiple technical validation loops. Rep navigated data integrity concerns and pricing misalignment before close.</div>
+    </div>
+  </div>
+  <div class="theme-card theme-lost">
+    <h3>✗ NB Lost — Why They Didn't Close</h3>
+    <div class="theme-item">
+      <div class="t-title">Dell ($750K) — Leadership / Timing</div>
+      <div class="t-body">Deal stalled on leadership transitions. Rep engaged partnership angle but deal awaits new CRO onboarding. Annual sales conference caused delay. No champion identified who could advance the deal.</div>
+    </div>
+    <div class="theme-item">
+      <div class="t-title">Oracle ($500K) — No Urgency</div>
+      <div class="t-body">Outreach initiated but no traction. Rep exploring collaboration opportunities with multiple contacts. Timing was described as "not right." No defined use case or internal sponsor driving purchase.</div>
+    </div>
+    <div class="theme-item">
+      <div class="t-title">IBM ($500K) — CEO Directive Pause</div>
+      <div class="t-body">Project paused due to direct CEO directive. Security/O365 access concerns raised. Deal had active implementation discussion but executive blocker terminated the cycle.</div>
+    </div>
+    <div class="theme-item">
+      <div class="t-title">Xerox ($528K) — Demo Stage Only</div>
+      <div class="t-body">Outreach at early demo stage — rep presenting forecasting tool value. No technical evaluation or stakeholder expansion visible. Deal never advanced beyond initial intro.</div>
+    </div>
+    <div class="theme-item">
+      <div class="t-title">Cloud Software Group ($691K) — Decided Not to Renew</div>
+      <div class="t-body">Formal non-renewal letter sent. Contract termination acknowledged by account team. Despite active onboarding discussions, the customer did not see sufficient value to continue.</div>
+    </div>
+  </div>
+</div>
+
+<!-- WON PATTERNS SUMMARY -->
+<div class="grid-3" style="margin-bottom:24px">
+  <div class="card" style="border-top:3px solid var(--green)">
+    <div class="card-title">Won Pattern #1</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:6px">Technical Champion Present</div>
+    <div style="font-size:12px;color:#444;line-height:1.5">Every Strategic win had an internal champion escalating blockers, driving integration, and coordinating across teams. Cisco, NVIDIA, Visa, TransUnion all show this pattern.</div>
+  </div>
+  <div class="card" style="border-top:3px solid var(--green)">
+    <div class="card-title">Won Pattern #2</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:6px">Integration + POC → Expand</div>
+    <div style="font-size:12px;color:#444;line-height:1.5">Wins followed a structured technical evaluation — POC to pilot to full deployment. Web Content engagement was 28% of all touches on won accounts, showing self-serve research behavior.</div>
+  </div>
+  <div class="card" style="border-top:3px solid #e05050">
+    <div class="card-title">Lost Pattern</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:6px">No Champion / Timing Blockers</div>
+    <div style="font-size:12px;color:#444;line-height:1.5">Lost deals share three themes: no identified internal sponsor, executive-level blockers (CEO directive, leadership changes), or deals stuck at demo stage with no evaluation progress.</div>
+  </div>
+</div>
+
+<hr/>
+
+<!-- STRATEGY SCORECARD -->
+<h2>Strategy Scorecard</h2>
+<table class="scorecard">
+  <thead>
+    <tr>
+      <th style="width:24%">Strategic Assumption</th>
+      <th style="width:10%">Verdict</th>
+      <th style="width:33%">Evidence</th>
+      <th style="width:33%">Limitation / Watch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Prioritize Strategic NB</strong></td>
+      <td><span class="pill pill-mixed sc-partial">⚠ Mixed</span></td>
+      <td>Median won ACV $111K — highest of all segments. Win rates (16%) are low but deal size justifies effort if pipeline volume supports it.</td>
+      <td>Win rate is the lowest. Every 6 Strategic deals in pipeline yields ~1 win. High effort-per-win. Champion identification is the gating factor.</td>
+    </tr>
+    <tr>
+      <td><strong>Prioritize Large Enterprise NB</strong></td>
+      <td><span class="pill pill-mixed sc-partial">⚠ Mixed</span></td>
+      <td>Median won ACV $78K. 13% win rate — lowest of any segment. Cycle time shows no difference between won and lost (p=0.95).</td>
+      <td>Weakest win rate of all segments. No timing signal to predict outcome. High marketing spend with lowest conversion observed.</td>
+    </tr>
+    <tr>
+      <td><strong>Small Enterprise NB opportunity</strong></td>
+      <td><span class="pill pill-supported sc-supported">✓ Supported</span></td>
+      <td>27% win rate at $66K median ACV — strong combination of conversion and deal size relative to effort required.</td>
+      <td>Smaller total pipeline volume. Ensure sufficient Stage 2 pipeline is being built in this segment.</td>
+    </tr>
+    <tr>
+      <td><strong>Minimal focus Velocity NB</strong></td>
+      <td><span class="pill pill-mixed sc-partial">⚠ Revisit</span></td>
+      <td>32% win rate — highest of Strategic/LE/SE/Velocity tiers. Deals close in 32 days (vs 91 lost). Lower ACV ($26K) but faster and more efficient to close.</td>
+      <td>ACV is low. If rep capacity is constrained, Velocity NB is efficient but not high-value. Could be a good fit for a lower-touch sales motion.</td>
+    </tr>
+    <tr>
+      <td><strong>Inbound-only Small Business NB</strong></td>
+      <td><span class="pill pill-supported sc-supported">✓ Supported</span></td>
+      <td>65.8% win rate, 20-day cycle. Respond when they arrive — data fully supports this. Not worth outbound investment given $15K median ACV.</td>
+      <td>SB win rate is artificially high — small sample, high inbound intent self-selection. Don't build outbound programs here.</td>
+    </tr>
+    <tr>
+      <td><strong>Focus upsell on Strategic &amp; Large Enterprise</strong></td>
+      <td><span class="pill pill-supported sc-supported">✓ Supported</span></td>
+      <td>Strategic median won ACV $94K vs SB $2.4K. Win rates are equal across all segments (p=0.20). Prioritization is ACV-driven, not win-probability-driven.</td>
+      <td>Concentration risk — Strategic upsell losses are growing faster. Upsell deals past 4–5 months (Stage 2 to close) rarely recover.</td>
+    </tr>
+    <tr>
+      <td><strong>Marketing: quality over volume</strong></td>
+      <td><span class="pill pill-supported sc-supported">✓ Supported</span></td>
+      <td>Won accounts averaged 48 touches vs 208 for lost. Won accounts had 28% Web Content share vs 3% for lost. High-intent engagement (web content, drip) is associated with better outcomes.</td>
+      <td>Selection bias: web content engagement may reflect pre-existing intent rather than marketing causing conversion. Directionally sound but not causal.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="footer">Qualified pipeline = Stage 1 date recorded AND Stage 2 date recorded in SFDC. 496 NB Closed Lost deals without a Stage 2 date excluded. Sales cycle measured Stage 2 date → Close Date. Statistical tests: chi-square for win rate differences; Mann-Whitney U (two-sided) for cycle time. ACV = median of Closed Won deals. People.ai account data reflects current account status, not original NB deal context. Marketing engagement data from 334K+ campaign records matched on account name. <span class="js-month">Jul 2026</span>.</p>
+<p style="text-align:center;color:#5b6675;font-size:12px;margin-top:4px">Viewed <span class="js-today">July 28, 2026</span></p>
+
+</div>
+<script>
+/* ===== DATE FRESHNESS =====================================================
+   PERIOD_MODE controls the reporting-period label only (NOT content dates such
+   as "first week of August"):
+     'pinned' -> shows PINNED below. Honest when the win-rate data is fixed.
+                 Update PINNED.month whenever you recompute the analysis.
+     'auto'   -> self-labels as the CURRENT month. Use ONLY if the data is
+                 recomputed on that same monthly cadence.
+   The "Viewed" stamp (.js-today) is always the real current date.
+=========================================================================== */
+(function(){
+  var PERIOD_MODE = 'pinned';                     // 'pinned' | 'auto'
+  var PINNED = { week: '', month: 'Jul 2026' };
+
+  var M = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var MS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var now = new Date();
+  var today = M[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+
+  var dow = (now.getDay() + 6) % 7;               // 0 = Monday
+  var mon = new Date(now); mon.setDate(now.getDate() - dow);
+  var fri = new Date(mon); fri.setDate(mon.getDate() + 4);
+  var week = (mon.getMonth() === fri.getMonth())
+      ? M[mon.getMonth()] + ' ' + mon.getDate() + '–' + fri.getDate() + ', ' + fri.getFullYear()
+      : M[mon.getMonth()] + ' ' + mon.getDate() + ' – ' + M[fri.getMonth()] + ' ' + fri.getDate() + ', ' + fri.getFullYear();
+  // match this file's existing short-month style (e.g. "Jul 2026")
+  var month = MS[now.getMonth()] + ' ' + now.getFullYear();
+
+  var period = (PERIOD_MODE === 'auto') ? { week: week, month: month } : PINNED;
+
+  function fill(cls, val){
+    var els = document.querySelectorAll('.' + cls), i;
+    for (i = 0; i < els.length; i++) els[i].textContent = val;
+  }
+  fill('js-week',  period.week);
+  fill('js-month', period.month);
+  fill('js-today', today);
+})();
+</script>
+</body>
+</html>
